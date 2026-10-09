@@ -1,0 +1,212 @@
+@import './styles/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #070605;
+  --ink-2: #0b0a09;
+  --ivory: #f1eadd;
+  --ivory-dim: rgba(241, 234, 221, 0.56);
+  --ivory-faint: rgba(241, 234, 221, 0.28);
+  --line: rgba(241, 234, 221, 0.12);
+  --amber: #e6a756;
+  --chili: #b5381f;
+  --herb: #7d9b62;
+  --gold: #c9a24b;
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-ivory font-sans font-light antialiased;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(230, 167, 86, 0.85);
+    color: #0b0a09;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  img {
+    @apply select-none;
+  }
+
+  input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: var(--ivory-faint);
+  }
+}
+
+@layer components {
+  .label {
+    @apply font-sans text-[10px] sm:text-[11px] uppercase tracking-label font-normal;
+  }
+
+  .label-sm {
+    @apply font-sans text-[9px] uppercase tracking-label font-normal;
+  }
+
+  .num {
+    @apply font-display italic font-medium;
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden
+      px-7 py-4 label border transition-all duration-500 ease-luxe select-none;
+  }
+
+  .btn-solid {
+    @apply btn bg-ivory text-ink-950 border-ivory hover:bg-amber hover:border-amber;
+  }
+
+  .btn-ghost {
+    @apply btn border-ivory/25 text-ivory hover:border-ivory/70;
+  }
+
+  .btn .btn-arrow {
+    @apply transition-transform duration-500 ease-luxe;
+  }
+
+  .btn:hover .btn-arrow {
+    transform: translateX(6px);
+  }
+
+  .field {
+    @apply w-full bg-transparent border-b border-ivory/20 py-3 text-ivory
+      placeholder:font-light focus:border-amber focus:outline-none transition-colors duration-300;
+  }
+
+  .section-pad {
+    @apply px-5 sm:px-8 lg:px-14;
+  }
+
+  .mask-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .mask-line > span {
+    display: block;
+    will-change: transform;
+  }
+}
+
+/* ---------- overlays / atmosphere ---------- */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.vignette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* ---------- custom cursor ---------- */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ---------- lenis ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ---------- scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0a09;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(241, 234, 221, 0.18);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(230, 167, 86, 0.5);
+}
+
+/* ---------- animations ---------- */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.animate-scroll-line {
+  animation: scroll-line 2.2s var(--ease-luxe) infinite;
+}
+
+.animate-marquee {
+  animation: marquee-x 40s linear infinite;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
+}
