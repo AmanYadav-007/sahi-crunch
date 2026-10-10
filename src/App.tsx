@@ -25,6 +25,7 @@ export default function App() {
   const setOnline = useApp((s) => s.setOnline);
 
   useEffect(() => {
+    document.title = 'GHARELU HUB';
     const on = () => setOnline(true);
     const off = () => setOnline(false);
     window.addEventListener('online', on);
