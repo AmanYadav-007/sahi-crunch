@@ -88,7 +88,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      'I have eaten at chef’s counters in Tokyo and Copenhagen. The lamb shank at Gharelu belongs in that conversation.',
+      'I have eaten at chef’s counters in Tokyo and Copenhagen. The smoked jackfruit shank at Gharelu belongs in that conversation.',
     name: 'Rohan Kapoor',
     place: 'Mumbai',
     rating: 5,

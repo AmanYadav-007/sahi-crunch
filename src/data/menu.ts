@@ -87,7 +87,7 @@ export const dishes: Dish[] = [
   // INDIAN
   d('in-1', 'House Dal Gharelu', 'indian', 420, 'in-19', 'Twelve-hour black lentils finished with white butter and smoke.', ['urad dal', 'tomato', 'ginger', 'white butter'], { veg: true, spiceLevel: 1, bestseller: true }),
   d('in-2', 'Kadai Paneer Leher', 'indian', 480, 'in-02', 'Cottage cheese, cracked peppers, kadai masala ground daily.', ['paneer', 'bell pepper', 'kadai masala'], { veg: true, spiceLevel: 2 }),
-  d('in-3', 'Dum Aloo Kashmiri', 'indian', 440, 'in-28', 'Slow-simmered baby potatoes, fennel yogurt gravy, dry ginger.', ['baby potatoes', 'fennel', 'kashmiri chilli', 'yogurt'], { veg: true, spiceLevel: 2 }),
+  d('in-3', 'Dum Aloo Kashmiri', 'indian', 440, 'in-30', 'Slow-simmered baby potatoes, fennel yogurt gravy, dry ginger.', ['baby potatoes', 'fennel', 'kashmiri chilli', 'yogurt'], { veg: true, spiceLevel: 2 }),
 
   // ASIAN
   d('as-1', 'Crispy Lotus & Water Chestnut', 'asian', 460, 'lux-05', 'Flash-fried lotus roots, sweet chilli soy, scallion crunch.', ['lotus root', 'water chestnut', 'scallion', 'chilli soy'], { veg: true, spiceLevel: 2 }),
@@ -131,8 +131,8 @@ export const dishes: Dish[] = [
 
   // BURGERS
   d('bg-1', 'The Gharelu Herb Stack', 'burgers', 520, 'burger-02', 'Crispy spiced paneer patty, aged cheddar, caramelised onions, brioche.', ['paneer', 'aged cheddar', 'caramelised onions', 'house pickles'], { veg: true, spiceLevel: 1, bestseller: true }),
-  d('bg-2', 'Charcoal Veg Crunch Burger', 'burgers', 460, 'burger-01', 'Smoked vegetable medallion, tandoori slaw, charcoal black bun.', ['veggie patty', 'tandoori mayo', 'charcoal bun', 'slaw'], { veg: true, spiceLevel: 2 }),
-  d('bg-3', 'Bombay Button Mushroom', 'burgers', 480, 'burger-04', 'Crisp mushroom patty, smoked cheese, chutney.', ['mushroom', 'smoked cheese', 'mint chutney'], { veg: true, spiceLevel: 2 }),
+  d('bg-2', 'Charcoal Veg Crunch Burger', 'burgers', 460, 'burger-02', 'Smoked vegetable medallion, tandoori slaw, charcoal black bun.', ['veggie patty', 'tandoori mayo', 'charcoal bun', 'slaw'], { veg: true, spiceLevel: 2 }),
+  d('bg-3', 'Bombay Button Mushroom', 'burgers', 480, 'in-09', 'Crisp mushroom patty, smoked cheese, chutney.', ['mushroom', 'smoked cheese', 'mint chutney'], { veg: true, spiceLevel: 2 }),
 
   // SANDWICHES
   d('sd-1', 'Truffle Grilled Cheese', 'sandwiches', 420, 'sand-01', 'Three cheeses, sourdough, truffle honey.', ['sourdough', 'gruyere', 'truffle honey'], { veg: true, spiceLevel: 0, bestseller: true }),
@@ -141,14 +141,14 @@ export const dishes: Dish[] = [
 
   // TANDOOR
   d('td-1', 'Smoked Truffle Paneer', 'tandoor', 520, 'in-06', 'Cottage cheese kissed with oak smoke, truffle oil and charred herbs.', ['paneer', 'truffle oil', 'charred herbs', 'oak smoke'], { veg: true, spiceLevel: 1, bestseller: true }),
-  d('td-2', 'Kasundi Soya Chaap Tikka', 'tandoor', 480, 'fire-02', 'Charcoal-grilled soya chaap steeped in Bengal mustard and cold-pressed mustard oil.', ['soya chaap', 'kasundi mustard', 'mustard oil'], { veg: true, spiceLevel: 3 }),
+  d('td-2', 'Kasundi Soya Chaap Tikka', 'tandoor', 480, 'in-06', 'Charcoal-grilled soya chaap steeped in Bengal mustard and cold-pressed mustard oil.', ['soya chaap', 'kasundi mustard', 'mustard oil'], { veg: true, spiceLevel: 3 }),
   d('td-3', 'Malai Broccoli Char', 'tandoor', 490, 'in-11', 'Floret steeped in cream, green cardamom, roasted white pepper and mace.', ['broccoli', 'cream', 'cardamom', 'cheese'], { veg: true, spiceLevel: 1 }),
   d('td-4', 'Dahi Ke Sholay', 'tandoor', 460, 'in-15', 'Crisp golden rolls filled with hung curd, bell peppers, fresh herbs.', ['hung curd', 'coriander', 'bell pepper', 'spices'], { veg: true, spiceLevel: 2 }),
 
   // GRILL
   d('gr-1', 'Fire-Grilled Veg Platter', 'grill', 780, 'fire-01', 'Smoked paneer, spiced mushrooms, corn ribs, grilled peppers — built for two.', ['paneer', 'mushrooms', 'sweetcorn', 'bell pepper'], { veg: true, spiceLevel: 2, bestseller: true }),
   d('gr-2', 'Herb-Crusted Grilled Tofu', 'grill', 520, 'fire-03', 'Organic firm tofu, rosemary marinade, charred cipollini onions, lemon butter.', ['firm tofu', 'rosemary', 'charred onion', 'olive oil'], { veg: true, spiceLevel: 1 }),
-  d('gr-3', 'Charred Corn & Halloumi', 'grill', 480, 'fire-04', 'Sweetcorn, halloumi, chilli-lime butter.', ['sweetcorn', 'halloumi', 'chilli lime'], { veg: true, spiceLevel: 2 }),
+  d('gr-3', 'Charred Corn & Halloumi', 'grill', 480, 'in-23', 'Sweetcorn, halloumi, chilli-lime butter.', ['sweetcorn', 'halloumi', 'chilli lime'], { veg: true, spiceLevel: 2 }),
 
   // MAIN COURSE
   d('mc-1', 'Kashmiri Dum Kathal', 'main-course', 520, 'in-22', 'Tender baby jackfruit cooked on dum with Kashmiri chillies and whole spices.', ['raw jackfruit', 'kashmiri chilli', 'mustard oil', 'garam masala'], { veg: true, spiceLevel: 3 }),
