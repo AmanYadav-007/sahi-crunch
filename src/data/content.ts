@@ -13,41 +13,41 @@ export const signatures: Signature[] = [
     no: '01',
     id: 'sig-biryani',
     dishId: 'by-1',
-    title: 'Dum Nizami Biryani',
+    title: 'Dum Nizami Subz Biryani',
     sub: 'Sealed with dough. Opened at the table.',
     story:
-      'Aged basmati rested overnight, mutton marinated for twenty-four hours, saffron drawn in warm milk. The handi is sealed with atta and opened only in front of you — the first breath is the recipe.',
-    image: 'in-02',
+      'Aged basmati rested overnight, heirloom vegetables slow-braised with saffron and caramelized onions. The handi is sealed with atta and opened only in front of you — the first breath is the recipe.',
+    image: 'in-03',
   },
   {
     no: '02',
     id: 'sig-grill',
     dishId: 'gr-1',
-    title: 'Fire-Grilled Platter',
+    title: 'Fire-Grilled Veg Platter',
     sub: 'Eight hundred degrees of charcoal.',
     story:
-      'Ribs glazed with jaggery and smoked chilli, lamb chops rested in rosemary butter, chicken thigh brined in buttermilk. Built for two, argued over by three.',
+      'Smoked cottage cheese glazed with jaggery and chilli, king mushrooms rested in rosemary butter, grilled sweetcorn ribs. Built for two, argued over by three.',
     image: 'fire-01',
   },
   {
     no: '03',
     id: 'sig-pasta',
     dishId: 'pa-2',
-    title: 'Lobster Aglio',
-    sub: 'The sea, finished in garlic butter.',
+    title: 'Truffle Aglio e Olio',
+    sub: 'Garlic confit, finished in summer truffle.',
     story:
-      'Half a lobster, garlic cooked soft in olive oil, a pinch of Calabrian chilli, angel hair lifted straight from the pan. Nothing on the plate that does not belong.',
-    image: 'dish-03',
+      'Slow garlic confit in extra virgin olive oil, a pinch of peperoncino, aromatic black truffle oil, spaghetti lifted straight from the pan. Pure artisanal simplicity.',
+    image: 'as-01',
   },
   {
     no: '04',
     id: 'sig-chef',
     dishId: 'sp-1',
-    title: "Chef's Table Lamb Shank",
+    title: "Chef's Table Smoked Jackfruit Shank",
     sub: 'Twelve hours. One plate.',
     story:
-      'Braised until the bone slides free, set on saffron potato with a port jus reduced through service. Available at the chef’s counter, Indiranagar only.',
-    image: 'in-21',
+      'Slow-braised spiced kathal shank until tender, set on saffron potato puree with a rich port jus reduced through service. Available at the chef’s counter, Indiranagar only.',
+    image: 'in-10',
   },
 ];
 
