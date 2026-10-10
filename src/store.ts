@@ -104,13 +104,15 @@ interface AppState {
   clearCart: () => void;
   setCartOpen: (v: boolean) => void;
 
-  placeOrder: (o: Omit<Order, 'id' | 'code' | 'placedAt' | 'status' | 'pointsEarned'>) => Order;
+  placeOrder: (o: Omit<Order, 'id' | 'code' | 'placedAt' | 'status' | 'pointsEarned'> & { id?: string; code?: string }) => Order;
+  syncOrders: (orders: Order[]) => void;
   advanceOrder: (id: string) => void;
 
   addReservation: (r: Omit<Reservation, 'id' | 'code'>) => Reservation;
   cancelReservation: (id: string) => void;
 
   toggleFavorite: (id: string) => void;
+  syncFavorites: (ids: string[]) => void;
   addPoints: (n: number) => void;
   setProfile: (p: Partial<Profile>) => void;
   setOnline: (v: boolean) => void;
@@ -141,9 +143,9 @@ export const cartSubtotal = (cart: CartLine[]) => cart.reduce((n, l) => n + line
 export const useApp = create<AppState>()(
   persist(
     (set, get) => ({
-      phase: 'splash',
-      onboarded: false,
-      locationId: null,
+      phase: 'app',
+      onboarded: true,
+      locationId: 'bhopal-main',
       profile: initialProfile,
 
       tab: 'home',
@@ -189,8 +191,8 @@ export const useApp = create<AppState>()(
       placeOrder: (o) => {
         const order: Order = {
           ...o,
-          id: Math.random().toString(36).slice(2),
-          code: randCode('GH'),
+          id: o.id ?? Math.random().toString(36).slice(2),
+          code: o.code ?? randCode('GH'),
           placedAt: Date.now(),
           status: 0,
           pointsEarned: Math.round(o.total / 10),
@@ -205,6 +207,14 @@ export const useApp = create<AppState>()(
         }));
         return order;
       },
+      syncOrders: (newOrders) =>
+        set((st) => {
+          const map = new Map<string, Order>();
+          st.orders.forEach((o) => map.set(o.id, o));
+          newOrders.forEach((o) => map.set(o.id, { ...map.get(o.id), ...o }));
+          const merged = Array.from(map.values()).sort((a, b) => b.placedAt - a.placedAt);
+          return { orders: merged };
+        }),
       advanceOrder: (id) =>
         set((st) => ({
           orders: st.orders.map((o) => (o.id === id && o.status < 6 ? { ...o, status: o.status + 1 } : o)),
@@ -218,9 +228,19 @@ export const useApp = create<AppState>()(
       cancelReservation: (id) => set((st) => ({ reservations: st.reservations.filter((r) => r.id !== id) })),
 
       toggleFavorite: (id) =>
-        set((st) => ({
-          favorites: st.favorites.includes(id) ? st.favorites.filter((f) => f !== id) : [...st.favorites, id],
-        })),
+        set((st) => {
+          if (typeof window !== 'undefined') {
+            fetch('/api/favorites', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ dishId: id }),
+            }).catch(() => {});
+          }
+          return {
+            favorites: st.favorites.includes(id) ? st.favorites.filter((f) => f !== id) : [...st.favorites, id],
+          };
+        }),
+      syncFavorites: (ids) => set({ favorites: ids }),
       addPoints: (n) => set((st) => ({ points: st.points + n })),
       setProfile: (p) => set((st) => ({ profile: { ...st.profile, ...p } })),
       setOnline: (v) => set({ online: v }),
@@ -240,7 +260,7 @@ export const useApp = create<AppState>()(
         }),
     }),
     {
-      name: 'gharelu-app',
+      name: 'sahi-crunch-app',
       partialize: (s) => ({
         onboarded: s.onboarded,
         locationId: s.locationId,

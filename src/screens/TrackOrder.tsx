@@ -1,23 +1,35 @@
-import { useEffect, useRef } from 'react';
-import { Check, Clock, ChefHat, Bike, PartyPopper, Phone } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import {
+  CheckCircle2,
+  Clock,
+  Bike,
+  PartyPopper,
+  Phone,
+  MapPin,
+  ShieldCheck,
+  Zap,
+  ArrowRight,
+} from 'lucide-react';
 import { useApp, lineTotal } from '../store';
 import { dishById } from '../data/menu';
 import { locations } from '../data/locations';
 import { ORDER_STAGES } from '../data';
-import { Screen, Empty, DishImg, Pill } from '../ui';
+import { Screen, Empty, DishImg, VegBadge } from '../ui';
 import { formatINR } from '../lib/utils';
-
-const stageIcon = [Clock, Check, ChefHat, Check, Bike, Bike, PartyPopper];
+import { ordersApi } from '../lib/api';
 
 export default function TrackOrder({ orderId }: { orderId: string }) {
   const order = useApp((s) => s.orders.find((o) => o.id === orderId));
   const advanceOrder = useApp((s) => s.advanceOrder);
+  const setTab = useApp((s) => s.setTab);
   const timer = useRef<number | null>(null);
 
-  /* the kitchen moves on its own — advance the demo order every 12s */
   useEffect(() => {
     if (!order || order.status >= 6) return;
-    timer.current = window.setTimeout(() => advanceOrder(orderId), 12000);
+    timer.current = window.setTimeout(() => {
+      advanceOrder(orderId);
+      ordersApi.advance(orderId, order.status + 1);
+    }, 7000);
     return () => {
       if (timer.current) window.clearTimeout(timer.current);
     };
@@ -25,8 +37,13 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
 
   if (!order) {
     return (
-      <Screen eyebrow="TRACKING" title="ORDER">
-        <Empty title="NO SUCH TICKET" sub="This order is no longer on the rail." cta="SEE MY ORDERS" onCta={() => useApp.getState().setTab('orders')} />
+      <Screen eyebrow="Tracking" title="Order Status">
+        <Empty
+          title="Order Not Found"
+          sub="This order ticket is no longer active."
+          cta="View All Orders"
+          onCta={() => setTab('orders')}
+        />
       </Screen>
     );
   }
@@ -36,168 +53,121 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
   const pct = (order.status / (ORDER_STAGES.length - 1)) * 100;
 
   return (
-    <Screen eyebrow={order.code} title={delivered ? 'DELIVERED' : 'ON ITS WAY'}>
-      {/* status hero */}
-      <section className="panel relative overflow-hidden px-5 pb-7 pt-6">
-        <div className="grain absolute inset-0" />
-        <div className="relative">
-          <div className="flex items-center justify-between">
-            <span className="label gold">{order.eta} · {order.type.toUpperCase()}</span>
-            <Pill tone={delivered ? 'open' : 'amber'}>{delivered ? 'COMPLETE' : 'LIVE'}</Pill>
-          </div>
-          <h2 className="h2 mt-3">
-            {ORDER_STAGES[order.status].label}
-          </h2>
-          <p className="mt-1 text-sm text-ivory-dim">{ORDER_STAGES[order.status].sub}</p>
+    <Screen eyebrow={order.code} title={delivered ? 'Delivered' : 'On The Way'}>
+      <div className="w-full px-4 sm:px-6 lg:px-10 py-4 space-y-4 max-w-4xl mx-auto pb-32">
+        {/* Live Tracking Card - Navy/Maroon brand style */}
+        <div className="bg-gradient-to-br from-[#1D2E47] via-[#2C3E50] to-[#1E1E24] text-white rounded-3xl p-5 shadow-xl shadow-[#1D2E47]/20 relative overflow-hidden">
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <span className="inline-flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#E2952A]">
+                <Clock size={13} /> {order.eta}
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-200">
+                {order.type}
+              </span>
+            </div>
 
-          <div className="relative mt-5 h-1 w-full bg-ivory/10">
-            <div className="h-1 bg-gradient-to-r from-amber to-chili transition-all duration-1000" style={{ width: `${pct}%` }} />
-            {!delivered && (
-              <span className="pulse-dot absolute -top-1 h-3 w-3 -translate-x-1/2 rounded-full bg-amber" style={{ left: `${pct}%` }} />
-            )}
-          </div>
+            <h2 className="text-2xl font-black tracking-tight leading-tight">
+              {ORDER_STAGES[order.status].label}
+            </h2>
+            <p className="text-xs text-amber-100/80 mt-1 leading-relaxed">
+              {ORDER_STAGES[order.status].sub}
+            </p>
 
-          {/* kitchen vignette while cooking */}
-          {!delivered && order.status <= 3 && (
-            <div className="card mt-6 flex items-end gap-4 p-4">
-              <svg viewBox="0 0 64 64" className="chef-sway h-16 w-16 shrink-0" aria-hidden>
-                <circle cx="32" cy="20" r="10" fill="none" stroke="#e6a756" strokeWidth="2" />
-                <path d="M22 34h20v18H22z" fill="none" stroke="rgba(241,234,221,0.5)" strokeWidth="2" />
-                <path d="M14 44h14" stroke="#b5381f" strokeWidth="3" strokeLinecap="round" />
-                <ellipse className="pan-flare" cx="21" cy="40" rx="6" ry="3" fill="#ff7a33" opacity="0.8" />
-              </svg>
+            {/* Progress bar */}
+            <div className="mt-5 relative h-2.5 w-full bg-white/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-[#D48924] to-[#E2952A] rounded-full transition-all duration-700"
+                style={{ width: `${Math.max(12, pct)}%` }}
+              />
+            </div>
+
+            <div className="mt-3 flex items-center justify-between text-[11px] font-bold text-amber-100/90">
+              <span>Order Placed</span>
+              <span>Roasting</span>
+              <span>Packed</span>
+              <span>Delivered</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Delivery Partner Details */}
+        {!delivered && (
+          <div className="bg-[#FBF7F0] p-4 rounded-3xl border border-[#e5d8c3] shadow-card flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#D48924] text-[#1E1E24] font-black">
+                <Bike size={22} />
+              </div>
               <div>
-                <p className="label gold">{order.status <= 1 ? 'THE PASS HAS IT' : 'FIRE ON THE LINE'}</p>
-                <p className="body mt-1">
-                  {branch?.area} kitchen · {order.lines.reduce((n, l) => n + l.qty, 0)} plates in motion
+                <p className="text-xs font-extrabold text-[#1E1E24]">
+                  Ramesh (Sahi Express)
+                </p>
+                <p className="text-[11px] text-[#1E1E24]/60 font-medium">
+                  Assigned Delivery Partner · Bhopal Hub
                 </p>
               </div>
             </div>
-          )}
-        </div>
-      </section>
 
-      {/* timeline */}
-      <section className="px-5 pt-6">
-        <ol className="relative space-y-0">
-          <span className="absolute left-[13px] top-3 h-[calc(100%-24px)] w-px bg-ivory/10" aria-hidden />
-          {ORDER_STAGES.map((s, i) => {
-            const done = i < order.status;
-            const now = i === order.status;
-            const Icon = stageIcon[i];
-            return (
-              <li key={s.id} className="relative flex gap-4 pb-6 last:pb-0">
-                <span
-                  className={`relative z-10 grid h-7 w-7 shrink-0 place-items-center rounded-full border transition-colors duration-500 ${
-                    done
-                      ? 'border-herb bg-herb/20 text-herb'
-                      : now
-                        ? 'pulse-dot border-amber bg-amber text-ink-950'
-                        : 'border hair-2 bg-ink text-ivory-faint'
-                  }`}
-                >
-                  {done ? <Check size={13} strokeWidth={3} /> : <Icon size={13} strokeWidth={1.8} />}
-                </span>
-                <div className={`min-w-0 flex-1 ${!done && !now ? 'opacity-45' : ''}`}>
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className={`label ${now ? 'text-amber' : done ? 'text-ivory' : 'text-ivory-dim'}`}>{s.label}</h3>
-                    <span className="eyebrow shrink-0">
-                      {done ? 'DONE' : now ? 'NOW' : '—'}
-                    </span>
-                  </div>
-                  <p className="caption mt-0.5">{s.sub}</p>
-                  {now && !delivered && (
-                    <div className="mt-2 h-0.5 w-24 overflow-hidden bg-ivory/10">
-                      <span className="shimmer block h-0.5 w-full" />
-                    </div>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
+            <button
+              type="button"
+              onClick={() => alert('Calling delivery partner...')}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#681121]/10 text-[#681121] border border-[#681121]/20 shadow-sm hover:bg-[#681121] hover:text-white transition-colors"
+            >
+              <Phone size={16} />
+            </button>
+          </div>
+        )}
 
-      {/* receipt */}
-      <section className="mt-4 px-5">
-        <div className="card p-5">
-          <h3 className="mb-4 label text-ivory">THE TICKET</h3>
-          <ul className="mb-4 space-y-3">
+        {/* Order Details & Items Summary */}
+        <div className="bg-[#FBF7F0] p-4 rounded-3xl border border-[#e5d8c3] shadow-card">
+          <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e5d8c3]">
+            <h3 className="text-xs font-extrabold uppercase text-[#1E1E24]/60 tracking-wider">
+              Items in this Order ({order.lines.length})
+            </h3>
+            <span className="text-xs font-bold text-[#681121]">
+              {formatINR(order.total)}
+            </span>
+          </div>
+
+          <div className="space-y-2.5">
             {order.lines.map((l) => {
               const d = dishById(l.dishId);
               if (!d) return null;
               return (
-                <li key={l.key} className="flex items-center gap-3">
-                  <DishImg name={d.image} className="h-11 w-11 shrink-0 object-cover" />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[14px] text-ivory">
-                      <span className="num text-amber">{l.qty}×</span> {d.name}
-                    </span>
-                    {l.options.length > 0 && (
-                      <span className="caption block truncate">
-                        {l.options.map((o) => o.choice).join(' · ')}
-                      </span>
-                    )}
-                  </span>
-                  <span className="num text-[13px] text-ivory-dim">{formatINR(lineTotal(l))}</span>
-                </li>
+                <div key={l.key} className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2">
+                    <VegBadge />
+                    <span className="font-bold text-[#681121]">{l.qty}x</span>
+                    <span className="font-semibold text-[#1E1E24]">{d.name}</span>
+                  </div>
+                  <span className="font-bold text-[#1E1E24]">{formatINR(lineTotal(l))}</span>
+                </div>
               );
             })}
-          </ul>
-          <div className="hair-t space-y-1.5 pt-3">
-            <Line label="Subtotal" value={formatINR(order.subtotal)} />
-            {order.discount > 0 && <Line label="Discount" value={`− ${formatINR(order.discount)}`} tone="herb" />}
-            {order.fee > 0 && <Line label="Delivery" value={formatINR(order.fee)} />}
-            <Line label="Taxes" value={formatINR(order.tax)} />
-            <div className="flex items-baseline justify-between pt-2">
-              <span className="label text-ivory">PAID</span>
-              <span className="num text-xl text-amber">{formatINR(order.total)}</span>
-            </div>
           </div>
-          <p className="eyebrow mt-3 text-right">+{order.pointsEarned} POINTS EARNED</p>
+
           {order.address && (
-            <p className="caption hair-t mt-3 pt-3">
-              {order.type === 'dinein' ? 'SERVED ' : order.type === 'takeaway' ? 'PICKUP ' : 'DELIVERED TO '}
-              · {order.address}
-            </p>
+            <div className="mt-4 pt-3 border-t border-[#e5d8c3] text-xs text-[#1E1E24]/70 flex items-start gap-2">
+              <MapPin size={14} className="text-[#681121] shrink-0 mt-0.5" />
+              <span>{order.address}</span>
+            </div>
           )}
         </div>
-      </section>
 
-      {/* actions */}
-      <section className="mt-5 flex gap-3 px-5">
-        <a href={`tel:${branch?.phone.replace(/\s/g, '')}`} className="btn-ghost flex-1 !py-3.5 text-center">
-          <Phone size={14} className="mr-2 inline" /> CALL THE HOUSE
-        </a>
+        {/* WhatsApp Help CTA */}
         <button
           type="button"
-          onClick={() => {
-            order.lines.forEach((l) =>
-              useApp.getState().addToCart({ dishId: l.dishId, qty: l.qty, options: l.options })
-            );
-            useApp.getState().setCartOpen(true);
-          }}
-          className="btn-solid flex-1 !py-3.5"
+          onClick={() =>
+            window.open(
+              `https://wa.me/91XXXXXXXXXX?text=Hi%20Sahi%20Crunch,%20need%20help%20with%20Order%20${order.code}`,
+              '_blank'
+            )
+          }
+          className="w-full flex items-center justify-center gap-2 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#1E1E24] border border-[#25D366]/40 font-extrabold text-xs py-3.5 rounded-2xl transition-colors"
         >
-          ORDER AGAIN
+          <span>Need help with order? Chat on WhatsApp</span>
         </button>
-      </section>
-
-      {delivered && (
-        <p className="eyebrow gut mt-6 text-center">
-          DID THE KITCHEN DELIVER? TELL THE CHEF — WE READ EVERY NOTE.
-        </p>
-      )}
-      <div className="h-8" />
+      </div>
     </Screen>
-  );
-}
-
-function Line({ label, value, tone }: { label: string; value: string; tone?: 'herb' }) {
-  return (
-    <div className="flex items-center justify-between">
-      <span className="body">{label}</span>
-      <span className={`num text-[13px] ${tone === 'herb' ? 'text-herb' : 'text-ivory-dim'}`}>{value}</span>
-    </div>
   );
 }

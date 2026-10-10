@@ -1,171 +1,129 @@
-import { useState } from 'react';
-import { Check, Sparkles, Lock, Gift } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Sparkles, Gift, Check, Lock, ArrowRight, Award } from 'lucide-react';
 import { useApp, tierOf } from '../store';
 import { TIERS, rewards } from '../data';
-import { Screen, Pill } from '../ui';
+import { Screen } from '../ui';
+import { useAuth } from '../lib/AuthContext';
+import { loyaltyApi } from '../lib/api';
 
 export default function Loyalty() {
   const points = useApp((s) => s.points);
   const addPoints = useApp((s) => s.addPoints);
-  const referralCode = useApp((s) => s.referralCode);
+  const auth = useAuth();
   const [redeemed, setRedeemed] = useState<string[]>([]);
   const [flash, setFlash] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (!auth.isLoggedIn) return;
+    loyaltyApi.get().then(({ data }) => {
+      if (data && typeof data.points === 'number') {
+        const diff = data.points - points;
+        if (diff !== 0) addPoints(diff);
+      }
+    });
+  }, [auth.isLoggedIn, points, addPoints]);
+
   const tierIdx = tierOf(points);
   const tier = TIERS[tierIdx];
-  const next = TIERS[tierIdx + 1] ?? null;
-  const span = next ? next.from - tier.from : 1;
-  const progress = next ? Math.min(100, ((points - tier.from) / span) * 100) : 100;
+  const next = TIERS[tierIdx + 1];
 
   const redeem = (id: string, cost: number, name: string) => {
     if (points < cost || redeemed.includes(id)) return;
     addPoints(-cost);
     setRedeemed((r) => [...r, id]);
-    setFlash(`${name.toUpperCase()} IS YOURS — SHOW THE CODE AT THE TABLE.`);
+    setFlash(`${name.toUpperCase()} REWARD UNLOCKED! Added to your account.`);
     window.setTimeout(() => setFlash(null), 3200);
   };
 
   return (
-    <Screen eyebrow="GHARELU HUB" title="YOUR POINTS">
-      <div className="space-y-8 px-5 pt-5">
-        {/* balance */}
-        <section className="card-amber relative overflow-hidden p-6">
-          <div className="grain absolute inset-0" />
-          <div className="relative">
-            <span className="label gold flex items-center gap-2">
-              <Sparkles size={12} /> {tier.name} MEMBER
+    <Screen eyebrow="Rewards Program" title="Crunch Club Points">
+      <div className="w-full px-4 sm:px-6 lg:px-10 py-4 space-y-5 max-w-5xl mx-auto pb-32">
+        {/* Points Balance Banner - Maroon & Amber style */}
+        <div className="bg-gradient-to-br from-[#681121] via-[#701222] to-[#1E1E24] text-white p-5 rounded-3xl shadow-xl shadow-[#681121]/25 relative overflow-hidden">
+          <div className="flex items-center justify-between mb-3">
+            <span className="inline-flex items-center gap-1.5 bg-black/25 text-[#E2952A] text-xs font-black px-3 py-1 rounded-full uppercase">
+              <Sparkles size={13} className="fill-[#E2952A]" />
+              {tier.name} VIP TIER
             </span>
-            <div className="mt-3 flex items-end justify-between">
-              <span className="num text-6xl leading-none text-ivory">{points}</span>
-              <span className="eyebrow pb-2">POINTS</span>
-            </div>
-
-            <div className="mt-6 h-1.5 w-full bg-ivory/10">
-              <div
-                className="h-1.5 bg-gradient-to-r from-amber to-chili transition-all duration-1000"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <div className="mt-2 flex items-center justify-between">
-              <span className="eyebrow">{tier.name}</span>
-              <span className="label gold">
-                {next ? `${next.from - points} PTS TO ${next.name}` : 'TOP OF THE HOUSE'}
-              </span>
-            </div>
+            <span className="text-xs font-bold text-amber-200">1 pt = ₹1 Cashback</span>
           </div>
-        </section>
+
+          <div className="flex items-baseline gap-2 mt-2">
+            <span className="text-4xl font-black">{points}</span>
+            <span className="text-sm font-bold text-amber-200">Crunch Points</span>
+          </div>
+          <p className="text-xs text-amber-100/80 mt-1">
+            Earn 1 point on every ₹10 spent on Sahi Crunch small batches.
+          </p>
+
+          {/* Progress bar */}
+          {next && (
+            <div className="mt-4 pt-3 border-t border-white/20">
+              <div className="flex items-center justify-between text-xs font-bold text-amber-200 mb-1">
+                <span>{tier.name}</span>
+                <span>{next.from - points} pts to {next.name}</span>
+              </div>
+              <div className="h-2 w-full bg-black/30 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-[#D48924] to-[#E2952A] rounded-full transition-all duration-700"
+                  style={{ width: `${Math.min(100, (points / next.from) * 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
 
         {flash && (
-          <p className="border border-herb/50 bg-herb/10 px-4 py-3 label text-herb fade-in">{flash}</p>
+          <div className="bg-[#4E8B56]/15 border border-[#4E8B56] text-[#4E8B56] p-3 rounded-2xl text-xs font-bold text-center">
+            {flash}
+          </div>
         )}
 
-        {/* ladder */}
-        <section>
-          <h2 className="mb-3 label text-ivory">THE LADDER</h2>
-          <ul className="space-y-2">
-            {TIERS.map((t, i) => {
-              const owned = i <= tierIdx;
-              const current = i === tierIdx;
-              return (
-                <li
-                  key={t.id}
-                  className={`border p-4 transition-colors ${
-                    current ? 'card-amber' : owned ? 'card' : 'card opacity-60'
+        {/* Redeemable Rewards List */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-extrabold uppercase text-[#1E1E24]/60 tracking-wider">
+            Available Rewards to Redeem
+          </h3>
+
+          {rewards.map((r) => {
+            const isOwned = redeemed.includes(r.id);
+            const canAfford = points >= r.cost;
+
+            return (
+              <div
+                key={r.id}
+                className="bg-[#FBF7F0] p-4 rounded-2xl border border-[#e5d8c3] shadow-card flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center font-bold">
+                    <Gift size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#1E1E24]">{r.name}</h4>
+                    <p className="text-[11px] font-black text-[#D48924] mt-0.5">
+                      {r.cost} Points
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  disabled={!canAfford || isOwned}
+                  onClick={() => redeem(r.id, r.cost, r.name)}
+                  className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+                    isOwned
+                      ? 'bg-[#4E8B56]/15 text-[#4E8B56] border border-[#4E8B56]'
+                      : canAfford
+                      ? 'bg-[#681121] hover:bg-[#540c19] text-white shadow-md'
+                      : 'bg-[#1E1E24]/5 text-[#1E1E24]/30 cursor-not-allowed'
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="flex items-center gap-2.5">
-                      <span
-                        className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border ${
-                          owned ? 'border-amber text-amber' : 'hair-2 border text-ivory-faint'
-                        }`}
-                      >
-                        {owned ? <Check size={13} strokeWidth={3} /> : <Lock size={12} />}
-                      </span>
-                      <span className={`font-display text-xl font-semibold ${current ? 'text-amber' : 'text-ivory'}`}>
-                        {t.name}
-                      </span>
-                    </span>
-                    <span className="eyebrow num">{t.from.toLocaleString('en-IN')} PTS</span>
-                  </div>
-                  <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 pl-9">
-                    {t.perks.map((p) => (
-                      <span key={p} className="caption">
-                        · {p}
-                      </span>
-                    ))}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-
-        {/* rewards */}
-        <section>
-          <h2 className="mb-3 flex items-center gap-2 label text-ivory">
-            <Gift size={13} className="text-amber" /> SPEND THE POINTS
-          </h2>
-          <ul className="space-y-2">
-            {rewards.map((r) => {
-              const owned = redeemed.includes(r.id);
-              const afford = points >= r.cost;
-              return (
-                <li key={r.id} className="card flex items-center justify-between gap-3 px-4 py-3.5">
-                  <div className="min-w-0">
-                    <p className="truncate text-[15px] text-ivory">{r.name}</p>
-                    <p className="num label gold">{r.cost.toLocaleString('en-IN')} PTS</p>
-                  </div>
-                  <button
-                    type="button"
-                    disabled={!afford || owned}
-                    onClick={() => redeem(r.id, r.cost, r.name)}
-                    className={`shrink-0 border px-4 py-2 label transition-all ${
-                      owned
-                        ? 'border-herb/50 bg-herb/15 text-herb'
-                        : afford
-                          ? 'border-amber bg-amber/12 text-amber hover:bg-amber hover:text-ink-950'
-                          : ''
-                    }`}
-                  >
-                    {owned ? 'REDEEMED' : afford ? 'REDEEM' : 'LOCKED'}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-
-        {/* how to earn */}
-        <section className="card p-5">
-          <h3 className="mb-3 label text-ivory">HOW POINTS ARRIVE</h3>
-          <ul className="body space-y-2">
-            <li className="flex justify-between">
-              <span>Every ₹10 spent on an order</span>
-              <span className="num gold">+1</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Placing a reservation</span>
-              <span className="num gold">+50</span>
-            </li>
-            <li className="flex justify-between">
-              <span>A friend uses your code</span>
-              <span className="num gold">+200</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Redeeming a reward</span>
-              <span className="num text-chili">−COST</span>
-            </li>
-          </ul>
-        </section>
-
-        {/* referral */}
-        <section className="pb-2 text-center">
-          <Pill tone="amber">YOUR CODE · {referralCode}</Pill>
-          <p className="body mt-3">
-            Share it. They eat, you both earn 200 points.
-          </p>
-        </section>
+                  {isOwned ? 'Redeemed ✓' : canAfford ? 'Redeem' : 'Locked'}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Screen>
   );

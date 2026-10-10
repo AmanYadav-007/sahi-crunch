@@ -1,78 +1,67 @@
-import { Home, UtensilsCrossed, ReceiptText, CalendarDays, User } from 'lucide-react';
-import { useApp, cartCount, type Tab } from './store';
+import React from 'react';
+import { Home, Compass, ReceiptText, Sparkles, User } from 'lucide-react';
+import { useApp, type Tab } from './store';
 
 const TABS: Array<{ id: Tab; label: string; Icon: typeof Home }> = [
-  { id: 'home', label: 'HOME', Icon: Home },
-  { id: 'menu', label: 'MENU', Icon: UtensilsCrossed },
-  { id: 'orders', label: 'ORDERS', Icon: ReceiptText },
-  { id: 'reservations', label: 'TABLES', Icon: CalendarDays },
-  { id: 'profile', label: 'PROFILE', Icon: User },
+  { id: 'home', label: 'Home', Icon: Home },
+  { id: 'menu', label: 'Explore', Icon: Compass },
+  { id: 'orders', label: 'Orders', Icon: ReceiptText },
+  { id: 'reservations', label: 'Live Popups', Icon: Sparkles },
+  { id: 'profile', label: 'Account', Icon: User },
 ];
 
 export default function BottomNav() {
   const tab = useApp((s) => s.tab);
   const setTab = useApp((s) => s.setTab);
-  const cart = useApp((s) => s.cart);
-  const setCartOpen = useApp((s) => s.setCartOpen);
   const stack = useApp((s) => s.stack);
-  const count = cartCount(cart);
 
   if (stack.length > 0) return null;
 
   return (
-    <nav
-      aria-label="Primary"
-      className="actionbar fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[480px]"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
-    >
-      <ul className="flex items-stretch justify-between px-2">
-        {TABS.map(({ id, label, Icon }) => {
-          const active = tab === id;
-          return (
-            <li key={id} className="flex-1">
-              <button
-                type="button"
-                onClick={() => setTab(id)}
-                aria-current={active ? 'page' : undefined}
-                data-cursor="GO"
-                className="relative flex w-full flex-col items-center gap-1 py-2.5 transition-colors duration-300"
-              >
-                <span
-                  className={`relative grid h-7 w-7 place-items-center transition-transform duration-500 ease-luxe ${
-                    active ? 'scale-110 text-amber' : 'text-ivory-faint'
-                  }`}
-                >
-                  <Icon size={19} strokeWidth={active ? 2 : 1.5} />
-                </span>
-                <span className={`label transition-colors ${active ? 'text-amber' : 'text-ivory-faint'}`}>
-                  {label}
-                </span>
-                <span
-                  className={`absolute -top-px h-px bg-amber transition-all duration-500 ease-luxe ${
-                    active ? 'w-8 opacity-100' : 'w-0 opacity-0'
-                  }`}
-                />
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-
-      {/* floating cart */}
-      <button
-        type="button"
-        onClick={() => setCartOpen(true)}
-        aria-label={`Open cart, ${count} items`}
-        data-cursor="CART"
-        className={`fixed bottom-24 right-4 z-40 grid h-14 w-14 place-items-center rounded-full border transition-all duration-500 ease-luxe ${
-          count > 0
-            ? 'border-amber bg-amber text-ink-950 shadow-[0_10px_40px_rgba(230,167,86,0.35)] scale-100'
-            : 'pointer-events-none scale-0 border hair-2 bg-ink-800 text-ivory'
-        }`}
-        style={{ right: 'max(1rem, calc(50% - 224px))' }}
+    <>
+      {/* Navigation Bar: Fixed Bottom on Mobile & Tablet, Hidden on Desktop (lg:hidden) */}
+      <nav
+        aria-label="Primary"
+        className="lg:hidden fixed inset-x-0 bottom-0 z-30 mx-auto w-full bg-[#FDFBF7]/95 backdrop-blur-md border-t border-[#e8dfcf] shadow-nav pb-[env(safe-area-inset-bottom,0px)]"
       >
-        <span className="num text-lg font-semibold">{count}</span>
-      </button>
-    </nav>
+        <div className="w-full max-w-4xl mx-auto px-4">
+          <ul className="flex items-center justify-around px-3 py-2 sm:py-2.5">
+            {TABS.map(({ id, label, Icon }) => {
+              const active = tab === id;
+              return (
+                <li key={id} className="flex-1 max-w-[120px]">
+                  <button
+                    type="button"
+                    onClick={() => setTab(id)}
+                    aria-current={active ? 'page' : undefined}
+                    className="relative flex w-full flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-1 px-2 rounded-xl transition-all hover:bg-[#FBF7F0]"
+                  >
+                    <div
+                      className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-transform duration-200 ${
+                        active
+                          ? 'text-[#681121] scale-110'
+                          : 'text-slate-400 hover:text-slate-600'
+                      }`}
+                    >
+                      <Icon size={20} strokeWidth={active ? 2.5 : 2} />
+                    </div>
+                    <span
+                      className={`text-[10px] sm:text-xs font-bold tracking-tight transition-colors ${
+                        active ? 'text-[#681121] font-extrabold' : 'text-[#1E1E24]/70'
+                      }`}
+                    >
+                      {label}
+                    </span>
+                    {active && (
+                      <span className="absolute -bottom-1 sm:bottom-0 h-1 w-6 rounded-full bg-[#681121]" />
+                    )}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 }

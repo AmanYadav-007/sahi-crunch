@@ -1,125 +1,132 @@
-import { useState } from 'react';
-import { MapPin, Navigation, Clock, Bike, Utensils, CalendarCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Navigation, Clock, Check, ChevronRight, Zap } from 'lucide-react';
 import { locations } from '../data/locations';
 import { useApp } from '../store';
-import { Eyebrow, Screen, Pill } from '../ui';
+import { Screen, Pill } from '../ui';
 
 export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
   const setLocation = useApp((s) => s.setLocation);
+  const selectedLocation = useApp((s) => s.locationId);
   const [locating, setLocating] = useState(false);
-  const [near, setNear] = useState<string | null>(null);
 
   const useCurrent = () => {
     setLocating(true);
-    /* simulated geolocation — branch distances are demo data */
     window.setTimeout(() => {
       setLocating(false);
-      setNear('indiranagar');
-    }, 1100);
+      setLocation('bhopal-main');
+    }, 800);
   };
 
   return (
     <Screen
-      title={firstTime ? undefined : 'CHANGE LOCATION'}
-      eyebrow={firstTime ? undefined : 'WHERE YOU DINING'}
-      onBack={firstTime ? () => setLocation('indiranagar') : undefined}
+      title={firstTime ? undefined : 'Select Delivery Cluster'}
+      eyebrow={firstTime ? undefined : 'Bhopal Express Hubs'}
+      onBack={firstTime ? () => setLocation('bhopal-main') : undefined}
       bare={firstTime}
     >
-      {firstTime && (
-        <div className="safe-t px-6 pt-10">
-          <Eyebrow>STEP 1 OF 1</Eyebrow>
-          <h1 className="h-hero mt-4">
-            WHERE ARE YOU
-            <br />
-            <span className="text-amber">DINING?</span>
-          </h1>
-          <p className="body mt-4 max-w-sm">
-            Menus, timing and offers change by room. Pick once — switch any time from the home screen.
-          </p>
-        </div>
-      )}
+      <div className="w-full px-4 sm:px-6 lg:px-10 py-4 max-w-4xl mx-auto space-y-4 pb-24">
+        {firstTime && (
+          <div className="pt-6 pb-2">
+            <div className="inline-flex items-center gap-1.5 bg-[#D48924] text-[#1E1E24] font-black text-xs px-3 py-1 rounded-full mb-3 shadow-sm">
+              <Zap size={14} className="fill-[#1E1E24]" />
+              <span>10-15 Min Delivery in Bhopal</span>
+            </div>
+            <h1 className="text-2xl font-black text-[#1E1E24] tracking-tight leading-tight">
+              Where should we deliver your snacks?
+            </h1>
+            <p className="text-xs text-[#1E1E24]/70 mt-1 font-medium">
+              We bake small batches and dispatch fresh within 48 hours to all major Bhopal clusters.
+            </p>
+          </div>
+        )}
 
-      <div className={`space-y-3 px-5 ${firstTime ? 'mt-8 pb-10' : 'pt-5'}`}>
-        {/* current location */}
+        {/* GPS Current Location button */}
         <button
           type="button"
           onClick={useCurrent}
-          data-cursor="LOCATE"
-          className="card-amber card-link flex w-full items-center gap-4 px-5 py-4 text-left"
+          className="w-full flex items-center justify-between p-4 bg-[#FBF7F0] border border-[#e5d8c3] rounded-2xl text-left hover:border-[#681121]/40 transition-colors shadow-sm"
         >
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-amber text-ink-950">
-            <Navigation size={17} className={locating ? 'animate-spin' : ''} />
-          </span>
-          <span>
-            <span className="block label text-amber">{locating ? 'FINDING YOU…' : 'CURRENT LOCATION'}</span>
-            <span className="block body">
-              {near ? 'Nearest: Indiranagar · 1.2 km' : 'Use GPS to find the closest room'}
-            </span>
-          </span>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#681121] text-white font-black shadow">
+              <Navigation size={18} className={locating ? 'animate-spin' : ''} />
+            </div>
+            <div>
+              <p className="text-xs font-black text-[#1E1E24]">
+                {locating ? 'Detecting your GPS location...' : 'Use Current Location'}
+              </p>
+              <p className="text-[11px] text-[#D48924] font-semibold">
+                Arera Colony, Shahpura, Kolar Road
+              </p>
+            </div>
+          </div>
+          <ChevronRight size={18} className="text-[#681121]" />
         </button>
 
-        <div className="flex items-center gap-3 py-2">
-          <span className="h-px flex-1 bg-ivory/10" />
-          <span className="eyebrow">OR SELECT A ROOM</span>
-          <span className="h-px flex-1 bg-ivory/10" />
-        </div>
+        {/* Cluster list */}
+        <div className="space-y-2.5 pt-2">
+          <p className="text-xs font-extrabold uppercase text-[#1E1E24]/60 tracking-wider">
+            Available Kitchen Clusters
+          </p>
 
-        {locations.map((l) => {
-          const open = l.status === 'open';
-          const dist = l.id === 'indiranagar' ? '1.2 km' : l.id === 'koramangala' ? '4.8 km' : null;
-          return (
-            <button
-              key={l.id}
-              type="button"
-              disabled={!open}
-              onClick={() => setLocation(l.id)}
-              data-cursor={open ? 'PICK' : undefined}
-              className="card card-link w-full px-5 py-4 text-left"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <MapPin size={14} className="shrink-0 text-amber" />
-                    <h3 className="h3 truncate">
-                      {l.area}
-                      <span className="eyebrow ml-2">{l.city.toUpperCase()}</span>
-                    </h3>
+          {locations.map((loc) => {
+            const isSelected = selectedLocation === loc.id;
+            const isOpen = loc.status === 'open';
+
+            return (
+              <div
+                key={loc.id}
+                onClick={() => {
+                  if (isOpen) setLocation(loc.id);
+                }}
+                className={`p-4 rounded-2xl border transition-all flex items-start justify-between cursor-pointer ${
+                  isSelected
+                    ? 'border-[#681121] bg-[#681121]/10 shadow-sm'
+                    : isOpen
+                    ? 'border-[#e5d8c3] bg-[#FBF7F0] hover:border-[#681121]/40'
+                    : 'border-[#e5d8c3] bg-[#FBF7F0]/50 opacity-60'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div
+                    className={`flex h-9 w-9 items-center justify-center rounded-xl shrink-0 ${
+                      isSelected
+                        ? 'bg-[#681121] text-white'
+                        : 'bg-[#e5d8c3]/40 text-[#1E1E24]'
+                    }`}
+                  >
+                    <MapPin size={18} />
                   </div>
-                  <p className="body mt-1 line-clamp-1">{l.address}</p>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-bold text-[#1E1E24]">{loc.area}</h3>
+                      <span className="text-[10px] font-semibold text-[#1E1E24]/50 uppercase">
+                        {loc.city}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#1E1E24]/70 mt-0.5 line-clamp-1">{loc.address}</p>
+                    <div className="mt-2 flex items-center gap-2 text-[10px] font-bold">
+                      {isOpen ? (
+                        <span className="text-[#4E8B56] bg-[#4E8B56]/15 px-2 py-0.5 rounded border border-[#4E8B56]/30">
+                          10-15 Min Delivery Active
+                        </span>
+                      ) : (
+                        <span className="text-[#D48924] bg-[#D48924]/15 px-2 py-0.5 rounded border border-[#D48924]/30">
+                          Coming in Month 3
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex shrink-0 flex-col items-end gap-2">
-                  {l.status === 'open' && <Pill tone="open">OPEN NOW</Pill>}
-                  {l.status === 'opening' && <Pill tone="soon">SOON</Pill>}
-                  {l.status === 'future' && <Pill tone="off">{l.openingDate}</Pill>}
-                  {dist && <span className="eyebrow">{dist}</span>}
-                </div>
+
+                {isSelected && (
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#681121] text-white">
+                    <Check size={14} strokeWidth={3} />
+                  </div>
+                )}
               </div>
-
-              {open && (
-                <div className="hair-t mt-3 flex flex-wrap gap-x-4 gap-y-2 pt-3">
-                  <span className="eyebrow flex items-center gap-1.5">
-                    <Clock size={12} /> {l.hours.split('·')[1]?.trim() ?? 'DAILY'}
-                  </span>
-                  {l.delivery && (
-                    <span className="flex items-center gap-1.5 label text-herb">
-                      <Bike size={12} /> DELIVERY
-                    </span>
-                  )}
-                  <span className="eyebrow flex items-center gap-1.5">
-                    <Utensils size={12} /> DINE-IN
-                  </span>
-                  <span className="eyebrow flex items-center gap-1.5">
-                    <CalendarCheck size={12} /> RESERVATIONS
-                  </span>
-                </div>
-              )}
-            </button>
-          );
-        })}
-
-        {firstTime && (
-          <p className="eyebrow pt-2 text-center">YOU CAN CHANGE THIS ANY TIME</p>
-        )}
+            );
+          })}
+        </div>
       </div>
     </Screen>
   );

@@ -10,25 +10,26 @@ export interface Craving {
 }
 
 export const cravings: Craving[] = [
+  { id: 'makhana', label: 'MAKHANA', hint: 'the lotus seed crunch', test: (d) => d.category === 'makhana' },
   { id: 'spicy', label: 'SPICY', hint: 'bring the heat', test: (d) => d.spiceLevel >= 2 },
-  { id: 'comfort', label: 'COMFORT FOOD', hint: 'slow and warm', test: (d) => ['north-indian', 'main-course', 'indian'].includes(d.category) },
-  { id: 'grilled', label: 'GRILLED', hint: 'straight off the coals', test: (d) => ['tandoor', 'grill'].includes(d.category) },
-  { id: 'sweet', label: 'SWEET', hint: 'the last word', test: (d) => ['desserts', 'coffee'].includes(d.category) },
-  { id: 'light', label: 'LIGHT', hint: 'easy on the night', test: (d) => d.spiceLevel <= 1 && d.price <= 420 },
-  { id: 'chef', label: "CHEF'S SPECIAL", hint: 'off-menu thinking', test: (d) => !!d.bestseller || d.category === 'specials' },
+  { id: 'gifting', label: 'GIFTING', hint: 'the full story in a box', test: (d) => d.category === 'gifting' },
+  { id: 'sweet', label: 'SWEET BAKES', hint: 'ghee and cardamom', test: (d) => ['nankhatai', 'cookies'].includes(d.category) },
+  { id: 'namkeen', label: 'NAMKEEN', hint: 'the classics of Bhopal', test: (d) => d.category === 'namkeen' },
+  { id: 'subscribe', label: 'SUBSCRIPTION', hint: 'fresh every week', test: (d) => d.category === 'subscriptions' },
 ];
 
 /* ---------------- search intent keywords ---------------- */
 
 export const intentMap: Array<{ keys: string[]; test: (d: Dish) => boolean }> = [
-  { keys: ['spicy', 'hot', 'chilli', 'chili', 'fire'], test: (d) => d.spiceLevel >= 2 },
-  { keys: ['mild', 'not spicy', 'light spicy'], test: (d) => d.spiceLevel <= 1 },
-  { keys: ['sweet', 'dessert', 'sugar'], test: (d) => ['desserts'].includes(d.category) },
-  { keys: ['vegetarian', 'veg', 'paneer'], test: (d) => d.veg },
-  { keys: ['protein', 'chicken', 'fish', 'prawn', 'mutton', 'lamb'], test: (d) => !d.veg },
-  { keys: ['healthy', 'light', 'low calorie'], test: (d) => d.spiceLevel <= 1 && d.price <= 400 },
-  { keys: ['bestseller', 'popular', 'famous', 'top'], test: (d) => !!d.bestseller },
-  { keys: ['cheap', 'under 400', 'budget'], test: (d) => d.price <= 400 },
+  { keys: ['spicy', 'hot', 'masala', 'peri', 'ratlam'], test: (d) => d.spiceLevel >= 2 },
+  { keys: ['mild', 'light', 'salted', 'plain'], test: (d) => d.spiceLevel <= 1 },
+  { keys: ['sweet', 'baked', 'nankhatai', 'cookie', 'mathri'], test: (d) => ['nankhatai', 'cookies'].includes(d.category) },
+  { keys: ['makhana', 'lotus', 'fox nut', 'roasted', 'guilt-free'], test: (d) => d.category === 'makhana' },
+  { keys: ['namkeen', 'sev', 'bhujia', 'chanachur', 'mixture'], test: (d) => d.category === 'namkeen' },
+  { keys: ['gift', 'hamper', 'box', 'diwali', 'birthday', 'corporate'], test: (d) => d.category === 'gifting' },
+  { keys: ['subscribe', 'subscription', 'weekly', 'monthly', 'club'], test: (d) => d.category === 'subscriptions' },
+  { keys: ['bestseller', 'popular', 'top', 'favourite'], test: (d) => !!d.bestseller },
+  { keys: ['cheap', 'under 200', 'budget'], test: (d) => d.price <= 149 },
 ];
 
 /* ---------------- filters ---------------- */
@@ -40,13 +41,14 @@ export interface FilterDef {
 }
 
 export const filters: FilterDef[] = [
-  { id: 'veg', label: 'VEGETARIAN', test: (d) => d.veg },
-  { id: 'nonveg', label: 'NON-VEG', test: (d) => !d.veg },
+  { id: 'makhana', label: 'MAKHANA', test: (d) => d.category === 'makhana' },
+  { id: 'namkeen', label: 'NAMKEEN', test: (d) => d.category === 'namkeen' },
+  { id: 'baked', label: 'BAKED', test: (d) => ['nankhatai', 'cookies'].includes(d.category) },
+  { id: 'gifting', label: 'GIFT BOXES', test: (d) => d.category === 'gifting' },
   { id: 'spicy', label: 'SPICY', test: (d) => d.spiceLevel >= 2 },
   { id: 'mild', label: 'MILD', test: (d) => d.spiceLevel <= 1 },
   { id: 'best', label: 'BESTSELLER', test: (d) => !!d.bestseller },
-  { id: 'under400', label: 'UNDER ₹400', test: (d) => d.price <= 400 },
-  { id: 'special', label: "CHEF'S SPECIAL", test: (d) => d.category === 'specials' || !!d.bestseller },
+  { id: 'under200', label: 'UNDER ₹200', test: (d) => d.price <= 199 },
 ];
 
 /* ---------------- customizations ---------------- */
@@ -59,102 +61,79 @@ export interface OptionGroup {
   choices: Array<{ id: string; label: string; delta: number }>;
 }
 
-const SIZE_GROUP: OptionGroup = {
-  id: 'size',
-  label: 'SIZE',
+const MAKHANA_PACK_SIZE: OptionGroup = {
+  id: 'pack',
+  label: 'PACK SIZE',
   required: true,
   choices: [
-    { id: 'reg', label: 'Regular', delta: 0 },
-    { id: 'med', label: 'Medium', delta: 120 },
-    { id: 'lg', label: 'Large', delta: 240 },
+    { id: 'single', label: 'Single (40g)', delta: 0 },
+    { id: 'trio', label: 'Trio Pack (120g)', delta: 200 },
+    { id: 'family', label: 'Family (200g)', delta: 220 },
   ],
 };
 
-const CRUST_GROUP: OptionGroup = {
-  id: 'crust',
-  label: 'CRUST',
+const NAMKEEN_PACK: OptionGroup = {
+  id: 'pack',
+  label: 'PACK SIZE',
   required: true,
   choices: [
-    { id: 'classic', label: 'Classic', delta: 0 },
-    { id: 'thin', label: 'Thin', delta: 40 },
-    { id: 'burst', label: 'Cheese Burst', delta: 90 },
+    { id: 'small', label: 'Small (100g)', delta: 0 },
+    { id: 'large', label: 'Large (250g)', delta: 80 },
   ],
 };
 
-const TOPPINGS_GROUP: OptionGroup = {
-  id: 'toppings',
-  label: 'TOPPINGS',
+const NANKHATAI_PACK: OptionGroup = {
+  id: 'pack',
+  label: 'BOX SIZE',
+  required: true,
+  choices: [
+    { id: 'box6', label: '6 pieces', delta: 0 },
+    { id: 'box12', label: '12 pieces', delta: 129 },
+    { id: 'box24', label: '24 pieces (Gift)', delta: 279 },
+  ],
+};
+
+const COOKIE_PACK: OptionGroup = {
+  id: 'pack',
+  label: 'BOX SIZE',
+  required: true,
+  choices: [
+    { id: 'box4', label: '4 pieces', delta: 0 },
+    { id: 'box8', label: '8 pieces', delta: 109 },
+  ],
+};
+
+const GIFT_ENGRAVING: OptionGroup = {
+  id: 'message',
+  label: 'PERSONALISED MESSAGE CARD',
+  multi: false,
+  choices: [
+    { id: 'none', label: 'No message card', delta: 0 },
+    { id: 'card', label: 'Add handwritten message card', delta: 30 },
+  ],
+};
+
+const SUB_FLAVOUR: OptionGroup = {
+  id: 'flavour',
+  label: 'MAKHANA PREFERENCE',
+  required: true,
   multi: true,
   choices: [
-    { id: 'paneer', label: 'Paneer', delta: 60 },
-    { id: 'olives', label: 'Olives', delta: 40 },
-    { id: 'jalapeno', label: 'Jalapeño', delta: 40 },
-    { id: 'mushroom', label: 'Mushroom', delta: 50 },
-    { id: 'corn', label: 'Corn', delta: 40 },
-  ],
-};
-
-const EXTRAS_GROUP: OptionGroup = {
-  id: 'extras',
-  label: 'EXTRAS',
-  multi: true,
-  choices: [
-    { id: 'cheese', label: 'Extra Cheese', delta: 70 },
-    { id: 'sauce', label: 'Extra Sauce', delta: 30 },
-    { id: 'raita', label: 'Raita', delta: 60 },
-    { id: 'salad', label: 'House Salad', delta: 80 },
-  ],
-};
-
-const SPICE_GROUP: OptionGroup = {
-  id: 'spice',
-  label: 'SPICE LEVEL',
-  required: true,
-  choices: [
-    { id: 'mild', label: 'Mild', delta: 0 },
-    { id: 'medium', label: 'Medium', delta: 0 },
-    { id: 'hot', label: "Chef's Hot", delta: 0 },
-  ],
-};
-
-const SWEETNESS: OptionGroup = {
-  id: 'sweetness',
-  label: 'SWEETNESS',
-  required: true,
-  choices: [
-    { id: 'full', label: 'Regular Sweet', delta: 0 },
-    { id: 'half', label: 'Half Sweet', delta: 0 },
-    { id: 'none', label: 'No Sugar', delta: 0 },
-  ],
-};
-
-const ICE_GROUP: OptionGroup = {
-  id: 'ice',
-  label: 'ICE',
-  required: true,
-  choices: [
-    { id: 'regular', label: 'Regular Ice', delta: 0 },
-    { id: 'less', label: 'Less Ice', delta: 0 },
-    { id: 'none', label: 'No Ice', delta: 0 },
+    { id: 'masala', label: 'Bhopali Masala', delta: 0 },
+    { id: 'salted', label: 'Classic Salted', delta: 0 },
+    { id: 'periperi', label: 'Peri Peri', delta: 0 },
+    { id: 'chatpata', label: 'Chatpata Imli', delta: 0 },
+    { id: 'cheese', label: 'Cheese & Herbs', delta: 0 },
   ],
 };
 
 const customizationMap: Record<string, OptionGroup[]> = {
-  pizza: [SIZE_GROUP, CRUST_GROUP, TOPPINGS_GROUP],
-  pasta: [SIZE_GROUP, EXTRAS_GROUP],
-  burgers: [EXTRAS_GROUP],
-  sandwiches: [EXTRAS_GROUP],
-  biryani: [SPICE_GROUP, EXTRAS_GROUP],
-  'north-indian': [SPICE_GROUP, EXTRAS_GROUP],
-  indian: [SPICE_GROUP, EXTRAS_GROUP],
-  'main-course': [SPICE_GROUP, EXTRAS_GROUP],
-  'south-indian': [SPICE_GROUP],
-  tandoor: [SPICE_GROUP],
-  grill: [SPICE_GROUP],
-  beverages: [ICE_GROUP, SWEETNESS],
-  coffee: [SWEETNESS],
-  mocktails: [ICE_GROUP, SWEETNESS],
-  desserts: [],
+  makhana: [MAKHANA_PACK_SIZE],
+  namkeen: [NAMKEEN_PACK],
+  nankhatai: [NANKHATAI_PACK, GIFT_ENGRAVING],
+  cookies: [COOKIE_PACK],
+  gifting: [GIFT_ENGRAVING],
+  subscriptions: [SUB_FLAVOUR],
 };
 
 export const customizationsFor = (d: Dish): OptionGroup[] => customizationMap[d.category] ?? [];
@@ -162,33 +141,28 @@ export const customizationsFor = (d: Dish): OptionGroup[] => customizationMap[d.
 /* ---------------- order tracking ---------------- */
 
 export const ORDER_STAGES = [
-  { id: 'placed', label: 'ORDER PLACED', sub: 'We have your order' },
-  { id: 'accepted', label: 'KITCHEN ACCEPTED', sub: 'The pass has it' },
-  { id: 'preparing', label: 'PREPARING', sub: 'Your food is being prepared' },
-  { id: 'packed', label: 'PACKED', sub: 'Boxed with care' },
-  { id: 'out', label: 'OUT FOR DELIVERY', sub: 'On the way to you' },
-  { id: 'arriving', label: 'ARRIVING', sub: 'Almost at your door' },
-  { id: 'delivered', label: 'DELIVERED', sub: 'Enjoy. Earned points added.' },
+  { id: 'placed', label: 'ORDER PLACED', sub: 'We have your Sahi Crunch order' },
+  { id: 'sourced', label: 'FRESH BATCH CONFIRMED', sub: 'Farm-fresh batch allocated to your order' },
+  { id: 'roasting', label: 'ROASTING IN PROGRESS', sub: 'Your makhana is in the convection oven now' },
+  { id: 'packed', label: 'PACKED & SEALED', sub: 'Boxed with made-on-date stamp' },
+  { id: 'out', label: 'OUT FOR DELIVERY', sub: 'Route-optimised batch on its way' },
+  { id: 'arriving', label: 'ARRIVING SOON', sub: 'Almost at your door' },
+  { id: 'delivered', label: 'DELIVERED', sub: 'Crunch away. Points added to your account.' },
 ];
 
 /* ---------------- pairings ---------------- */
 
 const pairingRules: Array<{ cats: string[]; picks: string[] }> = [
-  { cats: ['biryani'], picks: ['in-1', 'td-4', 'bv-2', 'ds-1'] },
-  { cats: ['tandoor', 'grill'], picks: ['td-1', 'si-2', 'bv-1', 'ds-3'] },
-  { cats: ['pizza', 'pasta', 'italian'], picks: ['it-1', 'co-2', 'bv-3', 'ds-2'] },
-  { cats: ['burgers', 'sandwiches'], picks: ['bg-2', 'sd-1', 'bv-2', 'ds-4'] },
-  { cats: ['north-indian', 'indian', 'main-course'], picks: ['ni-2', 'td-3', 'bv-2', 'ds-1'] },
-  { cats: ['south-indian'], picks: ['si-2', 'st-1', 'cf-2', 'ds-2'] },
-  { cats: ['asian', 'chinese'], picks: ['as-3', 'ch-3', 'mk-1', 'ds-3'] },
-  { cats: ['starters'], picks: ['by-1', 'bv-2', 'ds-1'] },
-  { cats: ['desserts'], picks: ['cf-1', 'mk-2'] },
-  { cats: ['beverages', 'coffee', 'mocktails'], picks: ['ds-1', 'st-1'] },
+  { cats: ['makhana'], picks: ['nm-1', 'nk-1', 'ck-1', 'sb-1'] },
+  { cats: ['namkeen'], picks: ['mk-1', 'mk-2', 'bv-1'] },
+  { cats: ['nankhatai', 'cookies'], picks: ['mk-2', 'mk-5', 'gf-1'] },
+  { cats: ['gifting'], picks: ['mk-1', 'nk-1', 'nm-3'] },
+  { cats: ['subscriptions'], picks: ['mk-1', 'mk-6', 'gf-2'] },
 ];
 
 export const pairingsFor = (d: Dish, all: Dish[]): Dish[] => {
   const rule = pairingRules.find((r) => r.cats.includes(d.category));
-  const ids = rule?.picks ?? ['by-1', 'td-1', 'ds-1'];
+  const ids = rule?.picks ?? ['mk-1', 'nk-1', 'nm-1'];
   return ids.filter((id) => id !== d.id).map((id) => all.find((x) => x.id === id)).filter(Boolean) as Dish[];
 };
 
@@ -200,16 +174,16 @@ export interface Offer {
   sub: string;
   code: string;
   value: string;
-  locations?: string[]; // undefined = all
+  locations?: string[];
 }
 
 export const offers: Offer[] = [
-  { id: 'first', title: 'FIRST ORDER', sub: 'Welcome to the table', code: 'GHARELU10', value: '10% OFF' },
-  { id: 'lunch', title: 'LUNCH SPECIAL', sub: 'Weekdays · 12:00–15:00', code: 'LUNCH25', value: '₹250 OFF', locations: ['indiranagar', 'koramangala'] },
-  { id: 'weekday', title: 'WEEKDAY DINING', sub: 'Mon–Thu, any hour', code: 'MIDWEEK', value: '15% OFF' },
-  { id: 'family', title: 'FAMILY COMBO', sub: 'Orders above ₹1,499', code: 'FAMILY', value: 'FREE DESSERT' },
-  { id: 'birthday', title: 'BIRTHDAY TABLE', sub: 'Show your ID, dessert is on us', code: 'BIRTHDAY', value: 'FREE DESSERT' },
-  { id: 'member', title: 'MEMBER EXCLUSIVE', sub: 'Signature tier and above', code: 'INNER', value: '20% OFF', locations: ['indiranagar'] },
+  { id: 'first', title: 'FIRST CRUNCH', sub: 'Welcome to Sahi Crunch. Your first box is special.', code: 'SAHIFIRST', value: '10% OFF' },
+  { id: 'refer', title: 'REFER A FRIEND', sub: 'Both of you earn 200 crunch points', code: 'SAHIREF', value: '₹50 OFF' },
+  { id: 'bulk', title: 'BULK ORDER', sub: 'Orders above ₹999', code: 'BULKCRUNCH', value: '15% OFF' },
+  { id: 'weekly', title: 'WEEKLY SUBSCRIBER', sub: 'Subscribe weekly, never run out', code: 'SAHIWEEK', value: 'FREE DELIVERY' },
+  { id: 'diwali', title: 'FESTIVE GIFTING', sub: 'Royal boxes for every table', code: 'SAHI25', value: '₹250 OFF', locations: ['bhopal-main'] },
+  { id: 'member', title: 'CRUNCH INSIDER', sub: 'Silver tier and above', code: 'INSIDER', value: '20% OFF', locations: ['bhopal-main'] },
 ];
 
 export const offersFor = (locationId: string | null) =>
@@ -218,50 +192,49 @@ export const offersFor = (locationId: string | null) =>
 /* ---------------- loyalty ---------------- */
 
 export const TIERS = [
-  { id: 'welcome', name: 'WELCOME', from: 0, perks: ['Earn 1 point per ₹10', 'Birthday dessert'] },
-  { id: 'insider', name: 'INSIDER', from: 500, perks: ['5% back in points', 'Priority reservations', 'Member offers'] },
-  { id: 'signature', name: 'SIGNATURE', from: 2000, perks: ['10% back in points', 'Early menu access', 'Complimentary welcome drink'] },
-  { id: 'founders', name: 'FOUNDERS', from: 5000, perks: ['15% back in points', "Chef's table invitations", 'Founding member events'] },
+  { id: 'welcome', name: 'WELCOME', from: 0, perks: ['Earn 1 point per ₹10', 'Birthday treat', 'Early access to new flavours'] },
+  { id: 'insider', name: 'INSIDER', from: 500, perks: ['5% crunch cashback', 'Skip-the-wait delivery', 'Insider-only flavours'] },
+  { id: 'sahi', name: 'SAHI', from: 2000, perks: ['10% cashback', 'Free personalisation on every gift', 'Quarterly tasting kit'] },
+  { id: 'founder', name: 'FOUNDER', from: 5000, perks: ['15% cashback', 'Name in every batch QR', 'Annual Bhopal kitchen visit'] },
 ];
 
 export const rewards = [
-  { id: 'r1', name: 'Welcome Drink', cost: 300 },
-  { id: 'r2', name: 'Dessert on the House', cost: 500 },
-  { id: 'r3', name: '₹300 Off Any Order', cost: 800 },
-  { id: 'r4', name: 'Priority Table', cost: 1200 },
-  { id: 'r5', name: "Chef's Tasting for Two", cost: 4000 },
+  { id: 'r1', name: 'Free Salted Makhana', cost: 200 },
+  { id: 'r2', name: 'Sahi Nankhatai Box', cost: 400 },
+  { id: 'r3', name: '₹200 Off Any Order', cost: 600 },
+  { id: 'r4', name: 'Sahi Gift Box — Small', cost: 1000 },
+  { id: 'r5', name: 'Quarterly Kitchen Visit, Bhopal', cost: 4000 },
 ];
 
 /* ---------------- discover ---------------- */
 
 export const chefStory = {
-  name: 'Chef Aarav Menon',
-  role: 'HEAD CHEF & FOUNDER',
+  name: 'Hack Busters Team',
+  role: 'FOUNDERS · BHOPAL',
   image: 'chef-04',
   story:
-    'Trained between Delhi and Copenhagen, Aarav opened Gharelu with one tandoor and a notebook of family recipes. He still writes the menu by hand every Monday.',
-  specialty: 'Dum cooking & charcoal',
-  favorite: 'Kasundi Soya Chaap Tikka',
+    'Born out of a home kitchen and a conviction: Bhopal\'s 78-year namkeen heritage deserves a modern-health reboot. Sahi Crunch is built on small batches, direct sourcing, and the discipline to never trade freshness for scale.',
+  specialty: 'Preservative-free snack innovation',
+  favorite: 'Bhopali Masala Makhana — always',
 };
 
 export const foodStories = [
-  { id: 's1', title: 'WHY OUR BIRYANI TAKES 8 HOURS', image: 'in-03', tag: 'THE CRAFT', steps: ['24-hour marination', 'Sealed with dough', 'Dum over slow coal', 'Opened at your table'] },
-  { id: 's2', title: '800 DEGREES OF CHARCOAL', image: 'fire-01', tag: 'THE FIRE', steps: ['Natural lump coal', 'No gas, ever', 'Rest before serving', 'Finished with ghee'] },
-  { id: 's3', title: 'THE DOSA THAT FERMENTS OVERNIGHT', image: 'in-24', tag: 'THE PATIENCE', steps: ['Rice & urad ground at dawn', 'Fermented 14 hours', 'Cast-iron heat', 'Ghee from Coorg'] },
+  { id: 's1', title: 'WHY WE ROAST, NOT FRY', image: 'in-03', tag: 'THE PROCESS', steps: ['Convection deck oven only', 'No oil submersion', 'Temperature-controlled batch', '55–60% GM retained'] },
+  { id: 's2', title: 'THE 48-HOUR PROMISE', image: 'fire-01', tag: 'THE FRESHNESS', steps: ['Made-on-date stamped', 'Batch dispatch same day', 'No warehouse storage', 'You eat what we just made'] },
+  { id: 's3', title: 'FROM BIHAR FARMGATE TO BHOPAL DOOR', image: 'in-24', tag: 'THE SOURCING', steps: ['Direct Bihar fox nut procurement', 'Chambal cold-pressed oils', 'Ratlam spice blends', 'QR-linked batch traceability'] },
 ];
 
 export const events = [
-  { id: 'e1', title: "CHEF'S TABLE", date: 'Every Saturday', time: '20:00', location: 'Indiranagar', seats: 8, price: 2400, image: 'chef-05', desc: 'Seven courses served by the chef, at the pass.' },
-  { id: 'e2', title: 'TASTING NIGHT', date: 'Last Friday monthly', time: '19:30', location: 'Koramangala', seats: 20, price: 1500, image: 'int-09', desc: 'Six plates, three pours, one long table.' },
-  { id: 'e3', title: 'LIVE MUSIC FRIDAYS', date: 'Every Friday', time: '21:00', location: 'Indiranagar', seats: 60, price: 0, image: 'int-10', desc: 'Acoustic sets, late kitchen, no cover.' },
+  { id: 'e1', title: 'POP-UP — BOAT CLUB', date: 'Every Saturday', time: '17:00–21:00', location: 'Bhopal Boat Club', seats: 200, price: 0, image: 'chef-05', desc: 'Free sampling. Meet the founders. Try all five Makhana flavours live.' },
+  { id: 'e2', title: 'DIWALI GIFTING DRIVE', date: 'October 2024', time: 'Pre-order open', location: 'WhatsApp', seats: 500, price: 0, image: 'int-09', desc: 'Corporate and personal Sahi boxes. Pre-order on WhatsApp for guaranteed festive delivery.' },
+  { id: 'e3', title: 'WEEKLY CRUNCH CLUB CALL', date: 'Every Sunday', time: '11:00 AM', location: 'WhatsApp Community', seats: 1000, price: 0, image: 'int-10', desc: 'Exclusive community for subscribers. New flavour previews, early drops, member-only offers.' },
 ];
 
 export const timeSlots = [
-  ...['12:00', '12:30', '13:00', '13:30', '14:00'].map((t) => ({ t, meal: 'Lunch' })),
-  ...['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'].map((t) => ({ t, meal: 'Dinner' })),
+  ...['09:00', '10:00', '11:00', '12:00'].map((t) => ({ t, meal: 'Morning Batch' })),
+  ...['16:00', '17:00', '18:00', '19:00'].map((t) => ({ t, meal: 'Evening Batch' })),
 ];
 
-/** deterministic pseudo-availability so slots feel real but stable */
 export const slotStatus = (date: string, time: string): 'available' | 'limited' | 'unavailable' => {
   const h = [...(date + time)].reduce((n, c) => n + c.charCodeAt(0), 0);
   const v = h % 10;

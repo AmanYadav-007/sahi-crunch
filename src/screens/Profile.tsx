@@ -1,367 +1,282 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
-  ChevronRight,
-  Heart,
-  Gift,
-  Ticket,
-  UserPlus,
-  LogOut,
-  Plus,
-  X,
-  Leaf,
-  MapPin,
+  User,
   Phone,
   Mail,
+  MapPin,
   Sparkles,
+  Award,
+  ChevronRight,
+  LogOut,
+  LogIn,
+  MessageCircle,
+  Share2,
+  Pencil,
+  Check,
+  X,
+  Loader2,
 } from 'lucide-react';
 import { useApp, tierOf } from '../store';
-import { dishById } from '../data/menu';
-import { locations } from '../data/locations';
 import { TIERS } from '../data';
-import { Sheet, Pill, DishImg, SectionTitle, TabHeader } from '../ui';
+import { locations } from '../data/locations';
+import { TabHeader } from '../ui';
+import { useAuth } from '../lib/AuthContext';
 
 export default function Profile() {
-  const profile = useApp((s) => s.profile);
-  const setProfile = useApp((s) => s.setProfile);
-  const points = useApp((s) => s.points);
-  const referralCode = useApp((s) => s.referralCode);
-  const favorites = useApp((s) => s.favorites);
-  const orders = useApp((s) => s.orders);
-  const reservations = useApp((s) => s.reservations);
-  const locationId = useApp((s) => s.locationId);
   const push = useApp((s) => s.push);
-  const reset = useApp((s) => s.reset);
+  const locationId = useApp((s) => s.locationId);
+  const points = useApp((s) => s.points);
 
-  const [signIn, setSignIn] = useState(false);
-  const [addrOpen, setAddrOpen] = useState(false);
-  const [addrText, setAddrText] = useState('');
-  const [copied, setCopied] = useState(false);
-
-  const [form, setForm] = useState({ name: profile.name, phone: profile.phone, email: profile.email });
-  const tier = TIERS[tierOf(points)];
+  const auth = useAuth();
   const branch = locations.find((l) => l.id === locationId) ?? locations[0];
-  const favDishes = favorites.map(dishById).filter((d): d is NonNullable<typeof d> => Boolean(d));
+  const tier = TIERS[tierOf(points)];
 
-  const saveSignIn = () => {
-    setProfile({ ...form, guest: false });
-    setSignIn(false);
+  const [editing, setEditing] = useState(false);
+  const [editName, setEditName] = useState(auth.user?.name ?? '');
+  const [editEmail, setEditEmail] = useState(auth.user?.email ?? '');
+  const [saving, setSaving] = useState(false);
+  const [editError, setEditError] = useState('');
+
+  const handleSave = async () => {
+    setSaving(true);
+    setEditError('');
+    const err = await auth.updateProfile({ name: editName, email: editEmail });
+    setSaving(false);
+    if (err) setEditError(err);
+    else setEditing(false);
   };
 
-  const copyReferral = async () => {
-    try {
-      await navigator.clipboard.writeText(referralCode);
-    } catch {
-      /* clipboard can be blocked — the code stays visible */
-    }
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  };
+  const displayName = auth.user?.name || 'Sahi Crunch Member';
+  const displayPhone = auth.user?.phone || '';
+  const displayEmail = auth.user?.email || '';
+  const initial = displayName[0]?.toUpperCase() ?? 'S';
 
   return (
-    <div className="safe-b pb-8">
-      <TabHeader
-        eyebrow={profile.guest ? 'GUEST AT THE HOUSE' : 'WELCOME BACK'}
-        title={profile.name || 'Your Table'}
-        right={
-          <div className="grid h-12 w-12 place-items-center border amber-line tint-amber">
-            <span className="font-display text-2xl font-semibold text-amber">
-              {(profile.name || 'G').charAt(0).toUpperCase()}
-            </span>
-          </div>
-        }
-      />
+    <div className="min-h-screen bg-[#FDFBF7] pb-36 text-[#1E1E24]">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-6 space-y-4 max-w-4xl mx-auto">
 
-      <div className="gut mt-3">
-        <p className="caption">
-          {profile.phone || profile.email || 'No details saved yet'}
-        </p>
+        {/* User Profile Card */}
+        <div className="bg-[#FBF7F0] p-5 rounded-3xl border border-[#e5d8c3] shadow-card">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-3.5">
+              <div className="w-14 h-14 rounded-2xl bg-[#681121] text-white flex items-center justify-center font-black text-xl shadow-md shadow-[#681121]/20">
+                {initial}
+              </div>
+              <div>
+                {!editing ? (
+                  <>
+                    <h2 className="text-base font-extrabold text-[#1E1E24] leading-tight">{displayName}</h2>
+                    {displayPhone && <p className="text-xs text-slate-500 font-medium mt-0.5">{displayPhone}</p>}
+                    {displayEmail && <p className="text-xs text-slate-400 mt-0.5">{displayEmail}</p>}
+                  </>
+                ) : (
+                  <div className="space-y-2">
+                    <input
+                      type="text"
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      className="w-full text-sm font-bold border border-[#e5d8c3] rounded-xl px-3 py-1.5 bg-white focus:outline-none focus:border-[#681121]"
+                      placeholder="Your name"
+                    />
+                    <input
+                      type="email"
+                      value={editEmail}
+                      onChange={(e) => setEditEmail(e.target.value)}
+                      className="w-full text-sm border border-[#e5d8c3] rounded-xl px-3 py-1.5 bg-white focus:outline-none focus:border-[#681121]"
+                      placeholder="Email address"
+                    />
+                    {editError && <p className="text-xs text-red-600 font-medium">{editError}</p>}
+                  </div>
+                )}
+                {!editing && (
+                  <div className="mt-1.5 inline-flex items-center gap-1 bg-[#D48924]/15 text-[#b87319] border border-[#D48924]/30 text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                    <Sparkles size={11} className="text-[#D48924] fill-[#D48924]" />
+                    <span>{tier.name} CLUB MEMBER</span>
+                  </div>
+                )}
+              </div>
+            </div>
 
-        {profile.guest ? (
-          <button type="button" onClick={() => setSignIn(true)} className="btn-solid mt-4 w-full !py-3.5">
-            SIGN IN / CREATE ACCOUNT
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => push({ type: 'loyalty' })}
-            data-cursor="CLUB"
-            className="card-amber mt-4 flex w-full items-center justify-between px-5 py-4 text-left"
-          >
-            <span>
-              <span className="label flex items-center gap-2 gold">
-                <Sparkles size={12} /> GHARELU HUB · {tier.name}
-              </span>
-              <span className="mt-1 block num text-2xl text-ivory">
-                {points}
-                <span className="eyebrow ml-2">PTS</span>
-              </span>
-            </span>
-            <ChevronRight size={18} className="text-amber" />
-          </button>
-        )}
-      </div>
-
-      {/* quick stats */}
-      <section className="sect gut grid grid-cols-3 gap-2">
-        <Stat label="ORDERS" value={orders.length} />
-        <Stat label="TABLES" value={reservations.length} />
-        <Stat label="SAVED" value={favorites.length} />
-      </section>
-
-      {/* saved */}
-      <section className="sect">
-        <SectionTitle
-          action={
-            <span className="eyebrow">
-              <Heart size={11} className="mr-1 inline" />
-              {favDishes.length}
-            </span>
-          }
-        >
-          SAVED DISHES
-        </SectionTitle>
-        {favDishes.length === 0 ? (
-          <p className="gut body">Tap the heart on any dish and it waits for you here.</p>
-        ) : (
-          <div className="no-bar flex gap-3 overflow-x-auto px-5 pb-1">
-            {favDishes.map((d) => (
+            {/* Auth State Buttons */}
+            {auth.isLoggedIn ? (
+              <div className="flex gap-2">
+                {!editing ? (
+                  <button
+                    type="button"
+                    onClick={() => { setEditName(auth.user?.name ?? ''); setEditEmail(auth.user?.email ?? ''); setEditing(true); }}
+                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#681121]/10 text-[#681121] hover:bg-[#681121]/20 transition-colors"
+                  >
+                    <Pencil size={14} />
+                  </button>
+                ) : (
+                  <div className="flex gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => { setEditing(false); setEditError(''); }}
+                      className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors"
+                    >
+                      <X size={14} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSave}
+                      disabled={saving}
+                      className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#4E8B56] text-white hover:bg-[#3d7044] transition-colors"
+                    >
+                      {saving ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
               <button
-                key={d.id}
                 type="button"
-                onClick={() => push({ type: 'dish', id: d.id })}
-                className="w-32 shrink-0 text-left"
+                onClick={auth.openLogin}
+                className="flex items-center gap-1.5 bg-[#681121] text-white text-xs font-bold px-3 py-2 rounded-xl shadow-sm transition-colors hover:bg-[#540c19]"
               >
-                <div className="relative aspect-square overflow-hidden hair-all">
-                  <DishImg name={d.image} className="h-full w-full object-cover" />
-                  <div className="scrim-soft absolute inset-0" />
-                </div>
-                <span className="body-b mt-1.5 block truncate">{d.name}</span>
-                <span className="num gold text-xs">₹{d.price}</span>
+                <LogIn size={14} />
+                <span>Login</span>
               </button>
-            ))}
+            )}
           </div>
-        )}
-      </section>
 
-      {/* rows */}
-      <section className="sect gut">
-        <h2 className="mb-3 label text-ivory">YOUR HOUSE</h2>
-        <ul className="card hair-y overflow-hidden">
-          <Row Icon={Gift} title="Rewards wallet" sub={`${points} points · ${tier.name}`} onClick={() => push({ type: 'loyalty' })} />
-          <Row Icon={Ticket} title="Offers" sub={`Live for ${branch.area}`} onClick={() => push({ type: 'offers' })} />
-          <Row Icon={MapPin} title="Switch location" sub={`${branch.area}, ${branch.city}`} onClick={() => push({ type: 'location' })} />
-          <Row
-            Icon={Heart}
-            title="Favorites"
-            sub={`${favorites.length} saved`}
-            onClick={() => push({ type: 'dish', id: favorites[0] ?? 'by-1' })}
-          />
-        </ul>
-      </section>
-
-      {/* addresses */}
-      <section className="sect gut">
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="label text-ivory">SAVED ADDRESSES</h2>
-          <button type="button" onClick={() => setAddrOpen(true)} className="label gold">
-            <Plus size={12} className="mr-1 inline" />
-            ADD
-          </button>
+          {/* Not logged in prompt */}
+          {!auth.isLoggedIn && (
+            <div className="mt-4 p-3.5 bg-[#681121]/5 rounded-2xl border border-[#681121]/15">
+              <p className="text-xs text-[#681121] font-semibold leading-relaxed">
+                🎁 Login to track orders, earn Crunch Rewards points, and get exclusive member offers!
+              </p>
+              <button
+                type="button"
+                onClick={auth.openRegister}
+                className="mt-2.5 w-full bg-[#681121] text-white text-xs font-extrabold py-2.5 rounded-xl shadow-sm transition-colors hover:bg-[#540c19]"
+              >
+                Create Free Account & Get 120 Points →
+              </button>
+            </div>
+          )}
         </div>
-        {profile.addresses.length === 0 ? (
-          <p className="card-muted p-5 text-center caption">No addresses yet — add one for faster delivery.</p>
-        ) : (
-          <ul className="space-y-2">
-            {profile.addresses.map((a, i) => (
-              <li key={i} className="card flex items-start gap-3 px-4 py-3">
-                <MapPin size={14} className="mt-0.5 shrink-0 text-amber" />
-                <span className="body flex-1">{a}</span>
-                <button
-                  type="button"
-                  aria-label="Remove address"
-                  onClick={() => setProfile({ addresses: profile.addresses.filter((_, x) => x !== i) })}
-                  className="text-ivory-faint transition-colors hover:text-chili"
-                >
-                  <X size={14} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
 
-      {/* preferences */}
-      <section className="sect gut">
-        <h2 className="mb-3 label text-ivory">PREFERENCES</h2>
-        <div className="card flex items-center justify-between px-4 py-4">
-          <span className="body flex items-center gap-2.5">
-            <Leaf size={15} className="text-herb" />
-            Vegetarian menu first
-          </span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={!!profile.vegMode}
-            onClick={() => setProfile({ vegMode: !profile.vegMode })}
-            className={`relative h-6 w-11 border transition-colors ${
-              profile.vegMode ? 'border-herb bg-herb/25' : 'hair-2 bg-ink-800'
-            }`}
-          >
-            <span
-              className={`absolute top-0.5 transition-all duration-300 ${
-                profile.vegMode ? 'left-6 bg-herb' : 'left-0.5 bg-ivory-faint'
-              }`}
-              style={{ height: '1.1rem', width: '1.1rem' }}
-            />
-          </button>
-        </div>
-      </section>
-
-      {/* referral */}
-      <section className="sect gut">
-        <button type="button" onClick={copyReferral} className="card-dash flex w-full items-center justify-between px-5 py-4 text-left">
-          <span>
-            <span className="label flex items-center gap-2 gold">
-              <UserPlus size={12} /> REFER A FRIEND
-            </span>
-            <span className="caption mt-1 block">Both of you get 200 points on their first order.</span>
-            <span className="num mt-1.5 block text-lg tracking-[0.2em] text-ivory">{referralCode}</span>
-          </span>
-          <span className="label shrink-0 gold">{copied ? 'COPIED' : 'TAP TO COPY'}</span>
-        </button>
-      </section>
-
-      {/* contact + leave */}
-      <section className="sect gut space-y-3">
-        <div className="body flex items-center gap-3">
-          <Phone size={13} className="text-amber" /> {branch.phone}
-        </div>
-        <div className="body flex items-center gap-3">
-          <Mail size={13} className="text-amber" /> {profile.email || 'concierge@ghareluhub.in'}
-        </div>
-        <button
-          type="button"
-          onClick={() => {
-            if (window.confirm('Reset this demo — cart, orders, reservations and points will be cleared.')) reset();
-          }}
-          className="chip w-full justify-center py-3 transition-colors hover:border-[rgba(181,56,31,0.5)] hover:text-[#d4553a]"
+        {/* Loyalty Points Card */}
+        <div
+          onClick={() => push({ type: 'loyalty' })}
+          className="bg-gradient-to-r from-[#681121] via-[#701222] to-[#b87319] text-white p-5 rounded-3xl shadow-lg shadow-[#681121]/20 cursor-pointer flex items-center justify-between"
         >
-          <LogOut size={13} /> {profile.guest ? 'RESET DEMO' : 'SIGN OUT'}
-        </button>
-        <p className="eyebrow pb-2 pt-3 text-center">GHARELU HUB · EST. 2019 · BENGALURU</p>
-      </section>
-
-      {profile.guest && (
-        <div className="gut mt-6">
-          <Pill tone="off">BROWSING AS A GUEST — SIGN IN TO EARN POINTS</Pill>
+          <div>
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#E2952A]">
+              Crunch Rewards Balance
+            </span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-3xl font-black text-[#FDFBF7]">{points}</span>
+              <span className="text-xs font-bold text-orange-100">Points Available</span>
+            </div>
+            <p className="text-xs text-orange-100 mt-1">
+              Redeem for free packs & instant bill discounts →
+            </p>
+          </div>
+          <ChevronRight size={24} className="text-white/80" />
         </div>
-      )}
 
-      {/* sign in sheet */}
-      <Sheet open={signIn} onClose={() => setSignIn(false)} title="YOUR DETAILS">
-        <div className="space-y-4 px-5 pt-4">
-          <Field label="NAME" value={form.name} onChange={(v) => setForm({ ...form, name: v })} placeholder="Who's at the table?" />
-          <Field label="PHONE" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} placeholder="+91 " type="tel" />
-          <Field label="EMAIL" value={form.email} onChange={(v) => setForm({ ...form, email: v })} placeholder="you@example.com" type="email" />
-          <button type="button" onClick={saveSignIn} className="btn-solid w-full !py-3.5">
-            SAVE & CONTINUE
-          </button>
-          <p className="caption pb-2 text-center">
-            We use this only for orders, tables and points. Never for spam.
-          </p>
-        </div>
-      </Sheet>
-
-      {/* address sheet */}
-      <Sheet open={addrOpen} onClose={() => setAddrOpen(false)} title="NEW ADDRESS">
-        <div className="space-y-4 px-5 pt-4">
-          <textarea
-            value={addrText}
-            onChange={(e) => setAddrText(e.target.value)}
-            rows={3}
-            placeholder="Flat, street, landmark, pincode"
-            className="field w-full resize-none"
-          />
+        {/* Settings Links */}
+        <div className="bg-[#FBF7F0] rounded-3xl border border-[#e5d8c3] shadow-card divide-y divide-[#e8dfcf]">
           <button
             type="button"
-            disabled={!addrText.trim()}
-            onClick={() => {
-              setProfile({ addresses: [...profile.addresses, addrText.trim()] });
-              setAddrText('');
-              setAddrOpen(false);
-            }}
-            className="btn-solid w-full !py-3.5 disabled:opacity-40"
+            onClick={() => push({ type: 'location' })}
+            className="w-full flex items-center justify-between p-4 text-left hover:bg-[#f3ece0] transition-colors"
           >
-            SAVE ADDRESS
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center">
+                <MapPin size={18} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#1E1E24]">Saved Addresses</p>
+                <p className="text-[11px] text-slate-500">{branch.area}, Bhopal</p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-slate-400" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => push({ type: 'offers' })}
+            className="w-full flex items-center justify-between p-4 text-left hover:bg-[#f3ece0] transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center">
+                <Award size={18} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#1E1E24]">Offers & Coupons</p>
+                <p className="text-[11px] text-slate-500">View available promo codes & discounts</p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-slate-400" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => window.open('https://wa.me/91XXXXXXXXXX?text=Hi%20Sahi%20Crunch,%20I%20need%20help%20with%20an%20order', '_blank')}
+            className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <MessageCircle size={18} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">WhatsApp Concierge</p>
+                <p className="text-[11px] text-slate-500">Live chat support & bulk queries</p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-slate-400" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => { navigator.clipboard?.writeText('https://sahicrunch.in'); alert('App link copied to clipboard!'); }}
+            className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+                <Share2 size={18} />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">Share App</p>
+                <p className="text-[11px] text-slate-500">Refer friends & earn 200 points</p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-slate-400" />
           </button>
         </div>
-      </Sheet>
+
+        {/* Logout / Login */}
+        <div className="pt-2">
+          {auth.isLoggedIn ? (
+            <button
+              type="button"
+              onClick={async () => {
+                if (window.confirm('Log out of Sahi Crunch?')) await auth.logout();
+              }}
+              className="w-full flex items-center justify-center gap-2 p-3.5 rounded-2xl border border-red-200 text-red-600 bg-red-50/50 hover:bg-red-50 text-xs font-bold transition-colors"
+            >
+              <LogOut size={16} />
+              <span>Sign Out</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={auth.openLogin}
+              className="w-full flex items-center justify-center gap-2 p-3.5 rounded-2xl border border-[#681121]/30 text-[#681121] bg-[#681121]/5 hover:bg-[#681121]/10 text-xs font-bold transition-colors"
+            >
+              <LogIn size={16} />
+              <span>Login / Create Account</span>
+            </button>
+          )}
+        </div>
+
+        <p className="text-center text-[11px] text-slate-400 font-medium pt-4">
+          SAHI CRUNCH · App v2.4.0 · Bhopal, MP
+        </p>
+      </div>
     </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="card px-3 py-4 text-center">
-      <span className="num gold block text-2xl">{value}</span>
-      <span className="eyebrow mt-1 block">{label}</span>
-    </div>
-  );
-}
-
-function Row({
-  Icon,
-  title,
-  sub,
-  onClick,
-}: {
-  Icon: typeof Gift;
-  title: string;
-  sub: string;
-  onClick: () => void;
-}) {
-  return (
-    <li>
-      <button
-        type="button"
-        onClick={onClick}
-        data-cursor="OPEN"
-        className="flex w-full items-center gap-3.5 px-4 py-4 text-left transition-colors hover:bg-[rgba(241,234,221,0.05)]"
-      >
-        <Icon size={17} className="shrink-0 text-amber" strokeWidth={1.6} />
-        <span className="min-w-0 flex-1">
-          <span className="body-b block">{title}</span>
-          <span className="caption block truncate">{sub}</span>
-        </span>
-        <ChevronRight size={16} className="shrink-0 text-ivory-faint" />
-      </button>
-    </li>
-  );
-}
-
-function Field({
-  label,
-  value,
-  onChange,
-  placeholder,
-  type = 'text',
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-  type?: string;
-}) {
-  return (
-    <label className="block">
-      <span className="eyebrow block">{label}</span>
-      <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        className="field mt-1.5 w-full"
-      />
-    </label>
   );
 }

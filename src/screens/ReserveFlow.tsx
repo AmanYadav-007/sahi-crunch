@@ -4,6 +4,8 @@ import { useApp } from '../store';
 import { locations } from '../data/locations';
 import { timeSlots, slotStatus } from '../data';
 import { Screen } from '../ui';
+import { useAuth } from '../lib/AuthContext';
+import { reservationsApi } from '../lib/api';
 
 const daysFromNow = (n: number) => {
   const d = new Date();
@@ -18,6 +20,7 @@ export default function ReserveFlow() {
   const addReservation = useApp((s) => s.addReservation);
   const setTab = useApp((s) => s.setTab);
   const profile = useApp((s) => s.profile);
+  const auth = useAuth();
 
   const branch = locations.find((l) => l.id === locationId) ?? locations[0];
   const days = Array.from({ length: 7 }, (_, i) => daysFromNow(i));
@@ -28,9 +31,12 @@ export default function ReserveFlow() {
   const [notes, setNotes] = useState('');
   const [done, setDone] = useState<{ code: string; time: string; date: string; guests: number } | null>(null);
 
-  const confirm = () => {
+  const confirm = async () => {
     if (!time) return;
     const res = addReservation({ locationId: branch.id, date, time, guests, notes: notes.trim() || undefined });
+    if (auth.isLoggedIn) {
+      reservationsApi.create({ locationId: branch.id, date, time, guests, notes: notes.trim() || undefined }).catch(() => {});
+    }
     setDone({ code: res.code, time, date, guests });
   };
 
@@ -56,7 +62,7 @@ export default function ReserveFlow() {
             </div>
           </div>
 
-          <p className="eyebrow mt-4">+50 POINTS ADDED TO GHARELU HUB</p>
+          <p className="eyebrow mt-4">+50 CRUNCH POINTS ADDED</p>
 
           <button type="button" onClick={() => setTab('reservations')} className="btn-solid mt-7 w-full !py-4">
             VIEW MY TABLES
@@ -71,7 +77,7 @@ export default function ReserveFlow() {
 
   return (
     <Screen eyebrow="RESERVATIONS" title="HOLD A TABLE">
-      <div className="space-y-7 px-5 pt-5">
+      <div className="max-w-xl mx-auto space-y-7 px-5 pt-5 pb-10">
         {/* room */}
         <div className="card flex items-center justify-between px-4 py-3">
           <div>

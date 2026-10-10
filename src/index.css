@@ -1,212 +1,206 @@
-@import './styles/fonts.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --ink: #070605;
-  --ink-2: #0b0a09;
-  --ivory: #f1eadd;
-  --ivory-dim: rgba(241, 234, 221, 0.56);
-  --ivory-faint: rgba(241, 234, 221, 0.28);
-  --line: rgba(241, 234, 221, 0.12);
-  --amber: #e6a756;
-  --chili: #b5381f;
-  --herb: #7d9b62;
-  --gold: #c9a24b;
-  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --primary-maroon: #681121;
+  --primary-maroon-deep: #701222;
+  --accent-amber: #D48924;
+  --accent-amber-light: #E2952A;
+  --bg-cream: #FDFBF7;
+  --bg-cream-soft: #FBF7F0;
+  --text-charcoal: #1E1E24;
+  --navy-slate: #1D2E47;
+  --green-sage: #4E8B56;
+  --tan-kraft: #D1A673;
 }
 
 @layer base {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-ink-950 text-ivory font-sans font-light antialiased;
-    overflow-x: clip;
-    text-rendering: optimizeLegibility;
+    background-color: #FDFBF7;
+    color: #1E1E24;
+    font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: rgba(230, 167, 86, 0.85);
-    color: #0b0a09;
+    background: #681121;
+    color: #ffffff;
   }
 
-  h1, h2, h3, h4 {
-    @apply font-display font-semibold;
-    text-wrap: balance;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--amber);
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-
-  img {
-    @apply select-none;
-  }
-
-  input, button, textarea, select {
-    font: inherit;
-    color: inherit;
-  }
-
-  input::placeholder, textarea::placeholder {
-    color: var(--ivory-faint);
-  }
-}
-
-@layer components {
-  .label {
-    @apply font-sans text-[10px] sm:text-[11px] uppercase tracking-label font-normal;
-  }
-
-  .label-sm {
-    @apply font-sans text-[9px] uppercase tracking-label font-normal;
-  }
-
-  .num {
-    @apply font-display italic font-medium;
-  }
-
-  .hairline {
-    border-color: var(--line);
-  }
-
-  .btn {
-    @apply relative inline-flex items-center justify-center gap-3 overflow-hidden
-      px-7 py-4 label border transition-all duration-500 ease-luxe select-none;
-  }
-
-  .btn-solid {
-    @apply btn bg-ivory text-ink-950 border-ivory hover:bg-amber hover:border-amber;
-  }
-
-  .btn-ghost {
-    @apply btn border-ivory/25 text-ivory hover:border-ivory/70;
-  }
-
-  .btn .btn-arrow {
-    @apply transition-transform duration-500 ease-luxe;
-  }
-
-  .btn:hover .btn-arrow {
-    transform: translateX(6px);
-  }
-
-  .field {
-    @apply w-full bg-transparent border-b border-ivory/20 py-3 text-ivory
-      placeholder:font-light focus:border-amber focus:outline-none transition-colors duration-300;
-  }
-
-  .section-pad {
-    @apply px-5 sm:px-8 lg:px-14;
-  }
-
-  .mask-line {
-    display: block;
-    overflow: hidden;
-  }
-
-  .mask-line > span {
-    display: block;
-    will-change: transform;
-  }
-}
-
-/* ---------- overlays / atmosphere ---------- */
-.grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.4;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-}
-
-.vignette::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-/* ---------- custom cursor ---------- */
-@media (hover: hover) and (pointer: fine) {
-  html.has-cursor,
-  html.has-cursor * {
-    cursor: none !important;
-  }
-}
-
-/* ---------- lenis ---------- */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-/* ---------- scrollbar ---------- */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0b0a09;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(241, 234, 221, 0.18);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(230, 167, 86, 0.5);
-}
-
-/* ---------- animations ---------- */
-@keyframes marquee-x {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.6); opacity: 0.9; }
-  100% { transform: scale(2.4); opacity: 0; }
-}
-
-@keyframes scroll-line {
-  0% { transform: scaleY(0); transform-origin: top; }
-  45% { transform: scaleY(1); transform-origin: top; }
-  55% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
-
-.animate-scroll-line {
-  animation: scroll-line 2.2s var(--ease-luxe) infinite;
-}
-
-.animate-marquee {
-  animation: marquee-x 40s linear infinite;
-}
-
-/* ---------- reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
+  /* Disable hover border color changes across entire site */
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  .animate-marquee {
-    animation: none !important;
+    &:hover {
+      border-color: inherit;
+    }
   }
 }
+
+/* App shell container - 100% Full width on every device (Mobile, Tablet, Laptop, Ultra-wide Desktop) */
+.app-frame {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background: #FDFBF7;
+}
+
+/* Fluid responsive layout: 100% full width edge-to-edge on desktop without any card wrapper or outer margin */
+@media (min-width: 1024px) {
+  body {
+    background-color: #FDFBF7;
+  }
+  .app-frame {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-shadow: none;
+    background-color: #FDFBF7;
+    min-height: 100vh;
+  }
+}
+
+/* Responsive Desktop Container Utility */
+.desktop-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .desktop-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Pure Veg Indicator icon */
+.veg-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #0f8a3a;
+  border-radius: 3px;
+  background: #ffffff;
+}
+.veg-badge::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0f8a3a;
+}
+
+/* Custom scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Elegant custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(104, 17, 33, 0.2);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(104, 17, 33, 0.45);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(104, 17, 33, 0.25) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F4EFE6;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #D48924;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #B36F15;
+}
+
+@keyframes celebratePopup {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(8px);
+  }
+  50% {
+    transform: scale(1.03) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes confettiBurst {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-24px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+.animate-celebrate {
+  animation: celebratePopup 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes confettiRain {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.animate-confetti-piece {
+  animation: confettiRain 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+

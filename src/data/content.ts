@@ -11,120 +11,51 @@ export interface Signature {
 export const signatures: Signature[] = [
   {
     no: '01',
-    id: 'sig-biryani',
-    dishId: 'by-1',
-    title: 'Dum Nizami Subz Biryani',
-    sub: 'Sealed with dough. Opened at the table.',
+    id: 'sig-makhana',
+    dishId: 'mk-1',
+    title: 'Bhopali Masala Makhana',
+    sub: 'Sahi Spice. Modern Crunch.',
     story:
-      'Aged basmati rested overnight, heirloom vegetables slow-braised with saffron and caramelized onions. The handi is sealed with atta and opened only in front of you — the first breath is the recipe.',
+      'Fox nuts sourced directly from Bihar farmgates, roasted in a convection deck oven — never fried. Tossed in a spice blend built on 78 years of Bhopali street-food memory: Ratlam masala, Chambal turmeric, a whisper of amchur. Every batch is made-to-order and shipped within 48 hours.',
     image: 'in-03',
   },
   {
     no: '02',
-    id: 'sig-grill',
-    dishId: 'gr-1',
-    title: 'Fire-Grilled Veg Platter',
-    sub: 'Eight hundred degrees of charcoal.',
+    id: 'sig-nankhatai',
+    dishId: 'nk-1',
+    title: 'Sahi Nankhatai',
+    sub: 'Desi Ghee. Gram Flour. Pure Tradition.',
     story:
-      'Smoked cottage cheese glazed with jaggery and chilli, king mushrooms rested in rosemary butter, grilled sweetcorn ribs. Built for two, argued over by three.',
-    image: 'fire-01',
+      'A recipe unchanged since historic Bhopal. Besan whisked with desi ghee from Chambal farms, sweetened with powdered sugar, spiced with green cardamom and a strand of saffron. Baked fresh every morning, stamped with the made-on date, and delivered within the day.',
+    image: 'dessert-01',
   },
   {
     no: '03',
-    id: 'sig-pasta',
-    dishId: 'pa-2',
-    title: 'Truffle Aglio e Olio',
-    sub: 'Garlic confit, finished in summer truffle.',
+    id: 'sig-ratlam',
+    dishId: 'nm-3',
+    title: 'Ratlam Sev Deluxe',
+    sub: 'Named after the city that perfected it.',
     story:
-      'Slow garlic confit in extra virgin olive oil, a pinch of peperoncino, aromatic black truffle oil, spaghetti lifted straight from the pan. Pure artisanal simplicity.',
-    image: 'as-01',
+      'Ratlam has made its sev famous across Madhya Pradesh for over a century. Our version sources Ratlam red chillies directly from producers — bold, full-flavoured, and completely free of artificial colour or preservatives. The crunch that stays with you.',
+    image: 'in-12',
   },
   {
     no: '04',
-    id: 'sig-chef',
-    dishId: 'sp-1',
-    title: "Chef's Table Smoked Jackfruit Shank",
-    sub: 'Twelve hours. One plate.',
+    id: 'sig-gift',
+    dishId: 'gf-2',
+    title: 'Sahi Snack Box — Grand',
+    sub: 'The full Bhopal snacking story. Gift it.',
     story:
-      'Slow-braised spiced kathal shank until tender, set on saffron potato puree with a rich port jus reduced through service. Available at the chef’s counter, Indiranagar only.',
-    image: 'in-10',
+      'Every item in the Sahi Crunch lineup, assembled in a kraft box printed with the Bhopal Upper Lake skyline. A Sahi heritage motif runs across the closure. Fresh-made on the day of dispatch, never sitting in a warehouse. The only snack gift that tells a real story.',
+    image: 'fire-01',
   },
 ];
 
 export const storyStages = [
-  { no: '01', label: 'INGREDIENTS', text: 'It begins in the market — before the fire, before the knife.', image: 'prep-03' },
-  { no: '02', label: 'PREPARATION', text: 'Hands, rhythm, repetition. The craft lives in the prep.', image: 'prep-04' },
-  { no: '03', label: 'FIRE', text: 'Then heat. Charcoal, wok flame, the sound of the sear.', image: 'chef-04' },
-  { no: '04', label: 'PLATE', text: 'Every plate is composed, not merely served.', image: 'chef-05' },
-  { no: '05', label: 'TABLE', text: 'The room does the rest — light, sound, company.', image: 'int-07' },
-  { no: '06', label: 'EXPERIENCE', text: 'And a memory leaves with you.', image: 'int-10' },
-];
-
-export const ingredientSwarm = [
-  { name: 'BASIL', hint: 'picked at dawn' },
-  { name: 'CHILLI', hint: 'Guntur heat' },
-  { name: 'GARLIC', hint: 'roasted whole' },
-  { name: 'GINGER', hint: 'young root' },
-  { name: 'SAFFRON', hint: 'Kashmiri threads' },
-  { name: 'TOMATO', hint: 'slow-confit' },
-  { name: 'PEPPER', hint: 'Malabar coast' },
-  { name: 'CORIANDER', hint: 'stems included' },
-];
-
-export interface Testimonial {
-  quote: string;
-  name: string;
-  place: string;
-  rating: number;
-}
-
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      'The biryani arrived sealed and the whole table went quiet. That is not a meal, that is theatre — and it tasted even better than it looked.',
-    name: 'Ananya Menon',
-    place: 'Bengaluru',
-    rating: 5,
-  },
-  {
-    quote:
-      'I have eaten at chef’s counters in Tokyo and Copenhagen. The smoked jackfruit shank at Gharelu belongs in that conversation.',
-    name: 'Rohan Kapoor',
-    place: 'Mumbai',
-    rating: 5,
-  },
-  {
-    quote:
-      'They light the room like a film set and cook like your grandmother is watching. Impossible combination, perfectly done.',
-    name: 'Sarah Whitfield',
-    place: 'London',
-    rating: 5,
-  },
-  {
-    quote:
-      'We booked for one hour and stayed four. The staff let us linger, the wine kept coming, nobody rushed a single course.',
-    name: 'Karthik Iyer',
-    place: 'Chennai',
-    rating: 5,
-  },
-  {
-    quote:
-      'The truffle paneer is the only thing my vegetarian wife and I have ever agreed on ordering twice.',
-    name: 'Devika Sharma',
-    place: 'Dubai',
-    rating: 5,
-  },
-];
-
-export const socialGallery = [
-  { image: 'int-09', caption: 'Sunday spread, Koramangala', tag: 'THE TABLE' },
-  { image: 'chef-04', caption: 'Service, 21:40', tag: 'THE FIRE' },
-  { image: 'dessert-01', caption: 'Caramel, mid-pour', tag: 'THE SWEET END' },
-  { image: 'int-07', caption: 'Before doors open', tag: 'THE ROOM' },
-  { image: 'prep-03', caption: 'Masala, ground at 6am', tag: 'THE PREP' },
-  { image: 'drink-02', caption: 'Monsoon Leaf', tag: 'THE BAR' },
-  { image: 'int-10', caption: 'Long table, longer night', tag: 'THE PEOPLE' },
-  { image: 'fire-02', caption: 'Straight off the coals', tag: 'THE GRILL' },
-  { image: 'coffee-01', caption: 'First pour', tag: 'THE MORNING' },
-  { image: 'table-03', caption: 'Pairing flight', tag: 'THE PAIRING' },
+  { no: '01', label: 'FARM SOURCING', text: 'Direct from Bihar fox nut farms, Chambal cold-pressed oils, Ratlam spice producers. No middlemen.', image: 'prep-03' },
+  { no: '02', label: 'SMALL-BATCH PREP', text: 'Batch-to-order. Never pre-made, never stored. Made the morning you order it.', image: 'prep-04' },
+  { no: '03', label: 'PRECISION ROASTING', text: 'Convection deck oven at controlled temperature. The roast that replaces the fry.', image: 'chef-04' },
+  { no: '04', label: 'QUALITY SEAL', text: 'Every pouch gets a made-on-date stamp and a QR code linking to the farm batch.', image: 'chef-05' },
+  { no: '05', label: 'FRESH DELIVERY', text: 'Route-optimized morning and evening batches across Arera Colony, Kolar, Shahpura clusters.', image: 'int-07' },
+  { no: '06', label: 'THE 48-HOUR PROMISE', text: 'Maximum 48 hours from roast to your table. That is our only SLA.', image: 'int-10' },
 ];
