@@ -6,7 +6,7 @@ const nextConfig = {
       // 1. Proxy ALL backend API routes to the dedicated backend server on port 5000
       {
         source: '/api/:path*',
-        destination: 'http://localhost:5000/api/:path*',
+        destination: 'http://127.0.0.1:5000/api/:path*',
       },
       // 2. SPA fallback for client-side routing
       {
