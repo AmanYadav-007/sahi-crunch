@@ -46,7 +46,7 @@ export default function MenuScreen() {
 
   return (
     <div className="safe-b pb-6">
-      <TabHeader eyebrow={`${categories.length} CHAPTERS · ${count} DISHES`} title="THE MENU" />
+      <TabHeader title="THE MENU" />
 
       {/* search + filter row */}
       <div className="topbar sticky top-0 z-20 mt-4 px-5 py-3">

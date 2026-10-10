@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { MapPin, ShoppingBag, CalendarDays, BookOpen, Tag, ChevronRight, Heart, Sparkles } from 'lucide-react';
+import { MapPin, ShoppingBag, CalendarDays, BookOpen, Tag, ChevronRight, Heart, Star } from 'lucide-react';
 import { useApp, activeDishes, tierOf } from '../store';
 import { categories, dishById, type Dish } from '../data/menu';
 import { signatures } from '../data/content';
@@ -77,7 +77,7 @@ export default function Home() {
           data-cursor="CLUB"
           className="chip shrink-0"
         >
-          <Sparkles size={12} />
+          <Star size={12} className="fill-amber text-amber" />
           {points} PTS
         </button>
       </header>
@@ -168,7 +168,6 @@ export default function Home() {
                 className="h-full w-full object-cover transition-transform duration-[1.2s] ease-luxe group-hover:scale-105"
               />
               <div className="scrim-b absolute inset-0" />
-              <span className="num absolute left-3 top-3 text-3xl text-ivory/30">0{i + 1}</span>
               <div className="absolute inset-x-3 bottom-3">
                 <span className="h3 block">{d.name}</span>
                 <span className="mt-1 flex items-center justify-between">
@@ -217,7 +216,6 @@ export default function Home() {
                 <span className="num gold absolute bottom-2 left-2 text-sm">{formatINR(d.price)}</span>
               </div>
               <span className="h4 mt-2 block truncate">{d.name}</span>
-              <span className="caption block">{categories.find((c) => c.id === d.category)?.name}</span>
             </button>
           ))}
           {cravingDishes.length === 0 && (
@@ -242,7 +240,6 @@ export default function Home() {
             <div className="min-w-0 flex-1 p-4">
               <div className="flex items-center gap-2">
                 <Pill tone="amber">BESTSELLER</Pill>
-                <span className="eyebrow">{categories.find((c) => c.id === special.category)?.name}</span>
               </div>
               <h3 className="h3 mt-2 truncate">{special.name}</h3>
               <p className="caption mt-1 line-clamp-2">{special.description}</p>
@@ -303,7 +300,7 @@ export default function Home() {
         <button type="button" onClick={() => push({ type: 'loyalty' })} className="card-amber relative w-full overflow-hidden p-6 text-left">
           <div className="grain absolute inset-0" />
           <div className="relative">
-            <Eyebrow>THE TABLE CLUB</Eyebrow>
+            <Eyebrow>GHARELU HUB</Eyebrow>
             <p className="h2 mt-3">
               {tier.name} <span className="text-amber">·</span> <span className="num">{points}</span>
               <span className="eyebrow ml-2">PTS</span>
@@ -335,7 +332,7 @@ export default function Home() {
         </div>
       </section>
 
-      <p className="eyebrow mt-10 text-center">EXPERIENCE THE FOOD · DISCOVER THE STORY · MAKE IT YOURS</p>
+      <p className="eyebrow my-10 text-center">EXPERIENCE THE FOOD · DISCOVER THE STORY · MAKE IT YOURS</p>
     </div>
   );
 }

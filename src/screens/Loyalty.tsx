@@ -26,7 +26,7 @@ export default function Loyalty() {
   };
 
   return (
-    <Screen eyebrow="THE TABLE CLUB" title="YOUR POINTS">
+    <Screen eyebrow="GHARELU HUB" title="YOUR POINTS">
       <div className="space-y-8 px-5 pt-5">
         {/* balance */}
         <section className="card-amber relative overflow-hidden p-6">

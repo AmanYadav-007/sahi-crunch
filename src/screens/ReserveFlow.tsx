@@ -56,7 +56,7 @@ export default function ReserveFlow() {
             </div>
           </div>
 
-          <p className="eyebrow mt-4">+50 POINTS ADDED TO THE TABLE CLUB</p>
+          <p className="eyebrow mt-4">+50 POINTS ADDED TO GHARELU HUB</p>
 
           <button type="button" onClick={() => setTab('reservations')} className="btn-solid mt-7 w-full !py-4">
             VIEW MY TABLES

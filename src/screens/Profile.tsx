@@ -89,7 +89,7 @@ export default function Profile() {
           >
             <span>
               <span className="label flex items-center gap-2 gold">
-                <Sparkles size={12} /> THE TABLE CLUB · {tier.name}
+                <Sparkles size={12} /> GHARELU HUB · {tier.name}
               </span>
               <span className="mt-1 block num text-2xl text-ivory">
                 {points}

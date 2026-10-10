@@ -45,13 +45,9 @@ export default function Reservations() {
                   <div className="relative h-32 overflow-hidden">
                     <DishImg name={e.image} className="h-full w-full object-cover" />
                     <div className="scrim-soft absolute inset-0" />
-                    <span className="absolute left-3 top-3">
-                      <Pill tone="amber">{e.date.toUpperCase()}</Pill>
-                    </span>
                   </div>
                   <div className="p-4">
-                    <span className="eyebrow">AT THE HOUSE</span>
-                    <h3 className="h3 mt-1.5">{e.title}</h3>
+                    <h3 className="h3">{e.title}</h3>
                     <p className="caption mt-1 line-clamp-2">{e.desc}</p>
                     <div className="hair-t mt-3 flex items-center justify-between pt-3">
                       <span className="eyebrow">

@@ -28,14 +28,13 @@ export function TabHeader({
   title,
   right,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   right?: ReactNode;
 }) {
   return (
     <header className="safe-t flex items-start justify-between gap-4 px-5 pt-6">
       <div className="min-w-0">
-        <span className="eyebrow block">{eyebrow}</span>
         <h1 className="h1 mt-1.5">{title}</h1>
       </div>
       {right && <div className="shrink-0 pt-1">{right}</div>}
@@ -81,7 +80,6 @@ export function Screen({
           <ArrowLeft size={16} />
         </button>
         <div className="min-w-0 flex-1 text-center">
-          {eyebrow && <span className="eyebrow block gold">{eyebrow}</span>}
           {title && <h1 className="h3 truncate">{title}</h1>}
         </div>
         <div className="grid h-9 w-9 shrink-0 place-items-center">{right}</div>
