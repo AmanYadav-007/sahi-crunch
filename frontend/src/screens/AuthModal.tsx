@@ -91,8 +91,8 @@ export default function AuthModal() {
           </button>
 
           <div className="flex items-center gap-2.5 mb-2">
-            <div className="h-9 w-9 rounded-xl bg-white/20 flex items-center justify-center font-black text-sm">
-              SC
+            <div className="h-9 w-9 rounded-xl overflow-hidden shadow-sm border border-white/20 bg-black/20 flex items-center justify-center shrink-0">
+              <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="text-[10px] font-extrabold tracking-wider text-orange-200 uppercase">Sahi Crunch</div>

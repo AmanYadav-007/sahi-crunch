@@ -38,16 +38,12 @@ export default function Splash() {
 
       {/* Brand Identity Center Card */}
       <div className="flex flex-col items-center text-center">
-        <div className="relative mb-5 flex h-28 w-28 items-center justify-center rounded-3xl bg-[#FDFBF7] shadow-2xl p-2 rotate-2 border-2 border-[#D48924]">
+        <div className="relative mb-5 flex h-28 w-28 items-center justify-center rounded-3xl bg-[#681121] shadow-2xl p-1.5 rotate-2 border-2 border-[#D48924] overflow-hidden">
           <img
-            src="/favicon.png"
-            alt="Sahi Crunch"
-            className="h-20 w-20 object-contain drop-shadow"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
+            src="/logo.png"
+            alt="Sahi Crunch Logo"
+            className="h-full w-full object-cover rounded-2xl"
           />
-          <span className="text-3xl font-black text-[#681121]">SC</span>
         </div>
 
         <h1 className="text-4xl font-black tracking-tight text-[#FDFBF7] drop-shadow-sm">

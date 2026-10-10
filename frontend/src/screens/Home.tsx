@@ -128,8 +128,12 @@ export default function Home() {
           {/* Brand Logo & Location delivery selector */}
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-2xl bg-[#681121] text-white font-black text-sm shadow-md">
-                SC
+              <div className="flex h-10 w-10 overflow-hidden rounded-2xl bg-[#681121] shadow-md border border-[#D48924]/30 shrink-0">
+                <img
+                  src="/logo.png"
+                  alt="Sahi Crunch Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <button

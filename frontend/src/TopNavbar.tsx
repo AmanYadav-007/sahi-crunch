@@ -49,8 +49,12 @@ export default function TopNavbar() {
             onClick={() => setTab('home')}
             className="flex items-center gap-2.5 group text-left"
           >
-            <div className="h-9 w-9 xl:h-10 xl:w-10 flex items-center justify-center rounded-2xl bg-[#681121] text-white font-black text-sm shadow-md group-hover:scale-105 transition-transform">
-              SC
+            <div className="h-10 w-10 xl:h-11 xl:w-11 rounded-2xl overflow-hidden shadow-md group-hover:scale-105 transition-transform border border-[#D48924]/30 bg-[#681121] flex items-center justify-center shrink-0">
+              <img
+                src="/logo.png"
+                alt="Sahi Crunch Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <span className="font-black text-base xl:text-lg tracking-tight text-[#1E1E24] block leading-tight group-hover:text-[#681121] transition-colors">
