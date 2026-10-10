@@ -82,26 +82,26 @@ export default function MenuScreen() {
   return (
     <div className="min-h-screen bg-[#FDFBF7] pb-36 text-[#1E1E24]">
       {/* Header Search & Category Filter */}
-      <header className="sticky top-0 lg:top-[73px] z-30 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#e8dfcf] shadow-sm px-4 sm:px-6 lg:px-10 xl:px-12 pt-3 pb-3">
+      <header className="sticky top-0 lg:top-[73px] z-30 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#e8dfcf] shadow-sm px-4 sm:px-6 lg:px-10 xl:px-12 pt-2.5 pb-2.5">
         <div className="w-full">
-          {/* Search Input Bar */}
-          <div className="flex items-center gap-3">
+          {/* Search Input Bar (Compact & Sleek) */}
+          <div className="flex items-center gap-2 max-w-md">
             <div className="relative flex-1">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D48924]" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#D48924]" />
               <input
                 type="text"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search dishes, flavours, spices..."
-                className="w-full bg-[#FBF7F0] border border-[#e5d8c3] rounded-2xl pl-10 pr-9 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-[#1E1E24] placeholder-slate-400 outline-none focus:border-[#681121] focus:bg-white transition-colors"
+                className="w-full bg-[#FBF7F0] border border-[#e5d8c3] rounded-xl pl-8 pr-8 py-1.5 sm:py-2 text-xs font-medium text-[#1E1E24] placeholder-slate-400 outline-none focus:border-[#681121] focus:bg-white transition-all shadow-none"
               />
               {q && (
                 <button
                   type="button"
                   onClick={() => setQ('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-1"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
                 >
-                  <X size={14} />
+                  <X size={13} />
                 </button>
               )}
             </div>
@@ -109,13 +109,14 @@ export default function MenuScreen() {
             <button
               type="button"
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex h-10 sm:h-12 w-10 sm:w-12 shrink-0 items-center justify-center rounded-2xl border transition-colors ${
+              title="Filters"
+              className={`flex h-8 sm:h-9 w-8 sm:w-9 shrink-0 items-center justify-center rounded-xl border transition-colors ${
                 active.length > 0
                   ? 'bg-[#681121]/10 border-[#681121] text-[#681121] font-bold'
                   : 'bg-[#FBF7F0] border-[#e8dfcf] text-[#1E1E24] hover:bg-[#f3ece0]'
               }`}
             >
-              <SlidersHorizontal size={16} />
+              <SlidersHorizontal size={14} />
             </button>
           </div>
 
