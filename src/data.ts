@@ -241,7 +241,7 @@ export const chefStory = {
   story:
     'Trained between Delhi and Copenhagen, Aarav opened Gharelu with one tandoor and a notebook of family recipes. He still writes the menu by hand every Monday.',
   specialty: 'Dum cooking & charcoal',
-  favorite: 'Kasundi Fish Tikka',
+  favorite: 'Kasundi Soya Chaap Tikka',
 };
 
 export const foodStories = [
