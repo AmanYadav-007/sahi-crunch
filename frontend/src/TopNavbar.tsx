@@ -67,19 +67,6 @@ export default function TopNavbar() {
       {scrolled ? (
         <div className="w-full flex justify-center pt-3 pb-2 px-4 animate-in fade-in slide-in-from-top-1 duration-200 pointer-events-auto">
           <div className="inline-flex items-center gap-3 bg-[var(--paper-2)] border border-[var(--rule)] px-5 py-2.5 rounded-full shadow-[3px_4px_0_rgba(84,12,25,0.08),0_20px_36px_-26px_rgba(84,12,25,0.55)] relative">
-            {/* Back Button (Appears before nav items if inside sub-page/stack) */}
-            {hasBack && (
-              <button
-                type="button"
-                onClick={pop}
-                className="btn-ink flex items-center gap-1.5 px-3.5 py-2 rounded-full font-note text-xs font-semibold mr-1"
-                title="Go Back"
-              >
-                <ArrowLeft size={15} />
-                <span>Back</span>
-              </button>
-            )}
-
             {/* Small Brand Logo Icon */}
             <button
               type="button"
@@ -157,18 +144,6 @@ export default function TopNavbar() {
           <div className="w-full px-6 lg:px-8 xl:px-12 py-3 flex items-center justify-between gap-4 xl:gap-6">
             {/* Left: Brand Logo & Bhopal Express Location */}
             <div className="flex items-center gap-3 xl:gap-5 shrink-0">
-              {/* Back Button if in sub-screen/stack */}
-              {hasBack && (
-                <button
-                  type="button"
-                  onClick={pop}
-                  className="btn-ink flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-note text-xs font-semibold"
-                  title="Go Back"
-                >
-                  <ArrowLeft size={16} />
-                  <span>Back</span>
-                </button>
-              )}
 
               <button
                 type="button"
