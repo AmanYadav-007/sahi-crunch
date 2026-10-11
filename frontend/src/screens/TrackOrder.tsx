@@ -17,11 +17,13 @@ import { ORDER_STAGES } from '../data';
 import { Screen, Empty, DishImg, VegBadge } from '../ui';
 import { formatINR } from '../lib/utils';
 import { ordersApi, proxyApi } from '../lib/api';
+import { useToast } from '../lib/ToastContext';
 
 export default function TrackOrder({ orderId }: { orderId: string }) {
   const order = useApp((s) => s.orders.find((o) => o.id === orderId));
   const advanceOrder = useApp((s) => s.advanceOrder);
   const setTab = useApp((s) => s.setTab);
+  const { showInfo } = useToast();
   const timer = useRef<number | null>(null);
 
   useEffect(() => {
@@ -110,7 +112,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
 
             <button
               type="button"
-              onClick={() => alert('Calling delivery partner...')}
+              onClick={() => showInfo('Connecting you to our Bhopal dispatch executive Ramesh...', 'Calling Delivery Partner')}
               className="flex h-9 w-9 items-center justify-center rounded-full bg-[#681121]/10 text-[#681121] border border-[#681121]/20 shadow-sm hover:bg-[#681121] hover:text-white transition-colors"
             >
               <Phone size={16} />

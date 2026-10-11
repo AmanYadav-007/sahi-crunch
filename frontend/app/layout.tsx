@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
+import '../src/styles/fonts.css';
 import '../src/index.css';
 import { AuthProvider } from '../src/lib/AuthContext';
+import { ToastProvider } from '../src/lib/ToastContext';
 import AuthModal from '../src/screens/AuthModal';
 
 export const metadata: Metadata = {
@@ -43,8 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-slate-50 text-slate-900 antialiased selection:bg-orange-500 selection:text-white">
         <AuthProvider>
-          {children}
-          <AuthModal />
+          <ToastProvider>
+            {children}
+            <AuthModal />
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

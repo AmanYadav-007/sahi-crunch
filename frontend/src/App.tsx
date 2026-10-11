@@ -118,6 +118,7 @@ export default function App() {
 
     if (currentUrl !== targetUrl) {
       window.history.pushState({ tab, stackLength: stack.length }, '', targetUrl);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
   }, [tab, stack]);
 

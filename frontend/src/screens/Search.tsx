@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Search as SearchIcon, X, TrendingUp, Sparkles, Plus, Minus, ArrowLeft } from 'lucide-react';
 import { useApp, activeDishes } from '../store';
 import { type Dish } from '../data/menu';
@@ -25,6 +25,13 @@ export default function Search() {
   const setQty = useApp((s) => s.setQty);
 
   const [q, setQ] = useState('');
+
+  // Always reset scroll to top immediately when Search screen opens
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, []);
 
   const pool = useMemo(() => activeDishes(locationId), [locationId]);
   const needle = q.trim().toLowerCase();

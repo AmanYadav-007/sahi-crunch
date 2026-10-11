@@ -14,6 +14,7 @@ import { dishById } from '../data/menu';
 import { customizationsFor, pairingsFor } from '../data';
 import { DishImg, Empty, VegBadge, RatingBadge, DeliveryPill } from '../ui';
 import { formatINR } from '../lib/utils';
+import { useToast } from '../lib/ToastContext';
 
 export default function DishDetail({ id }: { id: string }) {
   const pop = useApp((s) => s.pop);
@@ -22,6 +23,7 @@ export default function DishDetail({ id }: { id: string }) {
   const addToCart = useApp((s) => s.addToCart);
   const favorites = useApp((s) => s.favorites);
   const toggleFavorite = useApp((s) => s.toggleFavorite);
+  const { showSuccess } = useToast();
 
   const dish = dishById(id);
   const groups = useMemo(() => (dish ? customizationsFor(dish) : []), [dish]);
@@ -95,8 +97,13 @@ export default function DishDetail({ id }: { id: string }) {
             <button
               type="button"
               onClick={() => {
-                navigator.clipboard?.writeText(`${dish.name} — Sahi Crunch Bhopal`);
-                alert('Link copied to clipboard!');
+                const shareText = `${dish.name} — Sahi Crunch Bhopal`;
+                if (navigator.clipboard) {
+                  navigator.clipboard.writeText(shareText);
+                  showSuccess(`Copied "${dish.name}" to clipboard!`, 'Share Treat');
+                } else {
+                  showSuccess(shareText, 'Share Treat');
+                }
               }}
               className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
             >

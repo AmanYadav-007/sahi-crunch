@@ -5,12 +5,14 @@ import { events } from '../data';
 import { TabHeader, DishImg, Empty } from '../ui';
 import { useAuth } from '../lib/AuthContext';
 import { reservationsApi } from '../lib/api';
+import { useToast } from '../lib/ToastContext';
 
 export default function Reservations() {
   const reservations = useApp((s) => s.reservations);
   const push = useApp((s) => s.push);
   const addReservation = useApp((s) => s.addReservation);
   const auth = useAuth();
+  const { alert } = useToast();
 
   const [bookedEvents, setBookedEvents] = useState<string[]>([]);
 
@@ -32,7 +34,11 @@ export default function Reservations() {
       }).catch(() => {});
     }
     setBookedEvents((prev) => [...prev, eventId]);
-    alert(`🎉 Tasting pass reserved for ${title}! We look forward to meeting you in Bhopal.`);
+    alert(
+      `🎉 Tasting pass reserved for ${title}! Your VIP entry pass has been secured. We look forward to seeing you at our Bhopal stall.`,
+      'Sampling Pass Reserved!',
+      'success'
+    );
   };
 
   return (
@@ -40,9 +46,6 @@ export default function Reservations() {
       <div className="w-full px-4 sm:px-6 lg:px-10 py-6 max-w-6xl mx-auto space-y-6">
         {/* Banner */}
         <div className="bg-gradient-to-r from-[#681121] via-[#701222] to-[#b87319] text-white p-5 sm:p-7 rounded-3xl shadow-lg shadow-[#681121]/20">
-          <div className="inline-flex items-center gap-1.5 bg-black/25 text-[#E2952A] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full mb-2 uppercase">
-            Weekend Bhopal Stalls
-          </div>
           <h2 className="text-xl sm:text-2xl font-black tracking-tight leading-snug text-[#FDFBF7]">
             Free Sampling & Tasting Passes
           </h2>

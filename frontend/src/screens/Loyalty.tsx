@@ -40,11 +40,7 @@ export default function Loyalty() {
       <div className="w-full px-4 sm:px-6 lg:px-10 py-4 space-y-5 max-w-5xl mx-auto pb-32">
         {/* Points Balance Banner - Maroon & Amber style */}
         <div className="bg-gradient-to-br from-[#681121] via-[#701222] to-[#1E1E24] text-white p-5 rounded-3xl shadow-xl shadow-[#681121]/25 relative overflow-hidden">
-          <div className="flex items-center justify-between mb-3">
-            <span className="inline-flex items-center gap-1.5 bg-black/25 text-[#E2952A] text-xs font-black px-3 py-1 rounded-full uppercase">
-              <Sparkles size={13} className="fill-[#E2952A]" />
-              {tier.name} VIP TIER
-            </span>
+          <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-bold text-amber-200">1 pt = ₹1 Cashback</span>
           </div>
 

@@ -22,9 +22,9 @@
   }
 
   body {
-    background-color: #FDFBF7;
-    color: #1E1E24;
-    font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--ink);
+    font-family: 'Jost', 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -87,6 +87,175 @@
   .desktop-container {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+/* ============================================================
+   SAHI CRUNCH — HANDMADE / KITCHEN-LOG DESIGN SYSTEM
+   A warm, pen-and-paper visual language. No glossy gradients,
+   no AI-looking glassmorphism. Everything reads like it was
+   drawn by hand on kraft paper in a real Bhopal kitchen.
+   ============================================================ */
+
+/* --- Typography: two voices --- */
+.font-hand {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+.font-note {
+  font-family: 'Jost', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Ink palette (single source of truth for the handmade look) */
+:root {
+  --ink: #3a2c20; /* warm sepia ink, used for body copy */
+  --ink-soft: #6b5a45; /* secondary handwritten notes */
+  --ink-faint: #8c7a63; /* placeholders, meta */
+  --paper: #f7f0e1; /* base sheet */
+  --paper-2: #fbf7f0; /* raised card */
+  --paper-3: #efe5cf; /* recessed / pressed */
+  --rule: #ddceb2; /* ruled lines & borders */
+  --tape: #e6d3a3; /* masking tape */
+}
+
+/* Subtle paper-fibre grain, reusable on any sheet */
+.paper-grain {
+  background-image: radial-gradient(rgba(122, 92, 48, 0.07) 1px, transparent 1px);
+  background-size: 19px 19px;
+}
+
+/* A torn/rough top edge for sheets pinned to the board */
+.edge-torn-top {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 5px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 5px);
+}
+
+/* A strip of masking tape. Rotate + position with utilities. */
+.tape {
+  position: absolute;
+  height: 1.4rem;
+  background: rgba(230, 211, 163, 0.82);
+  border-top: 1px solid rgba(255, 255, 255, 0.55);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 1px 2px rgba(84, 12, 25, 0.12);
+  pointer-events: none;
+}
+
+/* Hand-drawn marker underline under important words */
+.marker {
+  background-image: linear-gradient(transparent 62%, rgba(212, 137, 36, 0.42) 62%, rgba(212, 137, 36, 0.42) 94%, transparent 94%);
+  padding-inline: 0.1em;
+}
+
+.marker-green {
+  background-image: linear-gradient(transparent 62%, rgba(78, 139, 86, 0.4) 62%, rgba(78, 139, 86, 0.4) 94%, transparent 94%);
+  padding-inline: 0.1em;
+}
+
+/* Ink-stamp chip — dashed border, slight rotation applied inline */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(251, 247, 240, 0.85);
+  border: 1.5px dashed var(--rule);
+  border-radius: 0.4rem;
+  padding: 0.15rem 0.5rem;
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  box-shadow: 1px 2px 0 rgba(84, 12, 25, 0.05);
+}
+
+/* Ruled notebook lines (used behind log-style blocks) */
+.ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 27px,
+    rgba(122, 92, 48, 0.12) 27px,
+    rgba(122, 92, 48, 0.12) 28px
+  );
+}
+
+/* Pressed-in input fields: look like a blank on a form */
+.form-blank {
+  background: var(--paper-2);
+  border: 1.5px solid var(--rule);
+  border-radius: 0.6rem;
+  color: var(--ink);
+  font-family: 'Jost', system-ui, sans-serif;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.form-blank::placeholder {
+  color: var(--ink-faint);
+}
+.form-blank:focus {
+  outline: none;
+  border-color: #681121;
+  background: #fff;
+}
+
+/* Primary hand-stamped button (maroon ink) */
+.btn-ink {
+  background: #681121;
+  color: #fdfbf7;
+  border-radius: 0.7rem;
+  box-shadow: 2px 3px 0 rgba(36, 4, 9, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+.btn-ink:hover {
+  background: #540c19;
+}
+.btn-ink:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(36, 4, 9, 0.35);
+}
+
+/* Secondary outlined button */
+.btn-outline {
+  background: var(--paper-2);
+  color: #681121;
+  border: 1.5px solid #681121;
+  border-radius: 0.7rem;
+  box-shadow: 2px 3px 0 rgba(104, 17, 33, 0.14);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+.btn-outline:hover {
+  background: #681121;
+  color: #fdfbf7;
+}
+.btn-outline:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* Small tilted pin rotation helpers (deterministic, not random) */
+.tilt-l {
+  transform: rotate(-0.7deg);
+}
+.tilt-r {
+  transform: rotate(0.6deg);
+}
+.tilt-l-sm {
+  transform: rotate(-0.4deg);
+}
+.tilt-r-sm {
+  transform: rotate(0.5deg);
+}
+.tilt-0 {
+  transform: rotate(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-l,
+  .tilt-r,
+  .tilt-l-sm,
+  .tilt-r-sm {
+    transform: none;
   }
 }
 

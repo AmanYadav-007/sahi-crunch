@@ -82,7 +82,7 @@ export default function MenuScreen() {
   return (
     <div className="min-h-screen bg-[#FDFBF7] pb-36 text-[#1E1E24]">
       {/* Header Search & Category Filter */}
-      <header className="sticky top-0 lg:top-[73px] z-30 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#e8dfcf] shadow-sm px-4 sm:px-6 lg:px-10 xl:px-12 pt-2.5 pb-2.5">
+      <header className="sticky top-0 lg:static z-20 bg-[#FDFBF7] border-b border-[#e8dfcf] px-4 sm:px-6 lg:px-10 xl:px-12 pt-3 pb-3">
         <div className="w-full">
           {/* Search Input Bar (Compact & Sleek) */}
           <div className="flex items-center gap-2 max-w-md">

@@ -121,7 +121,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-36 text-[#1E1E24]">
+    <div className="min-h-screen bg-[#FDFBF7] pb-24 lg:pb-8 text-[#1E1E24]">
       {/* ================= 1. RESPONSIVE TOP HEADER (MOBILE & TABLET ONLY: lg:hidden) ================= */}
       <header className="lg:hidden sticky top-0 z-30 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#e8dfcf] shadow-sm px-4 sm:px-6 pt-3.5 pb-3.5">
         <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6">
@@ -508,200 +508,348 @@ export default function Home() {
         </section>
 
         {/* ================= 6. WHY BHOPAL CHOOSES SAHI CRUNCH (CASE-STUDY BACKED) ================= */}
-        <section className="relative space-y-4">
-          {/* Main Heritage & Mission Banner */}
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#3b0811] via-[#681121] to-[#240409] text-white p-6 sm:p-10 shadow-2xl border border-[#D48924]/30">
-            {/* Ambient Background Glows & Subtle Texture */}
-            <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#D48924]/20 blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-[#4E8B56]/15 blur-3xl pointer-events-none" />
-            <div className="absolute inset-0 bg-[radial-gradient(#D48924_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+        <section className="relative rounded-3xl overflow-hidden bg-[#f5edda] border border-[#e0d2b6] shadow-[0_24px_50px_-30px_rgba(84,12,25,0.45)]">
+          {/* Kitchen-log paper: fibre grain, ruled top edge */}
+          <div className="absolute inset-0 bg-[radial-gradient(rgba(122,92,48,0.09)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-2 bg-[#681121] pointer-events-none" />
+          <div className="absolute inset-x-0 top-2 h-px bg-[#D48924]/60 pointer-events-none" />
 
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="relative z-10 p-5 sm:p-8 lg:p-10">
+            {/* Logbook header — written, not marketed */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
               <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 bg-[#540c19] text-[#E2952A] border border-[#D48924]/40 text-[10px] sm:text-xs font-black tracking-wider uppercase px-3.5 py-1 rounded-full mb-3 shadow-sm">
-                  <span>78-Year Bhopali Legacy</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E2952A]" />
-                  <span className="text-[#FDFBF7]">Clean Snacking</span>
-                </div>
-
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#FDFBF7] tracking-tight leading-tight">
-                  Why People Choose Sahi Crunch
+                <span className="font-note text-[10px] font-semibold uppercase tracking-[0.28em] text-[#D48924]">
+                  Kitchen log · entry no.&nbsp;4
+                </span>
+                <h3 className="font-hand italic text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#540c19] tracking-tight leading-[1.1] mt-1.5">
+                  So, why does Bhopal keep choosing us?
                 </h3>
-
-                <p className="text-xs sm:text-sm text-[#FDFBF7]/85 mt-2.5 leading-relaxed font-medium">
-                  Zero palm oil, zero chemical sprays, and zero shelf-life aging. We roast fresh daily in small batches using Bhopal&apos;s heritage recipes, delivering direct to your doorstep in 10–15 minutes.
+                <svg viewBox="0 0 240 12" className="w-40 sm:w-52 h-3 mt-1" fill="none" aria-hidden="true">
+                  <path d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+                <p className="font-note text-[13px] sm:text-sm text-[#4b3a2c] mt-2.5 leading-relaxed">
+                  No big secret, honestly. We just got tired of namkeen packets whose ingredient lists were longer than our grocery bill — so we started making ours the slow way. You can taste the difference by the second bite.
                 </p>
               </div>
 
-              {/* Verified Trust Badges */}
-              <div className="flex flex-row lg:flex-col gap-2 shrink-0 w-full sm:w-auto">
-                <div className="flex-1 sm:flex-initial flex items-center gap-2.5 bg-[#540c19]/90 border border-[#D48924]/30 px-3.5 py-2 rounded-2xl text-left shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-[#4E8B56]/30 border border-[#4E8B56]/50 flex items-center justify-center text-[#5fa768] shrink-0">
-                    <CheckCircle2 size={16} />
+              {/* Ink stamps, the way a real kitchen pins its certificates */}
+              <div className="flex items-center gap-3 shrink-0 pt-1">
+                <div className="rotate-[-3.5deg] bg-[#FDFBF7]/80 border-2 border-dashed border-[#4E8B56]/60 rounded-lg px-3 py-2 text-center shadow-[2px_3px_0_rgba(84,12,25,0.06)]">
+                  <div className="flex items-center justify-center gap-1.5 text-[#3d7044]">
+                    <CheckCircle2 size={13} />
+                    <p className="font-note text-[10px] font-semibold uppercase tracking-[0.14em]">FSSAI · Schedule 4</p>
                   </div>
-                  <div>
-                    <p className="text-[11px] font-black text-[#FDFBF7]">FSSAI Schedule 4</p>
-                    <p className="text-[9px] text-[#E2952A] font-bold">Certified Kitchen Rigor</p>
-                  </div>
+                  <p className="font-hand italic text-[13px] text-[#6b5a45] leading-none mt-1">kitchen-inspected, we mind it</p>
                 </div>
-
-                <div className="flex-1 sm:flex-initial flex items-center gap-2.5 bg-[#540c19]/90 border border-[#D48924]/30 px-3.5 py-2 rounded-2xl text-left shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-[#D48924]/30 border border-[#D48924]/50 flex items-center justify-center text-[#E2952A] shrink-0">
-                    <QrCode size={16} />
+                <div className="rotate-[2.5deg] bg-[#FDFBF7]/80 border-2 border-dashed border-[#D48924]/70 rounded-lg px-3 py-2 text-center shadow-[2px_3px_0_rgba(84,12,25,0.06)]">
+                  <div className="flex items-center justify-center gap-1.5 text-[#b87319]">
+                    <QrCode size={13} />
+                    <p className="font-note text-[10px] font-semibold uppercase tracking-[0.14em]">Batch QR</p>
                   </div>
-                  <div>
-                    <p className="text-[11px] font-black text-[#FDFBF7]">On-Pack Batch QR</p>
-                    <p className="text-[9px] text-[#E2952A] font-bold">Farm-to-Pack Traceability</p>
-                  </div>
+                  <p className="font-hand italic text-[13px] text-[#6b5a45] leading-none mt-1">scan it — see the farm</p>
                 </div>
               </div>
             </div>
 
-            {/* 4 Pillars Grid with High-Res Visual Assets & Case Data */}
-            <div className="mt-8 pt-7 border-t border-[#FDFBF7]/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
-              {/* Pillar 1: Farm Direct Raw Materials */}
-              <div className="group rounded-2xl bg-[#540c19]/70 hover:bg-[#540c19] border border-[#D48924]/30 hover:border-[#D48924] p-4 transition-all duration-300 flex flex-col justify-between shadow-lg">
-                <div>
-                  <div className="relative h-32 w-full rounded-xl overflow-hidden mb-3 border border-[#D48924]/20 bg-[#240409]">
-                    <img
-                      src="/images/craft-02.webp"
-                      alt="Farm-gate sourcing"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <span className="absolute bottom-2 left-2.5 inline-flex items-center gap-1 bg-[#681121] text-[#E2952A] border border-[#D48924]/50 text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow">
-                      <Leaf size={10} />
-                      <span>Farm Direct</span>
-                    </span>
+            {/* Pinned notes — deliberately uneven, like real paper on a board */}
+            <div className="mt-9 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start">
+              {/* Note 01 — sourcing, wide layout */}
+              <article className="lg:col-span-7 relative bg-[#FDFBF7] rounded-2xl border border-[#e5d8c3] p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(84,12,25,0.06),0_16px_30px_-20px_rgba(84,12,25,0.4)] lg:-rotate-[0.7deg] lg:hover:rotate-0 hover:shadow-float transition-all duration-300">
+                <span className="absolute -top-3 left-8 w-20 h-6 rotate-[-4deg] bg-[#e6d3a3]/80 border-y border-white/50 shadow-sm pointer-events-none" aria-hidden="true" />
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="sm:w-[42%] shrink-0">
+                    <div className="relative h-40 sm:h-full sm:min-h-[170px] rounded-xl overflow-hidden border border-[#e5d8c3] bg-[#f3ece0]">
+                      <img
+                        src="/images/craft-02.webp"
+                        alt="Sunday wheat run from Malwa farms"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <span className="absolute bottom-2.5 left-2.5 -rotate-[6deg] bg-[#FDFBF7]/90 border border-[#681121]/60 text-[#681121] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm">
+                        Farm direct
+                      </span>
+                    </div>
                   </div>
+                  <div className="flex-1">
+                    <p className="font-hand italic text-[#D48924] text-lg leading-none">01</p>
+                    <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#540c19] leading-snug mt-0.5">
+                      The wheat actually comes from Malwa
+                    </h4>
+                    <p className="font-note text-[12.5px] text-[#5b4a38] leading-relaxed mt-1.5">
+                      Not a &ldquo;procurement partner&rdquo; — we drive out near Sehore almost every Sunday ourselves and buy the season&apos;s wheat straight from the farmers. The groundnut oil is cold-pressed at a small mill by the Chambal. Two ingredients, both we can point to on a map.
+                    </p>
+                    <p className="font-hand italic text-[15px] text-[#3d7044] mt-2.5 inline-block border-b-2 border-dashed border-[#4E8B56]/40 pb-0.5">
+                      <Leaf size={12} className="inline -mt-0.5 mr-1" />
+                      palm oil: zero, and permanently.
+                    </p>
+                  </div>
+                </div>
+              </article>
 
-                  <h4 className="text-sm font-black text-[#FDFBF7] tracking-tight">
-                    Malwa Wheat & Chambal Oils
-                  </h4>
-                  <p className="text-[11px] text-[#FDFBF7]/75 font-medium leading-relaxed mt-1">
-                    Direct farm procurement eliminating middleman markups. Pure cold-pressed oils without refined palm oil.
-                  </p>
+              {/* Note 02 — the bake, narrower note */}
+              <article className="lg:col-span-5 relative bg-[#FBF7F0] rounded-2xl border border-[#e5d8c3] p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(84,12,25,0.06),0_16px_30px_-20px_rgba(84,12,25,0.4)] lg:rotate-[0.6deg] lg:hover:rotate-0 hover:shadow-float transition-all duration-300">
+                <span className="absolute -top-3 right-10 w-16 h-6 rotate-[5deg] bg-[#e6d3a3]/80 border-y border-white/50 shadow-sm pointer-events-none" aria-hidden="true" />
+                <div className="relative h-40 rounded-xl overflow-hidden border border-[#e5d8c3] bg-[#f3ece0]">
+                  <img
+                    src="/images/craft-03.webp"
+                    alt="Kettle-baked batch straight out of the deck oven"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <span className="absolute bottom-2.5 left-2.5 rotate-[4deg] bg-[#FDFBF7]/90 border border-[#b87319]/60 text-[#b87319] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
+                    <Flame size={10} />
+                    Slow-roasted
+                  </span>
+                </div>
+                <p className="font-hand italic text-[#D48924] text-lg leading-none mt-2.5">02</p>
+                <h4 className="font-hand text-[22px] font-semibold text-[#540c19] leading-snug mt-0.5">
+                  Baked in a kettle, never dunked in oil
+                </h4>
+                <p className="font-note text-[12.5px] text-[#5b4a38] leading-relaxed mt-1.5">
+                  Our deck oven bakes each batch instead of drowning it. Takes longer and costs more, but the crunch stays light — no heavy-oil feeling sitting in your stomach till evening.
+                </p>
+                <p className="font-hand italic text-[15px] text-[#3d7044] mt-2.5 inline-block border-b-2 border-dashed border-[#4E8B56]/40 pb-0.5">
+                  try a handful at 4 pm. you&apos;ll get it.
+                </p>
+              </article>
+
+              {/* Note 03 — the one taped-up maroon sign on the board */}
+              <article className="lg:col-span-5 relative rounded-2xl bg-[#540c19] border border-[#D48924]/40 p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-20px_rgba(84,12,25,0.6)] lg:-rotate-[0.5deg] lg:hover:rotate-0 transition-all duration-300">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 rotate-[2deg] bg-[#e6d3a3]/70 border-y border-white/40 shadow-sm pointer-events-none" aria-hidden="true" />
+                <div className="relative h-40 rounded-xl overflow-hidden border border-[#D48924]/25 bg-[#240409]">
+                  <img
+                    src="/images/products/masala_makhana_pack.jpg"
+                    alt="Pouch stamped with its made-on date"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <span className="absolute bottom-2.5 left-2.5 -rotate-[3deg] bg-[#540c19]/90 border border-[#D48924]/60 text-[#E2952A] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm">
+                    Stamped by hand
+                  </span>
+                </div>
+                <p className="font-hand italic text-[#E2952A] text-lg leading-none mt-2.5">03</p>
+                <h4 className="font-hand text-[22px] font-semibold text-[#FDFBF7] leading-snug mt-0.5">
+                  Made this morning, not &ldquo;best before 2027&rdquo;
+                </h4>
+                <p className="font-note text-[12.5px] text-[#FDFBF7]/80 leading-relaxed mt-1.5">
+                  Every pouch gets its made-on date pressed in while the batch is still warm, and the QR shows which farm the grain came from. Past 48 hours it doesn&apos;t leave the kitchen — it goes home with the staff.
+                </p>
+                <p className="font-hand italic text-[15px] text-[#E2952A] mt-2.5 inline-block border-b-2 border-dashed border-[#E2952A]/40 pb-0.5">
+                  we eat a lot of &ldquo;failed&rdquo; batches, honestly.
+                </p>
+              </article>
+
+              {/* Note 04 — delivery, photo flipped to the other side */}
+              <article className="lg:col-span-7 relative bg-[#FDFBF7] rounded-2xl border border-[#e5d8c3] p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(84,12,25,0.06),0_16px_30px_-20px_rgba(84,12,25,0.4)] lg:rotate-[0.4deg] lg:hover:rotate-0 hover:shadow-float transition-all duration-300">
+                <span className="absolute -top-3 left-1/3 w-20 h-6 rotate-[-3deg] bg-[#e6d3a3]/80 border-y border-white/50 shadow-sm pointer-events-none" aria-hidden="true" />
+                <div className="flex flex-col sm:flex-row-reverse gap-4">
+                  <div className="sm:w-[42%] shrink-0">
+                    <div className="relative h-40 sm:h-full sm:min-h-[170px] rounded-xl overflow-hidden border border-[#e5d8c3] bg-[#f3ece0]">
+                      <img
+                        src="/images/products/nankhatai_pack.jpg"
+                        alt="Warm pack heading out of the neighbourhood hub"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <span className="absolute bottom-2.5 right-2.5 rotate-[5deg] bg-[#FDFBF7]/90 border border-[#681121]/60 text-[#681121] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
+                        <Bike size={10} />
+                        10–15 mins
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-hand italic text-[#D48924] text-lg leading-none">04</p>
+                    <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#540c19] leading-snug mt-0.5">
+                      Fifteen minutes, oven to your door
+                    </h4>
+                    <p className="font-note text-[12.5px] text-[#5b4a38] leading-relaxed mt-1.5">
+                      Our little hubs sit inside Arera Colony, Shahpura and Kolar Road — no godown in the middle, no third-party warehouse. Order at 7 pm and it&apos;s still warm when it reaches your gate.
+                    </p>
+                    <p className="font-hand italic text-[15px] text-[#681121] mt-2.5 inline-block border-b-2 border-dashed border-[#681121]/30 pb-0.5">
+                      touch the pack when it lands. still warm, promise.
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            {/* Signed off like an actual log entry */}
+            <div className="mt-8 flex items-center gap-2.5 pl-1">
+              <svg viewBox="0 0 34 20" className="w-8 h-5 rotate-6 text-[#D48924] shrink-0" fill="none" aria-hidden="true">
+                <path d="M2 14c83 161 22-5m0 0l-5-1m5 1l-2-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="font-hand italic text-[15px] sm:text-base text-[#6b5a45]">
+                copied out of the kitchen log — morning shift, 6.40 am, before the ovens get loud.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bhopal 78-Year Namkeen Heritage Showcase Section */}
+        <section className="bg-gradient-to-br from-[#FAF5EC] via-[#FDFBF7] to-[#F5EBE0] rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#e5d8c3] shadow-xl shadow-stone-900/5 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-radial from-[#D48924]/10 to-transparent blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left Column: Authentic Story & Culinary Pillars */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-2 text-xs font-black text-[#681121] uppercase tracking-wider">
+                <Sparkles size={14} className="text-[#D48924] fill-[#D48924]" />
+                <span>1948 – 2026 · Bhopal Culinary Dynasty</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1E1E24] tracking-tight leading-tight">
+                Bhopal&apos;s 78-Year Heritage of <span className="text-[#681121]">Authentic Royal Namkeen</span>
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                Centuries before factory-packed snacks dominated market shelves, Bhopal&apos;s nawabi alleys were famous for spicy hand-pressed Ratlam Sev, slow-roasted chana, and fragrant makhana tossed in cold-pressed groundnut oil and freshly pounded cloves.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#e5d8c3] shadow-sm">
+                  <div className="w-8 h-8 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center font-black text-sm mb-2">
+                    78
+                  </div>
+                  <h4 className="text-xs font-extrabold text-[#1E1E24]">Years of Craft</h4>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Heritage spice blend preserved since 1948.</p>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-[#D48924]/20 flex items-center justify-between text-[10px] text-[#E2952A] font-black">
-                  <span>0% Preservatives</span>
-                  <span>100% Purity</span>
+                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#e5d8c3] shadow-sm">
+                  <div className="w-8 h-8 rounded-xl bg-[#4E8B56]/15 text-[#4E8B56] flex items-center justify-center font-black text-sm mb-2">
+                    0%
+                  </div>
+                  <h4 className="text-xs font-extrabold text-[#1E1E24]">Zero Palm Oil</h4>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Slow-roasted in pure cold-pressed groundnut oil.</p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#e5d8c3] shadow-sm">
+                  <div className="w-8 h-8 rounded-xl bg-[#D48924]/15 text-[#D48924] flex items-center justify-center font-black text-sm mb-2">
+                    10m
+                  </div>
+                  <h4 className="text-xs font-extrabold text-[#1E1E24]">Oven to Door</h4>
+                  <p className="text-[11px] text-slate-500 mt-0.5">Direct dispatch across Arera Colony, Kolar & Shahpura.</p>
                 </div>
               </div>
 
-              {/* Pillar 2: Artisanal Woodfire Roasting */}
-              <div className="group rounded-2xl bg-[#540c19]/70 hover:bg-[#540c19] border border-[#D48924]/30 hover:border-[#D48924] p-4 transition-all duration-300 flex flex-col justify-between shadow-lg">
-                <div>
-                  <div className="relative h-32 w-full rounded-xl overflow-hidden mb-3 border border-[#D48924]/20 bg-[#240409]">
-                    <img
-                      src="/images/craft-03.webp"
-                      alt="Artisanal Slow Roasting"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <span className="absolute bottom-2 left-2.5 inline-flex items-center gap-1 bg-[#681121] text-[#E2952A] border border-[#D48924]/50 text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow">
-                      <Flame size={10} />
-                      <span>Slow Roasted</span>
-                    </span>
-                  </div>
-
-                  <h4 className="text-sm font-black text-[#FDFBF7] tracking-tight">
-                    Kettle-Baked, Never Fried
-                  </h4>
-                  <p className="text-[11px] text-[#FDFBF7]/75 font-medium leading-relaxed mt-1">
-                    Deck convection baking preserves grain fiber and lightness. Golden crisp crunch without oil sogginess.
-                  </p>
-                </div>
-
-                <div className="mt-3 pt-2.5 border-t border-[#D48924]/20 flex items-center justify-between text-[10px] text-[#5fa768] font-black">
-                  <span>Light Digestion</span>
-                  <span>78-Yr Secret</span>
-                </div>
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setTab('menu')}
+                  className="inline-flex items-center gap-2 bg-[#681121] hover:bg-[#540c19] text-white text-xs font-black px-5 py-3 rounded-2xl shadow-md transition-all active:scale-95"
+                >
+                  <span>Explore Namkeen & Makhana Vault</span>
+                  <ArrowRight size={15} />
+                </button>
               </div>
+            </div>
 
-              {/* Pillar 3: On-Pack Traceability & Date Stamping */}
-              <div className="group rounded-2xl bg-[#540c19]/70 hover:bg-[#540c19] border border-[#D48924]/30 hover:border-[#D48924] p-4 transition-all duration-300 flex flex-col justify-between shadow-lg">
-                <div>
-                  <div className="relative h-32 w-full rounded-xl overflow-hidden mb-3 border border-[#D48924]/20 bg-[#240409]">
-                    <img
-                      src="/images/products/masala_makhana_pack.jpg"
-                      alt="Transparent Batch Packaging"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <span className="absolute bottom-2 left-2.5 inline-flex items-center gap-1 bg-[#681121] text-[#E2952A] border border-[#D48924]/50 text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow">
-                      <QrCode size={10} />
-                      <span>Batch Stamped</span>
-                    </span>
-                  </div>
-
-                  <h4 className="text-sm font-black text-[#FDFBF7] tracking-tight">
-                    Strict 48-Hour Fresh Window
-                  </h4>
-                  <p className="text-[11px] text-[#FDFBF7]/75 font-medium leading-relaxed mt-1">
-                    Permanent Made-on-Date stamp on front pouch. Scan batch QR for raw milling origins and press logs.
+            {/* Right Column: Heritage Imagery Canvas */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-[#e5d8c3] group">
+                <img
+                  src="/images/bhopal-namkeen-heritage.jpg"
+                  alt="78 Years of Bhopali Namkeen Heritage"
+                  className="w-full h-72 sm:h-80 object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <span className="text-[10px] uppercase font-black tracking-widest text-[#E2952A] block mb-1">
+                    Small-Batch Roasted Daily
+                  </span>
+                  <p className="text-sm font-black text-white leading-snug">
+                    Pure Laung Sev, Spiced Makhana & Shahi Nankhatai
                   </p>
-                </div>
-
-                <div className="mt-3 pt-2.5 border-t border-[#D48924]/20 flex items-center justify-between text-[10px] text-[#E2952A] font-black">
-                  <span>Batch-to-Order</span>
-                  <span>Zero Stale Food</span>
-                </div>
-              </div>
-
-              {/* Pillar 4: Hyperlocal 10-15 Min Hubs */}
-              <div className="group rounded-2xl bg-[#540c19]/70 hover:bg-[#540c19] border border-[#D48924]/30 hover:border-[#D48924] p-4 transition-all duration-300 flex flex-col justify-between shadow-lg">
-                <div>
-                  <div className="relative h-32 w-full rounded-xl overflow-hidden mb-3 border border-[#D48924]/20 bg-[#240409]">
-                    <img
-                      src="/images/products/nankhatai_pack.jpg"
-                      alt="Quick Hub Dispatch"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <span className="absolute bottom-2 left-2.5 inline-flex items-center gap-1 bg-[#681121] text-[#E2952A] border border-[#D48924]/50 text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow">
-                      <Bike size={10} />
-                      <span>10–15 Mins</span>
-                    </span>
-                  </div>
-
-                  <h4 className="text-sm font-black text-[#FDFBF7] tracking-tight">
-                    Bhopal Cluster Express Hubs
-                  </h4>
-                  <p className="text-[11px] text-[#FDFBF7]/75 font-medium leading-relaxed mt-1">
-                    Daily optimized batches across Arera Colony, Shahpura & Kolar Road dispatched direct from kitchen ovens.
+                  <p className="text-[11px] text-white/80 mt-0.5">
+                    Fresh from our Bhopal micro-kitchens with zero shelf-life preservatives.
                   </p>
-                </div>
-
-                <div className="mt-3 pt-2.5 border-t border-[#D48924]/20 flex items-center justify-between text-[10px] text-[#5fa768] font-black">
-                  <span>Oven Fresh</span>
-                  <span>Hyperlocal Express</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="pt-4 pb-6 text-center border-t border-[#e5d8c3]/60">
-          <div className="flex items-center justify-center gap-3 text-xs font-bold text-[#681121]">
-            <span>100% Roasted</span>
-            <span className="text-[#D48924]">·</span>
-            <span>0% Preservatives</span>
-            <span className="text-[#D48924]">·</span>
-            <span>Made-on-Date Fresh</span>
-            <span className="text-[#D48924]">·</span>
-            <span>Bhopal Express Hubs</span>
+        {/* Comprehensive Luxury Brand Footer */}
+        <footer className="mt-12 bg-gradient-to-br from-[#20050a] via-[#350912] to-[#120205] text-[#FDFBF7] rounded-3xl p-8 sm:p-10 lg:p-12 shadow-2xl border border-[#681121]/40 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#D48924]/10 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-8 border-b border-white/10">
+            {/* Column 1: Brand Lore */}
+            <div className="lg:col-span-2 space-y-3.5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl overflow-hidden bg-[#681121] border border-[#D48924]/40 flex items-center justify-center shadow-md">
+                  <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black tracking-tight text-white leading-tight">SAHI CRUNCH</h3>
+                  <p className="text-[10px] font-bold text-[#E2952A] uppercase tracking-wider">Sahi Baked Heritage · Bhopal</p>
+                </div>
+              </div>
+
+              <p className="text-xs text-white/75 leading-relaxed font-medium max-w-sm">
+                Madhya Pradesh&apos;s proud guilt-free namkeen and snackery. 78 years of Bhopali culinary heritage, baked with zero preservatives, pure cold-pressed groundnut oil, and dispatched fresh within minutes.
+              </p>
+
+              <div className="flex items-center gap-2 pt-1 text-xs text-amber-200/90 font-bold">
+                <MapPin size={14} className="text-[#E2952A]" />
+                <span>Central Kitchen: Arera Colony, Bhopal, MP 462016</span>
+              </div>
+            </div>
+
+            {/* Column 2: Quick Menus */}
+            <div className="space-y-2.5">
+              <h4 className="text-xs font-black uppercase text-[#E2952A] tracking-wider">Heritage Menu</h4>
+              <ul className="space-y-2 text-xs text-white/70 font-semibold">
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Bhopali Masala Makhana</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Royal Shahi Nankhatai</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Ratlam Laung Sev</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Roasted Chana & Makhana</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Festive Sahi Gift Hampers</button></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Active Clusters */}
+            <div className="space-y-2.5">
+              <h4 className="text-xs font-black uppercase text-[#E2952A] tracking-wider">Active Bhopal Hubs</h4>
+              <ul className="space-y-2 text-xs text-white/70 font-semibold">
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Arera Colony (10 Mins)</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Kolar Road (12 Mins)</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Shahpura Sector A (15 Mins)</li>
+                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> MP Nagar (Coming Soon)</li>
+                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Indore (Coming Soon)</li>
+              </ul>
+            </div>
+
+            {/* Column 4: Concierge & Support */}
+            <div className="space-y-2.5">
+              <h4 className="text-xs font-black uppercase text-[#E2952A] tracking-wider">Direct Concierge</h4>
+              <p className="text-xs text-white/75 font-medium leading-relaxed">
+                Connect directly with our Bhopal dispatch team for corporate orders & feedback:
+              </p>
+              <button
+                type="button"
+                onClick={() => window.open('https://wa.me/919999999999?text=Hi%20Sahi%20Crunch,%20I%20have%20an%20inquiry', '_blank')}
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-extrabold px-3 py-2.5 rounded-xl shadow transition-colors"
+              >
+                <span>WhatsApp Live Chat</span>
+              </button>
+            </div>
           </div>
-          <p className="mt-1.5 text-xs text-slate-500 font-semibold tracking-wide">
-            SAHI CRUNCH · Bhopal&apos;s 78-Year Modern Heritage Snackery
-          </p>
+
+          {/* Bottom Copyright & Disclaimer */}
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/50 font-medium">
+            <p>© 2026 SAHI CRUNCH · Bhopal&apos;s 78-Year Modern Heritage Snackery. All rights reserved.</p>
+            <div className="flex items-center gap-4">
+              <span>Hygienic FSSAI Kitchens</span>
+              <span>·</span>
+              <span>100% Roasted Goodness</span>
+              <span>·</span>
+              <span>Zero Preservatives</span>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
   );
 }
+
