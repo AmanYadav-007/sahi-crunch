@@ -78,13 +78,21 @@ export const dishes: Dish[] = [
   // ==========================================
   d(
     'mk-bhopali-masala',
-    'Bhopali Masala Makhana',
+    'Bhopali Masala Makhana (₹129 Hero Pack)',
     'makhana',
     129,
     'in-03',
-    '“Sahi Spice. Modern Crunch.” Our flagship hero SKU straight from the pitch deck. Popped fox nuts (Makhana) slow-roasted in pure ghee, dusted with black pepper, asafoetida, turmeric, and local Malwa spices. 100% Roasted, Never Fried.',
-    ['Popped Fox Nuts (Makhana)', 'Desi Ghee (moderate)', 'Black Pepper', 'Asafoetida (Hing)', 'Turmeric', 'Rock Salt'],
-    { spiceLevel: 2, bestseller: true, weight: '40g–60g Stand-up Pouch', pptHero: true }
+    'Our signature ₹129 Hero Pack! Loaded with jumbo popped fox nuts (Makhana) slow-roasted in pure desi ghee, tossed in authentic Bhopali Malwa spice mix (black pepper, hing, roasted jeera, turmeric & rock salt). 100% roasted in deck oven, zero palm oil, zero preservatives.',
+    [
+      'Jumbo Popped Fox Nuts (Makhana)',
+      'Pure Desi Ghee (slow-roasted)',
+      'Bhopali Malwa Masala Blend',
+      'Cracked Black Pepper (Kali Mirch)',
+      'Asafoetida (Hing)',
+      'Roasted Cumin & Turmeric',
+      'Himalayan Rock Salt'
+    ],
+    { spiceLevel: 2, bestseller: true, weight: '50g Zip-Lock Stand-up Pouch', pptHero: true }
   ),
 
   d(

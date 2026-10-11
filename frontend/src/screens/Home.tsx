@@ -65,28 +65,36 @@ export default function Home() {
         tag: '₹129 HERO PACK',
         tagBg: 'bg-[#D48924] text-[#1E1E24]',
         title: 'Bhopali Masala Makhana',
-        dishId: 'makhana-masala',
+        dishId: 'mk-bhopali-masala',
+        items: 'Jumbo Roasted Makhana · Pure Desi Ghee · Malwa Masala Blend',
+        badge: 'What’s inside ₹129 Pack',
       },
       {
         image: 'dessert-01',
         tag: 'PURE DESI GHEE',
         tagBg: 'bg-[#4E8B56] text-white',
         title: 'Sahi Nankhatai',
-        dishId: 'nankhatai-classic',
+        dishId: 'nk-bhopali-shahi',
+        items: 'Pure Ghee · Cardamom · Roasted Pista flakes',
+        badge: 'Heritage 78-yr Recipe',
       },
       {
         image: 'snack-01',
         tag: 'HERITAGE RECIPE',
         tagBg: 'bg-[#681121] text-white',
         title: 'Puffed Rice Sev Mixture',
-        dishId: 'namkeen-sev',
+        dishId: 'nm-zenith-mixture',
+        items: 'Crisp Laung Sev · Puffed Rice · Peanuts & Curry Leaves',
+        badge: 'Tea-time Classic',
       },
       {
         image: 'in-04',
         tag: '100% ROASTED',
         tagBg: 'bg-[#E2952A] text-[#1E1E24]',
         title: 'Cream & Herb Makhana',
-        dishId: 'makhana-cream-onion',
+        dishId: 'mk-roasted-chana-mint',
+        items: 'Chana + Mint Makhana · Slow Kettle Roasted',
+        badge: 'Clean Snacking',
       },
     ],
     []
@@ -249,8 +257,19 @@ export default function Home() {
                   </button>
                   <button
                     type="button"
+                    onClick={() => {
+                      const heroDish = pool.find((d) => d.id === 'mk-bhopali-masala') || pool[0];
+                      if (heroDish) push({ type: 'dish', dish: heroDish });
+                    }}
+                    className="font-note text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl flex items-center gap-2 bg-[#D48924]/15 text-[#915408] border-2 border-dashed border-[#D48924]/60 hover:bg-[#D48924]/25 transition-colors"
+                  >
+                    <Sparkles size={15} className="text-[#D48924]" />
+                    Get ₹129 Hero Pack
+                  </button>
+                  <button
+                    type="button"
                     onClick={async () => {
-                      const msg = 'Hi Sahi Crunch! I want to order.';
+                      const msg = 'Hi Sahi Crunch! I want to order the ₹129 Hero Pack.';
                       const { data } = await proxyApi.sendWhatsApp({ message: msg });
                       if (data?.url) window.open(data.url, '_blank');
                       else window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
@@ -261,19 +280,52 @@ export default function Home() {
                   </button>
                 </div>
 
+                {/* ₹129 Hero Pack: What's inside showcase */}
+                <div className="mt-5 bg-[var(--paper)]/90 border border-[#D48924]/40 rounded-2xl p-3 sm:p-3.5 max-w-lg shadow-sm">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#D48924] animate-pulse" />
+                      <span className="font-note text-[11px] font-bold uppercase tracking-wider text-[#915408]">
+                        ₹129 Hero Pack — What&apos;s Inside
+                      </span>
+                    </div>
+                    <span className="stamp text-[#3d7044] border-[#4E8B56]/50 !text-[8px] !px-1.5 !py-0.5">
+                      Deck Oven Roasted
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 border-t border-dashed border-[var(--rule)]">
+                    <div className="text-left">
+                      <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Base</p>
+                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Jumbo Makhana</p>
+                    </div>
+                    <div className="text-left">
+                      <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Fat</p>
+                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Pure Desi Ghee</p>
+                    </div>
+                    <div className="text-left">
+                      <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Spices</p>
+                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Malwa Hing & Kali Mirch</p>
+                    </div>
+                    <div className="text-left">
+                      <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Salt</p>
+                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Himalayan Rock Salt</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Trust ticks — written like a checklist */}
-                <div className="mt-6 flex flex-col gap-1.5 self-start">
-                  <div className="flex items-center gap-2 font-note text-[11px] sm:text-xs font-medium text-[var(--ink-soft)]">
+                <div className="mt-5 flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2 sm:gap-4 self-start">
+                  <div className="flex items-center gap-1.5 font-note text-[11px] font-medium text-[var(--ink-soft)]">
                     <ShieldCheck size={14} className="text-[#3d7044] shrink-0" />
-                    <span>0% preservatives &amp; additives</span>
+                    <span>0% palm oil &amp; preservatives</span>
                   </div>
-                  <div className="flex items-center gap-2 font-note text-[11px] sm:text-xs font-medium text-[var(--ink-soft)]">
+                  <div className="flex items-center gap-1.5 font-note text-[11px] font-medium text-[var(--ink-soft)]">
                     <Clock size={14} className="text-[#3d7044] shrink-0" />
-                    <span>Made-on date stamped on every pouch</span>
+                    <span>Made-on date stamped</span>
                   </div>
-                  <div className="flex items-center gap-2 font-note text-[11px] sm:text-xs font-medium text-[var(--ink-soft)]">
+                  <div className="flex items-center gap-1.5 font-note text-[11px] font-medium text-[var(--ink-soft)]">
                     <Award size={14} className="text-[#3d7044] shrink-0" />
-                    <span>FSSAI Schedule 4 certified kitchen</span>
+                    <span>FSSAI certified kitchen</span>
                   </div>
                 </div>
               </div>
@@ -300,10 +352,15 @@ export default function Home() {
                       ))}
                     </div>
 
-                    {/* Handwritten polaroid caption */}
-                    <p className="font-hand italic text-lg text-[var(--ink-soft)] text-center mt-2 leading-none">
-                      today&apos;s batch, still warm
-                    </p>
+                    {/* Handwritten polaroid caption with slide details */}
+                    <div className="mt-2 text-center">
+                      <p className="font-hand italic text-lg text-[#540c19] leading-tight">
+                        {heroSlides[activeHeroSlide]?.title} — <span className="text-[#915408]">{heroSlides[activeHeroSlide]?.tag}</span>
+                      </p>
+                      <p className="font-note text-[11px] text-[var(--ink-faint)] mt-0.5 truncate px-2">
+                        {heroSlides[activeHeroSlide]?.items}
+                      </p>
+                    </div>
                   </div>
                 </div>
 

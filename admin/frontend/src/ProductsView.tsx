@@ -58,6 +58,34 @@ function ProductModal({ product, categories, isOpen, onClose, onSave }: ProductM
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({
+        id: product?.id || '',
+        name: product?.name || '',
+        category: product?.category || (categories[0]?.id || 'makhana'),
+        price: product?.price || 129,
+        description: product?.description || '',
+        image: product?.image || 'mk-bhopali-masala',
+        ingredients: product?.ingredients || ['Popped Fox Nuts', 'Desi Ghee', 'Rock Salt'],
+        dietaryTags: product?.dietaryTags || ['100% Preservative-Free', 'Pure Veg', '48h Fresh'],
+        spiceLevel: product?.spiceLevel !== undefined ? product.spiceLevel : 1,
+        veg: product?.veg !== undefined ? product.veg : true,
+        bestseller: product?.bestseller || false,
+        available: product?.available !== undefined ? product.available : true,
+        weight: product?.weight || '50g Stand-up Pouch',
+        shelfLife: product?.shelfLife || '48h Fresh Stamped',
+        fresh: product?.fresh !== undefined ? product.fresh : true,
+        pptHero: product?.pptHero || false,
+      });
+      setRawIngredients(Array.isArray(product?.ingredients) ? product?.ingredients.join(', ') : '');
+      setRawTags(
+        Array.isArray(product?.dietaryTags) ? product?.dietaryTags.join(', ') : '100% Preservative-Free, Pure Veg'
+      );
+      setError('');
+    }
+  }, [isOpen, product, categories]);
+
   if (!isOpen) return null;
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
