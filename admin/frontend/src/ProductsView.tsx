@@ -12,6 +12,8 @@ import {
   X,
   RefreshCw,
   BookOpen,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import { adminApi } from './adminApi';
 import type { Dish, MenuCategory } from './types';
@@ -595,6 +597,7 @@ export default function ProductsView() {
   const [chapters, setChapters] = useState<MenuCategory[]>([]);
   const [chapterModalOpen, setChapterModalOpen] = useState(false);
   const [activeChapter, setActiveChapter] = useState<Partial<MenuCategory> | null>(null);
+  const [showChapters, setShowChapters] = useState(false);
 
   const loadChapters = async () => {
     try {
@@ -727,79 +730,92 @@ export default function ProductsView() {
         </div>
       </div>
 
-      {/* ===== Chapters — the index tabs of the recipe box ===== */}
-      <div className="sc-card p-5">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <SectionTitle
-            eyebrow="Recipe box index"
-            subtitle="These chapters appear as tabs on the customer app — add, rename or re-ink them live."
-            action={
-              <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">
-                {chapters.length} chapters
-              </span>
-            }
-          >
-            Menu chapters
-          </SectionTitle>
-
+      {/* ===== Chapters — optional collapse ===== */}
+      <div className="sc-card p-4 transition-all">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <button
-            onClick={() => {
-              setActiveChapter(null);
-              setChapterModalOpen(true);
-            }}
-            className="btn-ink flex items-center gap-2 font-note text-xs font-semibold uppercase tracking-[0.12em] px-4 py-2.5 self-start"
+            type="button"
+            onClick={() => setShowChapters((prev) => !prev)}
+            className="flex items-center gap-2 text-left group"
           >
-            <Plus size={15} />
-            New chapter
-          </button>
-        </div>
-
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          {chapters.map((c, i) => (
-            <div
-              key={c.id}
-              className={`sc-card !rounded-xl p-3.5 flex items-start gap-3 ${i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm'}`}
-            >
-              <span
-                className="w-10 h-10 rounded-lg border-2 border-dashed border-[var(--rule)] flex items-center justify-center shrink-0"
-                style={{ background: `${c.tint}1f` }}
-                aria-hidden="true"
-              >
-                <span className="w-4 h-4 rounded-full" style={{ background: c.tint }} />
-              </span>
-
-              <div className="min-w-0 flex-1">
-                <p className="font-note text-[9px] font-semibold uppercase tracking-[0.18em] text-[#b87319]">
-                  {c.eyebrow}
-                </p>
-                <p className="font-hand italic text-lg text-[#540c19] truncate leading-tight">{c.name}</p>
-                <p className="font-note text-[11px] text-[var(--ink-faint)] truncate">{c.line || '—'}</p>
-                <span className="stamp mt-1.5 inline-flex text-[var(--ink-soft)]">
-                  {c.count ?? 0} SKUs · {c.id}
+            <span className="w-8 h-8 rounded-lg border border-[var(--rule)] bg-[var(--paper-2)] flex items-center justify-center text-[var(--ink-soft)] group-hover:border-[#681121]">
+              {showChapters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </span>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-hand italic text-lg text-[#540c19]">Menu Chapters &amp; Categories</span>
+                <span className="stamp text-[#3d7044] border-[#4E8B56]/50 text-[10px]">
+                  {chapters.length} chapters
                 </span>
               </div>
-
-              <div className="flex flex-col gap-1.5 shrink-0">
-                <button
-                  onClick={() => {
-                    setActiveChapter(c);
-                    setChapterModalOpen(true);
-                  }}
-                  className="btn-outline flex items-center gap-1.5 font-note text-[11px] font-semibold px-2.5 py-1.5"
-                >
-                  <Edit2 size={12} />
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteChapter(c)}
-                  className="flex items-center gap-1.5 rounded-[0.7rem] px-2.5 py-1.5 font-note text-[11px] font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#681121] hover:border-[#681121]/40 transition-colors"
-                >
-                  <Trash2 size={12} />
-                </button>
-              </div>
+              <p className="font-note text-[11px] text-[var(--ink-faint)]">
+                {showChapters ? 'Click to collapse chapters' : 'Click to view, add or edit category tabs'}
+              </p>
             </div>
-          ))}
+          </button>
+
+          {showChapters && (
+            <button
+              onClick={() => {
+                setActiveChapter(null);
+                setChapterModalOpen(true);
+              }}
+              className="btn-ink flex items-center gap-2 font-note text-xs font-semibold uppercase tracking-[0.12em] px-4 py-2 self-start sm:self-auto"
+            >
+              <Plus size={15} />
+              New chapter
+            </button>
+          )}
         </div>
+
+        {showChapters && (
+          <div className="mt-4 pt-4 border-t border-[var(--rule)] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+            {chapters.map((c, i) => (
+              <div
+                key={c.id}
+                className={`sc-card !rounded-xl p-3.5 flex items-start gap-3 ${i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm'}`}
+              >
+                <span
+                  className="w-10 h-10 rounded-lg border-2 border-dashed border-[var(--rule)] flex items-center justify-center shrink-0"
+                  style={{ background: `${c.tint}1f` }}
+                  aria-hidden="true"
+                >
+                  <span className="w-4 h-4 rounded-full" style={{ background: c.tint }} />
+                </span>
+
+                <div className="min-w-0 flex-1">
+                  <p className="font-note text-[9px] font-semibold uppercase tracking-[0.18em] text-[#b87319]">
+                    {c.eyebrow}
+                  </p>
+                  <p className="font-hand italic text-lg text-[#540c19] truncate leading-tight">{c.name}</p>
+                  <p className="font-note text-[11px] text-[var(--ink-faint)] truncate">{c.line || '—'}</p>
+                  <span className="stamp mt-1.5 inline-flex text-[var(--ink-soft)]">
+                    {c.count ?? 0} SKUs · {c.id}
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-1.5 shrink-0">
+                  <button
+                    onClick={() => {
+                      setActiveChapter(c);
+                      setChapterModalOpen(true);
+                    }}
+                    className="btn-outline flex items-center gap-1.5 font-note text-[11px] font-semibold px-2.5 py-1.5"
+                  >
+                    <Edit2 size={12} />
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteChapter(c)}
+                    className="flex items-center gap-1.5 rounded-[0.7rem] px-2.5 py-1.5 font-note text-[11px] font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#681121] hover:border-[#681121]/40 transition-colors"
+                  >
+                    <Trash2 size={12} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Filter & search — the recipe box lid */}

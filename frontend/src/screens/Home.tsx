@@ -61,12 +61,12 @@ export default function Home() {
   const heroSlides = useMemo(
     () => [
       {
-        image: 'in-03',
+        image: 'hero-pack-combo',
         tag: '₹129 HERO PACK',
         tagBg: 'bg-[#D48924] text-[#1E1E24]',
-        title: 'Bhopali Masala Makhana',
+        title: 'Sahi Hero Pack',
         dishId: 'mk-bhopali-masala',
-        items: 'Jumbo Roasted Makhana · Pure Desi Ghee · Malwa Masala Blend',
+        items: 'Masala Makhana + Shahi Nankhatai + Bhopali Sev Namkeen Trio',
         badge: 'What’s inside ₹129 Pack',
       },
       {

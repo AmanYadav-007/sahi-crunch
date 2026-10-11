@@ -78,21 +78,19 @@ export const dishes: Dish[] = [
   // ==========================================
   d(
     'mk-bhopali-masala',
-    'Bhopali Masala Makhana (₹129 Hero Pack)',
+    'Sahi Hero Pack',
     'makhana',
     129,
-    'in-03',
-    'Our signature ₹129 Hero Pack! Loaded with jumbo popped fox nuts (Makhana) slow-roasted in pure desi ghee, tossed in authentic Bhopali Malwa spice mix (black pepper, hing, roasted jeera, turmeric & rock salt). 100% roasted in deck oven, zero palm oil, zero preservatives.',
+    'hero-pack-combo',
+    'The ultimate all-in-one tasting bundle! Includes our signature Bhopali Masala Makhana, freshly baked Shahi Nankhatai biscuits, and crisp heritage Bhopali Sev Namkeen. 100% slow-roasted in pure desi ghee, zero palm oil, stamped with 48h freshness.',
     [
-      'Jumbo Popped Fox Nuts (Makhana)',
-      'Pure Desi Ghee (slow-roasted)',
-      'Bhopali Malwa Masala Blend',
-      'Cracked Black Pepper (Kali Mirch)',
-      'Asafoetida (Hing)',
-      'Roasted Cumin & Turmeric',
-      'Himalayan Rock Salt'
+      'Bhopali Masala Makhana (Pouch)',
+      'Fresh Shahi Nankhatai Biscuits',
+      'Crisp Bhopali Sev Mixture',
+      'Pure Desi Ghee',
+      'Malwa Spices & Rock Salt'
     ],
-    { spiceLevel: 2, bestseller: true, weight: '50g Zip-Lock Stand-up Pouch', pptHero: true }
+    { spiceLevel: 2, bestseller: true, weight: 'Tasting Trio Combo Pack', pptHero: true }
   ),
 
   d(
