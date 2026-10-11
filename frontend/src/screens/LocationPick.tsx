@@ -1,10 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import {
-  MapPin,
   Navigation,
   Clock,
   Check,
-  ChevronRight,
   Zap,
   Search,
   ExternalLink,
@@ -13,7 +11,6 @@ import {
   Compass,
   ArrowLeft,
   X,
-  Phone,
 } from 'lucide-react';
 import { locations, type Location } from '../data/locations';
 import { useApp } from '../store';
@@ -91,11 +88,10 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
   }, [searchQuery, activeFilter]);
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-32 text-[#1E1E24]">
-      {/* Royal Header Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#540c19] via-[#681121] to-[#2e050c] text-white pt-8 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-radial from-[#D48924]/20 to-transparent blur-2xl pointer-events-none" />
-        <div className="absolute -left-12 -bottom-10 w-48 h-48 rounded-full bg-radial from-[#FDFBF7]/10 to-transparent blur-xl pointer-events-none" />
+    <div className="min-h-screen bg-[var(--paper)] paper-grain pb-32 text-[var(--ink)]">
+      {/* Header — the cover page of the delivery ledger */}
+      <div className="relative overflow-hidden bg-[var(--paper-3)]/60 paper-grain border-b border-[var(--rule)] pt-6 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
 
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="flex items-center justify-between mb-2">
@@ -103,7 +99,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
               <button
                 type="button"
                 onClick={pop}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-colors"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] border border-[var(--rule)] text-[#681121] hover:bg-[var(--paper)] transition-colors"
                 aria-label="Back"
               >
                 <ArrowLeft size={18} />
@@ -112,38 +108,40 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
               <div className="h-9" />
             )}
 
-            <div className="text-right">
-              <span className="text-[11px] font-black text-amber-200">
-                10–15 Min Express Delivery
-              </span>
-            </div>
+            <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/60">
+              <Zap size={11} className="fill-[#b87319]" />
+              10–15 Min Express Delivery
+            </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white mt-1">
-            {firstTime ? 'Choose Your Delivery Hub' : 'Select Delivery Outpost'}
+          <h1 className="font-hand italic text-2xl sm:text-3xl text-[#540c19] tracking-tight mt-1">
+            {firstTime ? 'Which kitchen should we pack from?' : 'Choose your kitchen'}
           </h1>
-          <p className="text-xs sm:text-sm text-orange-100/80 mt-1 max-w-lg font-medium leading-relaxed">
-            Fresh small-batch roasted makhana & bakery dispatched directly from our certified oven micro-kitchens.
+          <svg viewBox="0 0 260 12" className="w-44 sm:w-56 h-3 mt-1.5" fill="none" aria-hidden="true">
+            <path d="M3 8.5c30-5 58-6.5 88-5s56 4.5 86 3 48-5 78-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+          </svg>
+          <p className="font-note text-xs sm:text-sm text-[var(--ink-soft)] mt-2 max-w-lg leading-relaxed">
+            Fresh small-batch roasted makhana &amp; bakery dispatched directly from our certified oven micro-kitchens.
           </p>
         </div>
       </div>
 
-      {/* Floating Container */}
+      {/* Pinned Container */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 space-y-4 relative z-20">
 
-        {/* GPS Current Location Bar */}
-        <div className="bg-[#FBF7F0] p-4 sm:p-5 rounded-3xl border border-[#e5d8c3] shadow-lg shadow-stone-900/5">
+        {/* GPS Current Location Bar — a note with the compass drawing */}
+        <div className="bg-[var(--paper-2)] paper-grain p-4 sm:p-5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#681121] to-[#3d0913] text-white flex items-center justify-center shadow-md shadow-[#681121]/30 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-[#681121] text-[#FDFBF7] flex items-center justify-center shrink-0 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
                 <Navigation size={20} className={locating ? 'animate-spin' : ''} />
               </div>
               <div>
-                <h3 className="text-sm font-black text-[#1E1E24]">
+                <h3 className="font-hand italic text-lg text-[#540c19] leading-tight">
                   {locating ? 'Detecting Nearest Kitchen...' : 'Use Precise GPS Location'}
                 </h3>
-                <p className="text-xs text-slate-500 font-medium">
-                  Instant mapping for Arera Colony, Shahpura, Kolar & Bhopal clusters
+                <p className="font-note text-xs text-[var(--ink-soft)] mt-0.5">
+                  Instant mapping for Arera Colony, Shahpura, Kolar &amp; Bhopal clusters
                 </p>
               </div>
             </div>
@@ -152,7 +150,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
               type="button"
               onClick={useCurrent}
               disabled={locating}
-              className="inline-flex items-center justify-center gap-2 bg-[#681121] hover:bg-[#540c19] text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-60"
+              className="btn-ink inline-flex items-center justify-center gap-2 font-note text-xs font-semibold px-4 py-2.5 disabled:opacity-60"
             >
               <Compass size={14} />
               <span>{locating ? 'Locating...' : 'Detect Location'}</span>
@@ -161,28 +159,28 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
         </div>
 
         {/* Search & Filter Strip */}
-        <div className="bg-[#FBF7F0] p-4 rounded-3xl border border-[#e5d8c3] shadow-card space-y-3">
+        <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] space-y-3">
           <div className="relative">
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D48924]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search area (e.g. Arera Colony, Kolar, Indore)..."
-              className="w-full pl-10 pr-9 py-2.5 bg-white border border-[#e5d8c3] rounded-2xl text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#681121] focus:ring-1 focus:ring-[#681121] transition-all"
+              className="form-blank w-full pl-10 pr-9 py-2.5 font-note text-xs font-medium"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[var(--ink-faint)] hover:text-[var(--ink)]"
               >
                 <X size={14} />
               </button>
             )}
           </div>
 
-          {/* Filter Pills */}
+          {/* Filter Pills — torn paper tabs */}
           <div className="flex items-center gap-2">
             {(
               [
@@ -197,10 +195,10 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveFilter(tab.id)}
-                  className={`text-xs font-extrabold px-3 py-1.5 rounded-xl transition-all ${
+                  className={`font-note text-xs font-semibold px-3 py-1.5 rounded-xl border-2 transition-all ${
                     active
-                      ? 'bg-[#681121] text-white shadow-sm'
-                      : 'bg-white border border-[#e5d8c3] text-slate-600 hover:bg-[#f3ece0]'
+                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
                   }`}
                 >
                   {tab.label}
@@ -212,77 +210,78 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
 
         {/* Hub Cards Grid */}
         <div className="space-y-3 pt-1">
-          <div className="flex items-center justify-between px-1">
-            <h2 className="text-xs font-black uppercase text-slate-400 tracking-wider">
-              Available Micro-Kitchen Clusters ({filteredLocations.length})
+          <div className="flex items-center justify-between gap-3 px-1">
+            <h2 className="font-note text-[10px] font-semibold uppercase text-[var(--ink-faint)] tracking-[0.18em]">
+              Kitchens on the list ({filteredLocations.length})
             </h2>
-            <span className="text-[11px] text-amber-800 font-bold">
+            <span className="font-hand italic text-sm text-[#681121]">
               MP Headquarters: Bhopal
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-3">
-            {filteredLocations.map((loc) => {
+          <div className="grid grid-cols-1 gap-4">
+            {filteredLocations.map((loc, i) => {
               const isSelected = selectedLocation === loc.id;
               const isOpen = loc.status === 'open';
+              const tilt = i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm';
 
               return (
                 <div
                   key={loc.id}
                   onClick={() => handleSelectCluster(loc)}
-                  className={`p-5 rounded-3xl border transition-all duration-200 cursor-pointer relative overflow-hidden group ${
+                  className={`p-5 rounded-3xl border transition-all duration-300 cursor-pointer relative overflow-hidden group ${tilt} hover:tilt-0 ${
                     isSelected
-                      ? 'border-[#681121] bg-[#681121]/5 shadow-md shadow-[#681121]/10'
+                      ? 'border-[#681121] bg-[#681121]/5 shadow-[3px_4px_0_rgba(104,17,33,0.14)]'
                       : isOpen
-                      ? 'border-[#e5d8c3] bg-[#FBF7F0] hover:border-[#681121]/40 hover:shadow-sm'
-                      : 'border-[#e5d8c3] bg-[#FBF7F0]/60 opacity-80'
+                      ? 'bg-[var(--paper-2)] paper-grain border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:border-[#D48924]/70'
+                      : 'bg-[var(--paper-3)]/40 border border-dashed border-[var(--rule)] opacity-90'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3.5">
                       <div
-                        className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-sm transition-transform group-hover:scale-105 ${
+                        className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
                           isSelected
-                            ? 'bg-[#681121] text-white'
+                            ? 'bg-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
                             : isOpen
-                            ? 'bg-[#4E8B56]/15 text-[#4E8B56]'
-                            : 'bg-amber-100 text-amber-800'
+                            ? 'bg-[#4E8B56]/15 text-[#3d7044] border border-[#4E8B56]/40'
+                            : 'bg-[#D48924]/15 text-[#b87319] border border-[#D48924]/40'
                         }`}
                       >
                         <Store size={20} />
                       </div>
 
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-base font-black text-[#1E1E24]">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="font-hand italic text-lg text-[#540c19] leading-tight">
                             {loc.area}
                           </h3>
-                          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">
+                          <span className="font-note text-[11px] font-medium text-[var(--ink-faint)] uppercase tracking-wide">
                             · {loc.city}
                           </span>
                           {isOpen ? (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-[#4E8B56]/15 text-[#3d7044] border border-[#4E8B56]/30">
+                            <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">
                               <span className="w-1.5 h-1.5 rounded-full bg-[#4E8B56] animate-pulse" />
                               Active Dispatch
                             </span>
                           ) : (
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-200">
+                            <span className="stamp tilt-l-sm text-[#b87319] border-[#D48924]/60">
                               {loc.openingDate || 'Launching Soon'}
                             </span>
                           )}
                         </div>
 
-                        <p className="text-xs text-slate-600 font-medium leading-relaxed max-w-xl">
+                        <p className="font-note text-xs text-[var(--ink-soft)] leading-relaxed max-w-xl">
                           {loc.address}
                         </p>
 
-                        <p className="text-[11px] text-amber-800/90 font-medium italic">
+                        <p className="font-hand italic text-[13px] text-[var(--ink-soft)]">
                           &quot;{loc.tagline}&quot;
                         </p>
 
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 text-[11px] font-semibold text-slate-500">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 font-note text-[11px] font-medium text-[var(--ink-faint)]">
                           <span className="flex items-center gap-1">
-                            <Clock size={12} className="text-slate-400" />
+                            <Clock size={12} className="text-[#D48924]" />
                             {loc.hours}
                           </span>
                           {loc.mapUrl && (
@@ -291,7 +290,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1 text-[#681121] hover:underline font-bold"
+                              className="inline-flex items-center gap-1 text-[#681121] hover:underline font-semibold"
                             >
                               <span>View on Maps</span>
                               <ExternalLink size={11} />
@@ -301,14 +300,14 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                       </div>
                     </div>
 
-                    {/* Selection Checkmark */}
+                    {/* Selection Checkmark — pressed seal */}
                     <div className="shrink-0 pt-0.5">
                       {isSelected ? (
-                        <div className="w-7 h-7 rounded-full bg-[#681121] text-white flex items-center justify-center shadow-md shadow-[#681121]/30">
+                        <div className="w-7 h-7 rounded-full bg-[#681121] text-[#FDFBF7] flex items-center justify-center shadow-[2px_3px_0_rgba(36,4,9,0.3)]">
                           <Check size={16} strokeWidth={3} />
                         </div>
                       ) : (
-                        <div className="w-7 h-7 rounded-full border border-stone-300 group-hover:border-[#681121] transition-colors" />
+                        <div className="w-7 h-7 rounded-full border-2 border-dashed border-[var(--rule)] group-hover:border-[#681121] transition-colors" />
                       )}
                     </div>
                   </div>
@@ -318,9 +317,9 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
           </div>
         </div>
 
-        {/* Footer Guarantee */}
-        <div className="p-4 rounded-2xl bg-[#f5ece0]/80 border border-[#e2d2ba] flex items-center gap-3 text-xs text-stone-700">
-          <ShieldCheck size={20} className="text-[#4E8B56] shrink-0" />
+        {/* Footer Guarantee — stamped promise */}
+        <div className="p-4 rounded-2xl bg-[var(--paper-3)]/60 border-2 border-dashed border-[var(--rule)] flex items-center gap-3 font-note text-xs text-[var(--ink-soft)]">
+          <ShieldCheck size={20} className="text-[#3d7044] shrink-0" />
           <p className="leading-relaxed">
             All orders are small-batch roasted inside hygienic Bhopal kitchens with zero preservatives. Delivered hot and fresh in sealed aroma packs.
           </p>
@@ -330,4 +329,3 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
     </div>
   );
 }
-

@@ -1,0 +1,524 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Local fonts — same woff2 files as the customer panel
+   ============================================================ */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-500-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/jost-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jost-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jost-500.woff2') format('woff2');
+}
+
+/* ============================================================
+   SAHI CRUNCH — HANDMADE / KITCHEN-LOG DESIGN SYSTEM
+   (identical language to the customer panel: warm pen-and-paper,
+   no glossy gradients, no glassmorphism)
+   ============================================================ */
+:root {
+  --primary-maroon: #681121;
+  --primary-maroon-deep: #701222;
+  --accent-amber: #d48924;
+  --accent-amber-light: #e2952a;
+  --bg-cream: #fdfbf7;
+  --text-charcoal: #1e1e24;
+
+  /* Ink palette — single source of truth */
+  --ink: #3a2c20; /* warm sepia ink, body copy */
+  --ink-soft: #6b5a45; /* secondary handwritten notes */
+  --ink-faint: #8c7a63; /* placeholders, meta */
+  --paper: #f7f0e1; /* base sheet */
+  --paper-2: #fbf7f0; /* raised card */
+  --paper-3: #efe5cf; /* recessed / pressed */
+  --rule: #ddceb2; /* ruled lines & borders */
+  --tape: #e6d3a3; /* masking tape */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg-cream);
+    color: var(--ink);
+    font-family: 'Jost', 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #681121;
+    color: #fdfbf7;
+  }
+}
+
+/* ---------- Scrollbars (maroon ink on paper) ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(104, 17, 33, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(104, 17, 33, 0.45);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(104, 17, 33, 0.25) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f4efe6;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d48924;
+  border-radius: 9999px;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer components {
+  /* ---------- Typography: two voices ---------- */
+  .font-hand {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  }
+  .font-note {
+    font-family: 'Jost', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  /* ---------- Paper surfaces ---------- */
+  .paper-grain {
+    background-image: radial-gradient(rgba(122, 92, 48, 0.07) 1px, transparent 1px);
+    background-size: 19px 19px;
+  }
+
+  .sc-card {
+    background-color: var(--paper-2);
+    background-image: radial-gradient(rgba(122, 92, 48, 0.07) 1px, transparent 1px);
+    background-size: 19px 19px;
+    border: 1px solid var(--rule);
+    border-radius: 1rem;
+    box-shadow:
+      3px 4px 0 rgba(84, 12, 25, 0.05),
+      0 16px 30px -22px rgba(84, 12, 25, 0.4);
+  }
+
+  .sc-card-hover {
+    transition:
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .sc-card-hover:hover {
+    border-color: rgba(212, 137, 36, 0.7);
+    box-shadow:
+      4px 6px 0 rgba(84, 12, 25, 0.08),
+      0 20px 40px -24px rgba(84, 12, 25, 0.5);
+  }
+
+  /* Old names kept so any leftover usage still reads as paper */
+  .glass-panel,
+  .glass-card {
+    background-color: var(--paper-2);
+    background-image: radial-gradient(rgba(122, 92, 48, 0.07) 1px, transparent 1px);
+    background-size: 19px 19px;
+    border: 1px solid var(--rule);
+    border-radius: 1rem;
+    box-shadow:
+      3px 4px 0 rgba(84, 12, 25, 0.05),
+      0 16px 30px -22px rgba(84, 12, 25, 0.4);
+  }
+
+  .page-bg {
+    background-color: var(--paper);
+    background-image: radial-gradient(rgba(122, 92, 48, 0.07) 1px, transparent 1px);
+    background-size: 19px 19px;
+  }
+
+  /* ---------- A torn/rough top edge for pinned sheets ---------- */
+  .edge-torn-top {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 5px);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 5px);
+  }
+
+  /* ---------- Masking tape strip ---------- */
+  .tape {
+    position: absolute;
+    height: 1.4rem;
+    background: rgba(230, 211, 163, 0.82);
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 1px 2px rgba(84, 12, 25, 0.12);
+    pointer-events: none;
+  }
+
+  /* ---------- Hand-drawn marker underline ---------- */
+  .marker {
+    background-image: linear-gradient(transparent 62%, rgba(212, 137, 36, 0.42) 62%, rgba(212, 137, 36, 0.42) 94%, transparent 94%);
+    padding-inline: 0.1em;
+  }
+  .marker-green {
+    background-image: linear-gradient(transparent 62%, rgba(78, 139, 86, 0.4) 62%, rgba(78, 139, 86, 0.4) 94%, transparent 94%);
+    padding-inline: 0.1em;
+  }
+
+  /* ---------- Ink-stamp chip ---------- */
+  .stamp,
+  .sc-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(251, 247, 240, 0.85);
+    border: 1.5px dashed var(--rule);
+    border-radius: 0.4rem;
+    padding: 0.15rem 0.5rem;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    box-shadow: 1px 2px 0 rgba(84, 12, 25, 0.05);
+    white-space: nowrap;
+  }
+
+  /* ---------- Ruled notebook lines ---------- */
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 27px,
+      rgba(122, 92, 48, 0.12) 27px,
+      rgba(122, 92, 48, 0.12) 28px
+    );
+  }
+
+  /* ---------- Pressed-in form fields ---------- */
+  .form-blank,
+  .sc-input,
+  .sc-select,
+  .sc-textarea {
+    background-color: var(--paper-2);
+    border: 1.5px solid var(--rule);
+    border-radius: 0.6rem;
+    color: var(--ink);
+    font-family: 'Jost', system-ui, sans-serif;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+    width: 100%;
+  }
+  .form-blank::placeholder,
+  .sc-input::placeholder,
+  .sc-select::placeholder,
+  .sc-textarea::placeholder {
+    color: var(--ink-faint);
+  }
+  .form-blank:focus,
+  .sc-input:focus,
+  .sc-select:focus,
+  .sc-textarea:focus {
+    outline: none;
+    border-color: #681121;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(104, 17, 33, 0.1);
+  }
+  .sc-textarea {
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .sc-select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b5a45' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+  }
+
+  /* ---------- Buttons ---------- */
+  .sc-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .sc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.7rem;
+    padding: 0.55rem 0.9rem;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  /* Primary — hand-stamped maroon ink */
+  .btn-ink,
+  .sc-btn-primary {
+    background: #681121;
+    color: #fdfbf7;
+    border: none;
+    border-radius: 0.7rem;
+    box-shadow: 2px 3px 0 rgba(36, 4, 9, 0.35);
+  }
+  .btn-ink:hover,
+  .sc-btn-primary:hover {
+    background: #540c19;
+  }
+  .btn-ink:active,
+  .sc-btn-primary:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(36, 4, 9, 0.35);
+  }
+
+  /* Secondary — outlined in maroon ink */
+  .btn-outline,
+  .sc-btn-ghost {
+    background: var(--paper-2);
+    color: #681121;
+    border: 1.5px solid #681121;
+    border-radius: 0.7rem;
+    box-shadow: 2px 3px 0 rgba(104, 17, 33, 0.14);
+  }
+  .btn-outline:hover,
+  .sc-btn-ghost:hover {
+    background: #681121;
+    color: #fdfbf7;
+  }
+  .btn-outline:active,
+  .sc-btn-ghost:active {
+    transform: translateY(2px);
+    box-shadow: none;
+  }
+
+  /* Accent — amber stamp, used on the maroon sign */
+  .btn-amber,
+  .sc-btn-gold {
+    background: #d48924;
+    color: #3b1f00;
+    border: none;
+    border-radius: 0.7rem;
+    box-shadow: 2px 3px 0 rgba(36, 4, 9, 0.45);
+  }
+  .btn-amber:hover,
+  .sc-btn-gold:hover {
+    background: #e2952a;
+  }
+  .btn-amber:active,
+  .sc-btn-gold:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(36, 4, 9, 0.45);
+  }
+
+  /* Outline on the maroon sign — chalk on the board */
+  .btn-chalk {
+    background: transparent;
+    color: #fdfbf7;
+    border: 1.5px dashed rgba(253, 251, 247, 0.55);
+    border-radius: 0.7rem;
+  }
+  .btn-chalk:hover {
+    background: rgba(253, 251, 247, 0.12);
+    border-color: rgba(253, 251, 247, 0.85);
+  }
+
+  /* ---------- Pin tilt helpers (deterministic) ---------- */
+  .tilt-l {
+    transform: rotate(-0.7deg);
+  }
+  .tilt-r {
+    transform: rotate(0.6deg);
+  }
+  .tilt-l-sm {
+    transform: rotate(-0.4deg);
+  }
+  .tilt-r-sm {
+    transform: rotate(0.5deg);
+  }
+  .tilt-0 {
+    transform: rotate(0deg);
+  }
+
+  /* ---------- Pure veg indicator ---------- */
+  .veg-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid #0f8a3a;
+    border-radius: 3px;
+    background: #ffffff;
+    flex-shrink: 0;
+  }
+  .veg-badge::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #0f8a3a;
+  }
+
+  /* ---------- Admin chart bars (ink filling the ruled track) ---------- */
+  .sc-bar {
+    background-image: linear-gradient(90deg, #681121 0%, #a83a2a 45%, #d48924 100%);
+    animation: sc-grow 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: left;
+    border-radius: 9999px;
+  }
+
+  /* ---------- Skeleton: paper shading while the pad loads ---------- */
+  .sc-skeleton {
+    background-image: linear-gradient(90deg, #f0e8d7 25%, #fbf7f0 50%, #f0e8d7 75%);
+    background-size: 200% 100%;
+    animation: sc-shimmer 1.4s ease-in-out infinite;
+    border: 1px dashed var(--rule);
+    border-radius: 1rem;
+  }
+
+  /* ---------- Table polish ---------- */
+  .sc-table thead th {
+    background-color: rgba(239, 229, 207, 0.6);
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sc-table tbody tr {
+    transition: background-color 0.15s ease;
+  }
+  .sc-table tbody tr:hover {
+    background-color: rgba(239, 229, 207, 0.45);
+  }
+
+  /* ---------- Hand-drawn section title ---------- */
+  .sc-underline {
+    width: 6rem;
+    height: 0.6rem;
+    margin-top: 0.15rem;
+  }
+}
+
+/* ---------- Animations ---------- */
+@keyframes sc-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes sc-grow {
+  from {
+    transform: scaleX(0.05);
+    opacity: 0.4;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up-modal {
+  animation: slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-l,
+  .tilt-r,
+  .tilt-l-sm,
+  .tilt-r-sm {
+    transform: none;
+  }
+}

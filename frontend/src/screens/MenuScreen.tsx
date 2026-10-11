@@ -9,8 +9,8 @@ import {
   ThumbsUp,
   ThumbsDown,
 } from 'lucide-react';
-import { useApp, activeDishes } from '../store';
-import { categories, type Dish } from '../data/menu';
+import { useApp, activeDishes, activeCategories } from '../store';
+import { type Dish } from '../data/menu';
 import { filters as FILTERS } from '../data';
 import { formatINR } from '../lib/utils';
 import { DishImg, VegBadge, RatingBadge, DeliveryPill } from '../ui';
@@ -33,6 +33,13 @@ export default function MenuScreen() {
   const [showFilters, setShowFilters] = useState(false);
 
   const pool = useMemo(() => activeDishes(locationId), [locationId]);
+
+  // Live menu chapters — synced from the admin panel via /api/categories
+  const allCategories = useApp((s) => s.categories);
+  const categories = useMemo(
+    () => activeCategories(locationId, allCategories),
+    [locationId, allCategories]
+  );
 
   const cartQtyMap = useMemo(() => {
     const map: Record<string, { qty: number; key: string }> = {};
@@ -80,11 +87,12 @@ export default function MenuScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-36 text-[#1E1E24]">
-      {/* Header Search & Category Filter */}
-      <header className="sticky top-0 lg:static z-20 bg-[#FDFBF7] border-b border-[#e8dfcf] px-4 sm:px-6 lg:px-10 xl:px-12 pt-3 pb-3">
+    <div className="min-h-screen bg-[var(--paper)] paper-grain pb-36 text-[var(--ink)]">
+      {/* Header Search & Category Filter — the top of a recipe card */}
+      <header className="sticky top-0 lg:static z-20 bg-[var(--paper)] border-b border-[var(--rule)] px-4 sm:px-6 lg:px-10 xl:px-12 pt-3 pb-3 relative">
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
         <div className="w-full">
-          {/* Search Input Bar (Compact & Sleek) */}
+          {/* Search Input Bar — a blank on a form */}
           <div className="flex items-center gap-2 max-w-md">
             <div className="relative flex-1">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#D48924]" />
@@ -93,13 +101,13 @@ export default function MenuScreen() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search dishes, flavours, spices..."
-                className="w-full bg-[#FBF7F0] border border-[#e5d8c3] rounded-xl pl-8 pr-8 py-1.5 sm:py-2 text-xs font-medium text-[#1E1E24] placeholder-slate-400 outline-none focus:border-[#681121] focus:bg-white transition-all shadow-none"
+                className="form-blank w-full pl-8 pr-8 py-1.5 sm:py-2 font-note text-xs"
               />
               {q && (
                 <button
                   type="button"
                   onClick={() => setQ('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--ink-faint)] hover:text-[var(--ink)] p-0.5"
                 >
                   <X size={13} />
                 </button>
@@ -110,17 +118,17 @@ export default function MenuScreen() {
               type="button"
               onClick={() => setShowFilters(!showFilters)}
               title="Filters"
-              className={`flex h-8 sm:h-9 w-8 sm:w-9 shrink-0 items-center justify-center rounded-xl border transition-colors ${
+              className={`flex h-8 sm:h-9 w-8 sm:w-9 shrink-0 items-center justify-center rounded-xl border-2 transition-colors ${
                 active.length > 0
-                  ? 'bg-[#681121]/10 border-[#681121] text-[#681121] font-bold'
-                  : 'bg-[#FBF7F0] border-[#e8dfcf] text-[#1E1E24] hover:bg-[#f3ece0]'
+                  ? 'bg-[#681121]/10 border-[#681121] text-[#681121]'
+                  : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
               }`}
             >
               <SlidersHorizontal size={14} />
             </button>
           </div>
 
-          {/* Category Pills */}
+          {/* Category Pills — torn paper tabs */}
           <div className="no-scrollbar flex gap-2 sm:gap-3 overflow-x-auto pt-3 pb-1">
             {[{ id: 'all', name: 'All' }, ...categories].map((c) => {
               const isSelected = cat === c.id;
@@ -129,10 +137,10 @@ export default function MenuScreen() {
                   key={c.id}
                   type="button"
                   onClick={() => setCat(c.id)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
+                  className={`px-4 py-2 rounded-full font-note text-xs font-medium whitespace-nowrap transition-all border-2 ${
                     isSelected
-                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-sm'
-                      : 'bg-[#FBF7F0] border-[#e8dfcf] text-[#1E1E24] hover:border-[#D48924]'
+                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
                   }`}
                 >
                   {c.name}
@@ -142,7 +150,7 @@ export default function MenuScreen() {
           </div>
 
           {showFilters && (
-            <div className="mt-2.5 pt-2 border-t border-slate-100 flex flex-wrap gap-2">
+            <div className="mt-2.5 pt-2 border-t border-dashed border-[var(--rule)] flex flex-wrap gap-2">
               {FILTERS.map((f) => {
                 const isOn = active.includes(f.id);
                 return (
@@ -150,10 +158,10 @@ export default function MenuScreen() {
                     key={f.id}
                     type="button"
                     onClick={() => toggleFilter(f.id)}
-                    className={`text-xs font-bold px-3 py-1 rounded-xl border transition-colors ${
+                    className={`font-note text-xs font-medium px-3 py-1 rounded-xl border-2 transition-colors ${
                       isOn
-                        ? 'bg-emerald-600 border-emerald-600 text-white'
-                        : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-[#4E8B56] border-[#4E8B56] text-white'
+                        : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#4E8B56]'
                     }`}
                   >
                     {f.label}
@@ -168,37 +176,38 @@ export default function MenuScreen() {
       {/* Product List Responsive Grid: Full width across screens */}
       <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-5">
-          {results.map((dish) => {
+          {results.map((dish, i) => {
             const inCart = cartQtyMap[dish.id];
             const isFav = favorites.includes(dish.id);
+            const tilt = ['tilt-l-sm', 'tilt-r-sm', 'tilt-r-sm', 'tilt-l-sm'][i % 4];
 
             return (
               <div
                 key={dish.id}
                 onClick={() => push({ type: 'dish', id: dish.id })}
-                className="group relative flex items-center justify-between gap-3.5 sm:gap-4 bg-[#FBF7F0] p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-[#e5d8c3] shadow-sm hover:shadow-lg hover:border-[#D48924]/60 transition-all duration-300 cursor-pointer"
+                className={`group relative flex items-center justify-between gap-3.5 sm:gap-4 bg-[var(--paper-2)] paper-grain p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_14px_26px_-20px_rgba(84,12,25,0.4)] hover:shadow-lg hover:border-[#D48924]/60 ${tilt} hover:tilt-0 transition-all duration-300 cursor-pointer`}
               >
                 {/* Left Info Column: Name -> Price -> Thumbs Feedback */}
                 <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch py-0.5">
                   <div>
-                    <h3 className="font-bold text-base sm:text-lg text-[#1E1E24] tracking-tight leading-snug line-clamp-2 group-hover:text-[#681121] transition-colors">
+                    <h3 className="font-hand font-bold text-xl text-[#540c19] tracking-tight leading-snug line-clamp-2 group-hover:text-[#681121] transition-colors">
                       {dish.name}
                     </h3>
 
-                    {/* Price (Ab upar hai) */}
+                    {/* Price */}
                     <div className="mt-1.5 flex items-baseline gap-2">
-                      <span className="text-lg sm:text-xl font-black text-[#681121] tracking-tight">
+                      <span className="font-hand font-bold text-xl sm:text-2xl text-[#681121] tracking-tight">
                         {formatINR(dish.price)}
                       </span>
-                      <span className="text-xs text-slate-400 font-medium line-through">
+                      <span className="font-note text-xs text-[var(--ink-faint)] font-medium line-through">
                         ₹{Math.round(dish.price * 1.25)}
                       </span>
                     </div>
                   </div>
 
-                  {/* Feedback: Thumbs Up / Down Buttons (Ab neeche hai) */}
+                  {/* Feedback: Thumbs Up / Down Buttons */}
                   <div className="mt-2.5 flex items-center gap-1.5">
-                    <span className="text-[11px] font-semibold text-slate-500 mr-0.5">Feedback:</span>
+                    <span className="font-note text-[11px] font-medium text-[var(--ink-faint)] mr-0.5">Feedback:</span>
                     <button
                       type="button"
                       aria-label="Thumbs Up"
@@ -209,10 +218,10 @@ export default function MenuScreen() {
                           [dish.id]: prev[dish.id] === 'up' ? (undefined as any) : 'up',
                         }));
                       }}
-                      className={`flex items-center gap-1 px-2 py-1 rounded-full border text-[11px] font-bold transition-all active:scale-90 ${
+                      className={`flex items-center gap-1 px-2 py-1 rounded-full border text-[11px] font-medium transition-all active:scale-90 ${
                         votes[dish.id] === 'up'
-                          ? 'bg-[#4E8B56]/15 text-[#4E8B56] border-[#4E8B56]/50 shadow-sm'
-                          : 'bg-[#FDFBF7] text-slate-500 border-[#e5d8c3] hover:text-[#4E8B56] hover:border-[#4E8B56]/40'
+                          ? 'bg-[#4E8B56]/12 text-[#3d7044] border-[#4E8B56]/50 shadow-sm'
+                          : 'bg-[var(--paper-2)] text-[var(--ink-faint)] border-[var(--rule)] hover:text-[#3d7044] hover:border-[#4E8B56]/40'
                       }`}
                     >
                       <ThumbsUp
@@ -231,10 +240,10 @@ export default function MenuScreen() {
                           [dish.id]: prev[dish.id] === 'down' ? (undefined as any) : 'down',
                         }));
                       }}
-                      className={`flex items-center gap-1 px-2 py-1 rounded-full border text-[11px] font-bold transition-all active:scale-90 ${
+                      className={`flex items-center gap-1 px-2 py-1 rounded-full border text-[11px] font-medium transition-all active:scale-90 ${
                         votes[dish.id] === 'down'
-                          ? 'bg-[#b91c1c]/15 text-[#b91c1c] border-[#b91c1c]/50 shadow-sm'
-                          : 'bg-[#FDFBF7] text-slate-500 border-[#e5d8c3] hover:text-[#b91c1c] hover:border-[#b91c1c]/40'
+                          ? 'bg-[#b91c1c]/12 text-[#b91c1c] border-[#b91c1c]/50 shadow-sm'
+                          : 'bg-[var(--paper-2)] text-[var(--ink-faint)] border-[var(--rule)] hover:text-[#b91c1c] hover:border-[#b91c1c]/40'
                       }`}
                     >
                       <ThumbsDown
@@ -247,7 +256,7 @@ export default function MenuScreen() {
 
                 {/* Right Column: Square Image with Like button & Overlapping/Embedded ADD Button */}
                 <div className="relative shrink-0 flex flex-col items-center">
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-[#f3ece0] border border-[#e8dfcf] shadow-sm">
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-[var(--paper-3)] border border-[var(--rule)]">
                     <DishImg
                       name={dish.image}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -259,7 +268,7 @@ export default function MenuScreen() {
                         e.stopPropagation();
                         toggleFavorite(dish.id);
                       }}
-                      className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#FDFBF7]/90 backdrop-blur-sm shadow text-slate-500 hover:text-[#681121] hover:bg-white active:scale-90 transition-all"
+                      className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--paper-2)]/90 backdrop-blur-sm shadow text-[var(--ink-faint)] hover:text-[#681121] hover:bg-white active:scale-90 transition-all"
                     >
                       <Heart
                         size={14}
@@ -273,7 +282,7 @@ export default function MenuScreen() {
                     {inCart && inCart.qty > 0 ? (
                       <div
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center justify-between bg-[#4E8B56] text-white rounded-xl px-2.5 py-1.5 shadow-md font-extrabold text-xs"
+                        className="flex items-center justify-between bg-[#4E8B56] text-white rounded-xl px-2.5 py-1.5 shadow-md font-note font-semibold text-xs"
                       >
                         <button
                           type="button"
@@ -282,7 +291,7 @@ export default function MenuScreen() {
                         >
                           <Minus size={13} strokeWidth={3} />
                         </button>
-                        <span className="font-black">{inCart.qty}</span>
+                        <span className="font-note font-semibold">{inCart.qty}</span>
                         <button
                           type="button"
                           onClick={(e) => handleIncrement(dish, inCart.key, inCart.qty, e)}
@@ -291,11 +300,15 @@ export default function MenuScreen() {
                           <Plus size={13} strokeWidth={3} />
                         </button>
                       </div>
+                    ) : !dish.available ? (
+                      <span className="stamp w-full justify-center py-1.5 text-[var(--ink-faint)] border-[var(--rule)]">
+                        Sold out
+                      </span>
                     ) : (
                       <button
                         type="button"
                         onClick={(e) => handleAdd(dish, e)}
-                        className="w-full flex items-center justify-center gap-1 bg-[#FDFBF7] hover:bg-[#681121] text-[#681121] hover:text-white border-1.5 border-[#681121] font-black text-xs py-1.5 rounded-xl shadow-md active:scale-95 transition-all"
+                        className="btn-outline w-full flex items-center justify-center gap-1 font-note text-xs font-semibold py-1.5"
                       >
                         <span>ADD</span>
                         <Plus size={13} strokeWidth={2.5} />

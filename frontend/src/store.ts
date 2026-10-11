@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { dishById, dishes } from './data/menu';
+import {
+  dishById as staticDishById,
+  dishes as staticDishes,
+  categories as staticCategories,
+  type Dish,
+  type MenuCategory,
+} from './data/menu';
+import { menuApi } from './lib/api';
 
 /* ---------------- types ---------------- */
 
@@ -89,8 +96,14 @@ interface AppState {
   referralCode: string;
 
   online: boolean;
+  dishes: Dish[];
+  categories: MenuCategory[];
 
   /* actions */
+  syncDishes: (dishes: Dish[]) => void;
+  syncCategories: (categories: MenuCategory[]) => void;
+  /** Pull the live menu + chapters from the backend (same DB the Admin Panel writes to). */
+  refreshMenu: () => Promise<void>;
   setLocation: (id: string) => void;
   goApp: () => void;
   setPhase: (p: Phase) => void;
@@ -130,6 +143,13 @@ const initialProfile: Profile = {
 const randCode = (p: string) =>
   `${p}-${Math.random().toString(36).slice(2, 6).toUpperCase()}${Date.now().toString(36).slice(-3).toUpperCase()}`;
 
+/** Live dish lookup — prefers the API-synced list, falls back to the bundled menu. */
+export const dishById = (id: string): Dish | undefined => {
+  const live = useApp.getState().dishes;
+  const found = live?.find((d) => d.id === id);
+  return found ?? staticDishById(id);
+};
+
 export const lineTotal = (l: CartLine) => {
   const d = dishById(l.dishId);
   if (!d) return 0;
@@ -160,7 +180,24 @@ export const useApp = create<AppState>()(
       referralCode: randCode('GH'),
 
       online: true,
+      dishes: staticDishes,
+      categories: staticCategories,
 
+      syncDishes: (newDishes) => set({ dishes: newDishes }),
+      syncCategories: (newCategories) => set({ categories: newCategories }),
+      refreshMenu: async () => {
+        // Menu (products) — additions, edits, deletions & sold-out toggles
+        const { data, error } = await menuApi.list();
+        if (!error && Array.isArray(data?.dishes) && data.dishes.length > 0) {
+          set({ dishes: data.dishes as Dish[] });
+        }
+
+        // Chapters (categories) — new/renamed menu chapters
+        const cat = await menuApi.categories();
+        if (!cat.error && Array.isArray(cat.data?.categories) && cat.data.categories.length > 0) {
+          set({ categories: cat.data.categories as MenuCategory[] });
+        }
+      },
       setLocation: (id) => set({ locationId: id, phase: 'app' }),
       goApp: () => set({ phase: 'app' }),
       setPhase: (p) => set({ phase: p }),
@@ -279,8 +316,20 @@ export const useApp = create<AppState>()(
 
 /* ---------------- selectors ---------------- */
 
-export const activeDishes = (locationId: string | null) =>
-  locationId ? dishes.filter((d) => d.branchAvailability.includes(locationId)) : dishes;
+export const activeDishes = (locationId: string | null) => {
+  const currentDishes = useApp.getState().dishes || staticDishes;
+  return locationId
+    ? currentDishes.filter((d) => d.branchAvailability.includes(locationId))
+    : currentDishes;
+};
+
+/** Chapters that actually have snacks at this location (keeps admin-added chapters honest). */
+export const activeCategories = (locationId: string | null, all?: MenuCategory[]): MenuCategory[] => {
+  const cats = all?.length ? all : useApp.getState().categories || staticCategories;
+  const withDishes = new Set(activeDishes(locationId).map((d) => d.category));
+  const visible = cats.filter((c) => withDishes.has(c.id));
+  return visible.length > 0 ? visible : cats;
+};
 
 export const tierOf = (points: number) =>
   points >= 5000 ? 3 : points >= 2000 ? 2 : points >= 500 ? 1 : 0;

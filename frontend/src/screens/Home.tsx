@@ -23,8 +23,8 @@ import {
   Bike,
   CheckCircle2,
 } from 'lucide-react';
-import { useApp, activeDishes, tierOf } from '../store';
-import { categories, type Dish } from '../data/menu';
+import { useApp, activeDishes, activeCategories, tierOf } from '../store';
+import { type Dish } from '../data/menu';
 import { locations } from '../data/locations';
 import { offersFor, TIERS } from '../data';
 import { VegBadge, DeliveryPill, RatingBadge, DishImg } from '../ui';
@@ -47,6 +47,13 @@ export default function Home() {
 
   const branch = locations.find((l) => l.id === locationId) ?? locations[0];
   const pool = useMemo(() => activeDishes(locationId), [locationId]);
+
+  // Live menu chapters — synced from the admin panel via /api/categories
+  const allCategories = useApp((s) => s.categories);
+  const categories = useMemo(
+    () => activeCategories(locationId, allCategories),
+    [locationId, allCategories]
+  );
 
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
@@ -121,9 +128,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-24 lg:pb-8 text-[#1E1E24]">
+    <div className="min-h-screen bg-[var(--paper)] paper-grain pb-24 lg:pb-8 text-[var(--ink)]">
       {/* ================= 1. RESPONSIVE TOP HEADER (MOBILE & TABLET ONLY: lg:hidden) ================= */}
-      <header className="lg:hidden sticky top-0 z-30 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#e8dfcf] shadow-sm px-4 sm:px-6 pt-3.5 pb-3.5">
+      <header className="lg:hidden sticky top-0 z-30 bg-[var(--paper)] paper-grain backdrop-blur-md border-b border-[var(--rule)] shadow-sm px-4 sm:px-6 pt-3.5 pb-3.5 relative">
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
         <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6">
           {/* Brand Logo & Location delivery selector */}
           <div className="flex items-center justify-between gap-3">
@@ -141,36 +149,36 @@ export default function Home() {
                 onClick={() => push({ type: 'location' })}
                 className="flex items-center gap-2.5 text-left min-w-0"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#D48924] text-white font-black shadow-sm">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#D48924] text-white shadow-sm">
                   <Zap size={20} className="fill-white" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-extrabold text-sm sm:text-base text-[#1E1E24] tracking-tight flex items-center gap-1">
+                    <span className="font-hand italic font-bold text-lg sm:text-xl text-[#540c19] tracking-tight flex items-center gap-1">
                       Delivery in 10-15 mins
                     </span>
-                    <span className="bg-[#4E8B56]/15 text-[#4E8B56] border border-[#4E8B56]/30 text-[9px] font-extrabold px-1.5 py-0.2 rounded uppercase">
+                    <span className="stamp text-[#3d7044] border-[#4E8B56]/50 text-[8px]">
                       Fresh
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 text-slate-500 text-xs truncate">
-                    <span className="font-bold text-slate-700">{branch.area}</span>
+                  <div className="flex items-center gap-1 font-note text-[var(--ink-faint)] text-xs truncate">
+                    <span className="font-semibold text-[var(--ink-soft)]">{branch.area}</span>
                     <span>·</span>
                     <span className="truncate">{branch.city}</span>
-                    <ChevronDown size={14} className="text-slate-400 shrink-0" />
+                    <ChevronDown size={14} className="text-[var(--ink-faint)] shrink-0" />
                   </div>
                 </div>
               </button>
             </div>
 
-            {/* Loyalty points button on mobile */}
+            {/* Loyalty points button on mobile — ink stamp */}
             <div className="flex items-center gap-2 md:hidden">
               <button
                 type="button"
                 onClick={() => push({ type: 'loyalty' })}
-                className="flex items-center gap-1.5 bg-[#FBF7F0] border border-[#D48924]/40 px-2.5 py-1.5 rounded-full text-xs font-bold text-[#681121] shadow-sm shrink-0"
+                className="stamp tilt-l-sm text-[#681121] border-[#D48924]/50"
               >
-                <Sparkles size={14} className="text-[#D48924] fill-[#D48924]" />
+                <Sparkles size={12} className="text-[#D48924] fill-[#D48924]" />
                 <span>{points} pts</span>
               </button>
             </div>
@@ -181,16 +189,16 @@ export default function Home() {
             <button
               type="button"
               onClick={() => push({ type: 'search' })}
-              className="flex-1 min-w-0 flex items-center justify-between bg-[#FBF7F0] hover:bg-[#f3ece0] border border-[#e5d8c3] rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm text-slate-400 transition-colors shadow-inner"
+              className="flex-1 min-w-0 flex items-center justify-between form-blank rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm transition-colors"
             >
               <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
                 <Search size={18} className="text-[#D48924] shrink-0" />
-                <span className="font-medium text-slate-600 truncate text-xs sm:text-sm">
+                <span className="font-note font-medium text-[var(--ink-faint)] truncate text-xs sm:text-sm">
                   Search &quot;Masala Makhana&quot;, &quot;Shahi Nankhatai&quot;...
                 </span>
               </div>
-              <span className="text-[10px] sm:text-[11px] font-bold text-[#4E8B56] bg-[#4E8B56]/10 px-2 py-0.5 rounded-md hidden md:inline-block shrink-0">
-                100% PURE VEG
+              <span className="stamp text-[#3d7044] border-[#4E8B56]/40 hidden md:inline-block shrink-0 text-[8px]">
+                100% Pure Veg
               </span>
             </button>
 
@@ -198,7 +206,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => push({ type: 'loyalty' })}
-              className="hidden md:flex items-center gap-1.5 sm:gap-2 bg-[#FBF7F0] border border-[#D48924]/40 px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs font-extrabold text-[#681121] shadow-sm shrink-0 hover:bg-[#f3ece0] transition-colors"
+              className="hidden md:flex items-center gap-1.5 sm:gap-2 form-blank px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl font-note text-xs font-semibold text-[#681121] shrink-0 hover:bg-[var(--paper-3)] transition-colors"
             >
               <Sparkles size={15} className="text-[#D48924] fill-[#D48924]" />
               <span>{points} Points</span>
@@ -208,61 +216,36 @@ export default function Home() {
       </header>
 
       <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 space-y-7 pt-4">
-        {/* ================= 2. HERO PROMO CARD (RE-DESIGNED FULL BLEED CAROUSEL) ================= */}
+        {/* ================= 2. HERO — A taped-in polaroid on the kitchen board ================= */}
         <section>
-          <div className="relative overflow-hidden rounded-3xl bg-[#681121] text-white shadow-2xl shadow-[#681121]/25 border border-amber-900/40 min-h-[380px] sm:min-h-[420px] md:min-h-[340px] flex flex-col justify-between p-6 sm:p-8 lg:p-10">
-            {/* Full-bleed rotating background images with cross-fade */}
-            <div className="absolute inset-0 pointer-events-none">
-              {heroSlides.map((slide, idx) => (
-                <div
-                  key={slide.image}
-                  className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === activeHeroSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-                    }`}
-                  style={{ transitionProperty: 'opacity, transform' }}
-                >
-                  <DishImg
-                    name={slide.image}
-                    className="w-full h-full object-cover object-center md:object-right"
-                  />
-                </div>
-              ))}
-
-              {/* Left Tint with slanted zig-zag / jagged diagonal edge + 30% image blend */}
-              <div
-                className="absolute inset-y-0 left-0 w-full sm:w-[60%] md:w-[50%] lg:w-[45%] bg-[#681121]/75 backdrop-blur-[2px]"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, calc(96% - 14px) 7%, calc(92% - 4px) 14%, calc(88% - 22px) 21%, calc(84% - 10px) 29%, calc(80% - 28px) 37%, calc(76% - 8px) 45%, calc(71% - 20px) 53%, calc(66% - 5px) 61%, calc(61% - 24px) 69%, calc(56% - 10px) 77%, calc(50% - 26px) 85%, calc(44% - 6px) 93%, 38% 100%, 0 100%)',
-                }}
-              />
-              {/* Subtle gradient wash over tinted zone to keep white text readable and blend rich royal tones */}
-              <div
-                className="absolute inset-y-0 left-0 w-full sm:w-[60%] md:w-[50%] lg:w-[45%] bg-gradient-to-r from-[#500c19]/80 via-[#681121]/50 to-transparent pointer-events-none"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, calc(96% - 14px) 7%, calc(92% - 4px) 14%, calc(88% - 22px) 21%, calc(84% - 10px) 29%, calc(80% - 28px) 37%, calc(76% - 8px) 45%, calc(71% - 20px) 53%, calc(66% - 5px) 61%, calc(61% - 24px) 69%, calc(56% - 10px) 77%, calc(50% - 26px) 85%, calc(44% - 6px) 93%, 38% 100%, 0 100%)',
-                }}
-              />
-            </div>
-
-            {/* Content & Trust Points both cleanly aligned to Left */}
-            <div className="relative z-10 max-w-xl flex flex-col justify-between">
-              <div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-[1.15] text-[#FDFBF7] drop-shadow-sm">
-                  SAHI SPICE <br />
-                  <span className="text-[#E2952A]">100% Roasted, Never Fried</span>
+          <div className="relative rounded-3xl bg-[var(--paper-2)] paper-grain border border-[var(--rule)] shadow-[0_20px_45px_-28px_rgba(84,12,25,0.4)] overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-5 sm:p-7 lg:p-9 items-center">
+              {/* Left: handwritten pitch */}
+              <div className="lg:col-span-7 flex flex-col">
+                <h2 className="font-hand italic text-4xl sm:text-5xl lg:text-[58px] text-[#540c19] tracking-tight leading-[1.02]">
+                  Sahi spice,
+                  <br />
+                  <span className="marker">100% roasted, never fried.</span>
                 </h2>
 
-                <p className="mt-2 text-xs sm:text-sm text-amber-100/80 max-w-md font-medium leading-relaxed drop-shadow-sm">
-                  Bhopal’s heritage recipes crafted in pure desi ghee & small batches. Clean indulgence made fresh daily.
+                <svg viewBox="0 0 260 12" className="w-52 sm:w-64 h-3 mt-2" fill="none" aria-hidden="true">
+                  <path d="M3 8.5c30-5 58-6.5 88-5s56 4.5 86 3 48-5 78-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+
+                <p className="font-note text-[13px] sm:text-sm text-[var(--ink-soft)] max-w-md mt-3 leading-relaxed">
+                  Bhopal&apos;s heritage recipes, made in pure desi ghee and small batches. No palm
+                  oil, no chemical sprays, no shelf-life trickery — just clean crunch, made fresh
+                  every morning.
                 </p>
 
-                {/* Action Buttons */}
-                <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                {/* Action Buttons — hand-stamped */}
+                <div className="mt-5 flex flex-wrap items-center gap-2.5">
                   <button
                     type="button"
                     onClick={() => setTab('menu')}
-                    className="bg-[#D48924] hover:bg-[#b87319] text-[#1E1E24] font-black text-xs sm:text-sm px-5 py-2.5 rounded-2xl shadow-lg active:scale-95 transition-all"
+                    className="btn-ink font-note text-xs sm:text-sm font-semibold px-5 py-2.5"
                   >
-                    Explore Menu
+                    Explore the Menu
                   </button>
                   <button
                     type="button"
@@ -272,26 +255,70 @@ export default function Home() {
                       if (data?.url) window.open(data.url, '_blank');
                       else window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
                     }}
-                    className="bg-[#25D366] hover:bg-[#1fae53] text-white font-extrabold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-2xl flex items-center gap-2 shadow-lg active:scale-95 transition-all"
+                    className="font-note text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl flex items-center gap-2 bg-[#25D366]/12 text-[#1a7d3f] border-2 border-dashed border-[#25D366]/50 hover:bg-[#25D366]/20 transition-colors"
                   >
-                    <MessageCircle size={16} /> WhatsApp
+                    <MessageCircle size={16} /> Order on WhatsApp
                   </button>
+                </div>
+
+                {/* Trust ticks — written like a checklist */}
+                <div className="mt-6 flex flex-col gap-1.5 self-start">
+                  <div className="flex items-center gap-2 font-note text-[11px] sm:text-xs font-medium text-[var(--ink-soft)]">
+                    <ShieldCheck size={14} className="text-[#3d7044] shrink-0" />
+                    <span>0% preservatives &amp; additives</span>
+                  </div>
+                  <div className="flex items-center gap-2 font-note text-[11px] sm:text-xs font-medium text-[var(--ink-soft)]">
+                    <Clock size={14} className="text-[#3d7044] shrink-0" />
+                    <span>Made-on date stamped on every pouch</span>
+                  </div>
+                  <div className="flex items-center gap-2 font-note text-[11px] sm:text-xs font-medium text-[var(--ink-soft)]">
+                    <Award size={14} className="text-[#3d7044] shrink-0" />
+                    <span>FSSAI Schedule 4 certified kitchen</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Left-Aligned Vertically Stacked Trust Badges */}
-              <div className="mt-5 flex flex-col gap-1.5 self-start">
-                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold text-orange-100/90 drop-shadow-sm">
-                  <ShieldCheck size={14} className="text-[#E2952A] shrink-0" />
-                  <span>0% Preservatives & Additives</span>
+              {/* Right: rotating polaroid, held by tape */}
+              <div className="lg:col-span-5 relative">
+                <div className="relative tilt-r">
+                  <span className="tape w-20 -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg] z-10" aria-hidden="true" />
+
+                  <div className="relative bg-white p-2.5 pb-10 rounded-sm border border-[var(--rule)] shadow-[4px_6px_0_rgba(84,12,25,0.08),0_20px_40px_-24px_rgba(84,12,25,0.5)]">
+                    <div className="relative w-full h-56 sm:h-72 overflow-hidden bg-[var(--paper-3)]">
+                      {heroSlides.map((slide, idx) => (
+                        <div
+                          key={slide.image}
+                          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === activeHeroSlide ? 'opacity-100' : 'opacity-0'
+                            }`}
+                          style={{ transitionProperty: 'opacity' }}
+                        >
+                          <DishImg
+                            name={slide.image}
+                            className="w-full h-full object-cover object-center"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Handwritten polaroid caption */}
+                    <p className="font-hand italic text-lg text-[var(--ink-soft)] text-center mt-2 leading-none">
+                      today&apos;s batch, still warm
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold text-orange-100/90 drop-shadow-sm">
-                  <Clock size={14} className="text-[#E2952A] shrink-0" />
-                  <span>Made-on-Date Timestamped</span>
-                </div>
-                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold text-orange-100/90 drop-shadow-sm">
-                  <Award size={14} className="text-[#E2952A] shrink-0" />
-                  <span>FSSAI Schedule 4 Certified</span>
+
+                {/* Small carousel dots, drawn as ink blots */}
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  {heroSlides.map((slide, idx) => (
+                    <span
+                      key={slide.image}
+                      className={`rounded-full transition-all ${idx === activeHeroSlide
+                        ? 'w-4 h-2 bg-[#681121]'
+                        : 'w-2 h-2 bg-[var(--rule)]'
+                        }`}
+                      aria-hidden="true"
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -301,19 +328,22 @@ export default function Home() {
         {/* ================= 3. FRESH BATCH SNACKS WITH INTEGRATED CATEGORY SORTING ================= */}
         <section>
           <div className="mb-3.5">
-            <h3 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">
-              Our Menu
+            <h3 className="font-hand italic text-3xl text-[#540c19] tracking-tight leading-tight">
+              Today&apos;s menu
             </h3>
+            <svg viewBox="0 0 160 8" className="w-32 h-2 mt-0.5" fill="none" aria-hidden="true">
+              <path d="M2 5.5c20-3 40-3.5 60-2.5s38 2.5 58 1.5 28-2.5 38-3.5" stroke="#D48924" strokeWidth="2" strokeLinecap="round" />
+            </svg>
           </div>
 
-          {/* Integrated Category Sorting Pills */}
+          {/* Integrated Category Sorting Pills — like torn paper tabs */}
           <div className="no-scrollbar flex items-center gap-2 overflow-x-auto pb-3 mb-2 pt-1">
             <button
               type="button"
               onClick={() => setActiveCategory('all')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl shrink-0 text-xs font-black transition-all border ${activeCategory === 'all'
-                  ? 'bg-[#681121] text-white border-[#681121] shadow-md shadow-[#681121]/20 scale-100'
-                  : 'bg-[#FBF7F0] border-[#e5d8c3] text-[#1E1E24] hover:border-[#D48924]'
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl shrink-0 font-note text-xs font-semibold transition-all border-2 ${activeCategory === 'all'
+                ? 'bg-[#681121] text-[#FDFBF7] border-[#681121] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
                 }`}
             >
               <span className="w-2 h-2 rounded-full bg-[#E2952A]" />
@@ -327,9 +357,9 @@ export default function Home() {
                   key={c.id}
                   type="button"
                   onClick={() => setActiveCategory(c.id)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl shrink-0 text-xs font-bold transition-all border ${active
-                      ? 'bg-[#681121] text-white border-[#681121] shadow-md shadow-[#681121]/20'
-                      : 'bg-[#FBF7F0] border-[#e5d8c3] text-[#1E1E24] hover:border-[#D48924]'
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl shrink-0 font-note text-xs font-medium transition-all border-2 ${active
+                    ? 'bg-[#681121] text-[#FDFBF7] border-[#681121] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                    : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
                     }`}
                 >
                   <div className="w-5 h-5 rounded-full overflow-hidden bg-[#f3ece0] shrink-0 border border-black/10">
@@ -356,21 +386,22 @@ export default function Home() {
             })}
           </div>
 
-          {/* Responsive Grid for Big Vertical Cards: 1 col on xs/mobile, 2 col on sm, 3 col on lg, 4 col on xl */}
+          {/* Responsive Grid for Big Vertical Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-            {displayedDishes.slice(0, 8).map((dish) => {
+            {displayedDishes.slice(0, 8).map((dish, i) => {
               const inCart = cartQtyMap[dish.id];
               const isFav = favorites.includes(dish.id);
+              const tilt = ['tilt-l-sm', 'tilt-r-sm', 'tilt-r-sm', 'tilt-l-sm'][i % 4];
 
               return (
                 <div
                   key={dish.id}
                   onClick={() => push({ type: 'dish', id: dish.id })}
-                  className="group relative flex flex-col justify-between bg-[#FBF7F0] p-4 sm:p-5 rounded-3xl border border-[#e5d8c3] shadow-card hover:shadow-float hover:border-[#D48924]/70 transition-all duration-300 cursor-pointer"
+                  className={`group relative flex flex-col justify-between bg-[var(--paper-2)] paper-grain p-4 sm:p-5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:shadow-float hover:border-[#D48924]/70 ${tilt} hover:tilt-0 transition-all duration-300 cursor-pointer`}
                 >
                   <div className="flex flex-col">
-                    {/* Big Square Image with Favorite Heart Button */}
-                    <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#f3ece0] border border-[#e8dfcf] shadow-inner">
+                    {/* Big Square Image framed like a taped-in photo */}
+                    <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[var(--paper-3)] border border-[var(--rule)]">
                       <DishImg
                         name={dish.image}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -382,7 +413,7 @@ export default function Home() {
                           e.stopPropagation();
                           toggleFavorite(dish.id);
                         }}
-                        className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#FDFBF7]/90 backdrop-blur-sm shadow-md text-slate-500 hover:text-[#681121] hover:bg-white active:scale-90 transition-all"
+                        className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--paper-2)]/90 backdrop-blur-sm shadow text-[var(--ink-faint)] hover:text-[#681121] hover:bg-white active:scale-90 transition-all"
                       >
                         <Heart
                           size={16}
@@ -393,23 +424,23 @@ export default function Home() {
 
                     {/* Vertically Aligned Info Details */}
                     <div className="mt-4 flex flex-col gap-1.5">
-                      <h3 className="font-bold text-base sm:text-lg text-[#1E1E24] tracking-tight leading-snug line-clamp-1 group-hover:text-[#681121] transition-colors">
+                      <h3 className="font-hand font-bold text-xl text-[#540c19] tracking-tight leading-snug line-clamp-1 group-hover:text-[#681121] transition-colors">
                         {dish.name}
                       </h3>
 
-                      {/* Price Details */}
+                      {/* Price Details — serif numerals */}
                       <div className="mt-1 flex items-baseline gap-2">
-                        <span className="text-xl sm:text-2xl font-black text-[#681121] tracking-tight">
+                        <span className="font-hand font-bold text-2xl text-[#681121] tracking-tight">
                           {formatINR(dish.price)}
                         </span>
-                        <span className="text-xs sm:text-sm text-slate-400 font-medium line-through">
+                        <span className="font-note text-xs sm:text-sm text-[var(--ink-faint)] font-medium line-through">
                           ₹{Math.round(dish.price * 1.25)}
                         </span>
                       </div>
 
-                      {/* Feedback Thumbs Buttons */}
+                      {/* Feedback Thumbs Buttons — pencil marks */}
                       <div className="mt-2 flex items-center gap-2">
-                        <span className="text-xs font-semibold text-slate-500">Feedback:</span>
+                        <span className="font-note text-xs font-medium text-[var(--ink-faint)]">Feedback:</span>
                         <button
                           type="button"
                           aria-label="Thumbs Up"
@@ -420,9 +451,9 @@ export default function Home() {
                               [dish.id]: prev[dish.id] === 'up' ? (undefined as any) : 'up',
                             }));
                           }}
-                          className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-bold transition-all active:scale-90 ${votes[dish.id] === 'up'
-                              ? 'bg-[#4E8B56]/15 text-[#4E8B56] border-[#4E8B56]/50 shadow-sm'
-                              : 'bg-[#FDFBF7] text-slate-500 border-[#e5d8c3] hover:text-[#4E8B56] hover:border-[#4E8B56]/40'
+                          className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-medium transition-all active:scale-90 ${votes[dish.id] === 'up'
+                            ? 'bg-[#4E8B56]/12 text-[#3d7044] border-[#4E8B56]/50 shadow-sm'
+                            : 'bg-[var(--paper-2)] text-[var(--ink-faint)] border-[var(--rule)] hover:text-[#3d7044] hover:border-[#4E8B56]/40'
                             }`}
                         >
                           <ThumbsUp
@@ -441,9 +472,9 @@ export default function Home() {
                               [dish.id]: prev[dish.id] === 'down' ? (undefined as any) : 'down',
                             }));
                           }}
-                          className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-bold transition-all active:scale-90 ${votes[dish.id] === 'down'
-                              ? 'bg-[#b91c1c]/15 text-[#b91c1c] border-[#b91c1c]/50 shadow-sm'
-                              : 'bg-[#FDFBF7] text-slate-500 border-[#e5d8c3] hover:text-[#b91c1c] hover:border-[#b91c1c]/40'
+                          className={`flex items-center gap-1 px-2.5 py-1 rounded-full border text-xs font-medium transition-all active:scale-90 ${votes[dish.id] === 'down'
+                            ? 'bg-[#b91c1c]/12 text-[#b91c1c] border-[#b91c1c]/50 shadow-sm'
+                            : 'bg-[var(--paper-2)] text-[var(--ink-faint)] border-[var(--rule)] hover:text-[#b91c1c] hover:border-[#b91c1c]/40'
                             }`}
                         >
                           <ThumbsDown
@@ -456,11 +487,11 @@ export default function Home() {
                   </div>
 
                   {/* Bottom Action: ADD / Quantity Stepper */}
-                  <div className="mt-4 pt-3 border-t border-[#e8dfcf]">
+                  <div className="mt-4 pt-3 border-t border-dashed border-[var(--rule)]">
                     {inCart && inCart.qty > 0 ? (
                       <div
                         onClick={(e) => e.stopPropagation()}
-                        className="w-full flex items-center justify-between bg-[#4E8B56] text-white rounded-xl px-4 py-2 shadow-md font-extrabold text-sm"
+                        className="w-full flex items-center justify-between bg-[#4E8B56] text-white rounded-xl px-4 py-2 shadow-md font-note font-semibold text-sm"
                       >
                         <button
                           type="button"
@@ -469,7 +500,7 @@ export default function Home() {
                         >
                           <Minus size={15} strokeWidth={3} />
                         </button>
-                        <span className="font-black text-sm">{inCart.qty}</span>
+                        <span className="font-note font-semibold text-sm">{inCart.qty}</span>
                         <button
                           type="button"
                           onClick={(e) => handleIncrement(dish, inCart.key, inCart.qty, e)}
@@ -478,11 +509,15 @@ export default function Home() {
                           <Plus size={15} strokeWidth={3} />
                         </button>
                       </div>
+                    ) : !dish.available ? (
+                      <span className="stamp w-full justify-center py-2 text-[var(--ink-faint)] border-[var(--rule)]">
+                        Sold out today
+                      </span>
                     ) : (
                       <button
                         type="button"
                         onClick={(e) => handleAdd(dish, e)}
-                        className="w-full flex items-center justify-center gap-1.5 bg-[#FDFBF7] hover:bg-[#681121] text-[#681121] hover:text-white border-1.5 border-[#681121] font-black text-xs sm:text-sm py-2 rounded-xl shadow-sm hover:shadow active:scale-98 transition-all"
+                        className="btn-outline w-full flex items-center justify-center gap-1.5 font-note text-xs sm:text-sm font-semibold py-2"
                       >
                         <span>ADD</span>
                         <Plus size={14} strokeWidth={2.5} />
@@ -499,9 +534,9 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setTab('menu')}
-              className="flex items-center gap-2 bg-[#FBF7F0] hover:bg-[#681121] text-[#681121] hover:text-white border-1.5 border-[#681121] font-black text-xs sm:text-sm px-6 py-2.5 rounded-2xl shadow-sm hover:shadow active:scale-95 transition-all"
+              className="btn-outline flex items-center gap-2 font-note text-xs sm:text-sm font-semibold px-6 py-2.5"
             >
-              <span>Full Menu</span>
+              <span>See the full menu</span>
               <ArrowRight size={14} />
             </button>
           </div>
@@ -518,10 +553,7 @@ export default function Home() {
             {/* Logbook header — written, not marketed */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
               <div className="max-w-2xl">
-                <span className="font-note text-[10px] font-semibold uppercase tracking-[0.28em] text-[#D48924]">
-                  Kitchen log · entry no.&nbsp;4
-                </span>
-                <h3 className="font-hand italic text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#540c19] tracking-tight leading-[1.1] mt-1.5">
+                <h3 className="font-hand italic text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#540c19] tracking-tight leading-[1.1]">
                   So, why does Bhopal keep choosing us?
                 </h3>
                 <svg viewBox="0 0 240 12" className="w-40 sm:w-52 h-3 mt-1" fill="none" aria-hidden="true">
@@ -537,7 +569,7 @@ export default function Home() {
                 <div className="rotate-[-3.5deg] bg-[#FDFBF7]/80 border-2 border-dashed border-[#4E8B56]/60 rounded-lg px-3 py-2 text-center shadow-[2px_3px_0_rgba(84,12,25,0.06)]">
                   <div className="flex items-center justify-center gap-1.5 text-[#3d7044]">
                     <CheckCircle2 size={13} />
-                    <p className="font-note text-[10px] font-semibold uppercase tracking-[0.14em]">FSSAI · Schedule 4</p>
+                    <p className="font-note text-[10px] font-semibold uppercase tracking-[0.14em]">FSSAI</p>
                   </div>
                   <p className="font-hand italic text-[13px] text-[#6b5a45] leading-none mt-1">kitchen-inspected, we mind it</p>
                 </div>
@@ -555,7 +587,6 @@ export default function Home() {
             <div className="mt-9 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start">
               {/* Note 01 — sourcing, wide layout */}
               <article className="lg:col-span-7 relative bg-[#FDFBF7] rounded-2xl border border-[#e5d8c3] p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(84,12,25,0.06),0_16px_30px_-20px_rgba(84,12,25,0.4)] lg:-rotate-[0.7deg] lg:hover:rotate-0 hover:shadow-float transition-all duration-300">
-                <span className="absolute -top-3 left-8 w-20 h-6 rotate-[-4deg] bg-[#e6d3a3]/80 border-y border-white/50 shadow-sm pointer-events-none" aria-hidden="true" />
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="sm:w-[42%] shrink-0">
                     <div className="relative h-40 sm:h-full sm:min-h-[170px] rounded-xl overflow-hidden border border-[#e5d8c3] bg-[#f3ece0]">
@@ -571,7 +602,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <p className="font-hand italic text-[#D48924] text-lg leading-none">01</p>
+
                     <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#540c19] leading-snug mt-0.5">
                       The wheat actually comes from Malwa
                     </h4>
@@ -588,7 +619,6 @@ export default function Home() {
 
               {/* Note 02 — the bake, narrower note */}
               <article className="lg:col-span-5 relative bg-[#FBF7F0] rounded-2xl border border-[#e5d8c3] p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(84,12,25,0.06),0_16px_30px_-20px_rgba(84,12,25,0.4)] lg:rotate-[0.6deg] lg:hover:rotate-0 hover:shadow-float transition-all duration-300">
-                <span className="absolute -top-3 right-10 w-16 h-6 rotate-[5deg] bg-[#e6d3a3]/80 border-y border-white/50 shadow-sm pointer-events-none" aria-hidden="true" />
                 <div className="relative h-40 rounded-xl overflow-hidden border border-[#e5d8c3] bg-[#f3ece0]">
                   <img
                     src="/images/craft-03.webp"
@@ -601,7 +631,7 @@ export default function Home() {
                     Slow-roasted
                   </span>
                 </div>
-                <p className="font-hand italic text-[#D48924] text-lg leading-none mt-2.5">02</p>
+
                 <h4 className="font-hand text-[22px] font-semibold text-[#540c19] leading-snug mt-0.5">
                   Baked in a kettle, never dunked in oil
                 </h4>
@@ -615,7 +645,6 @@ export default function Home() {
 
               {/* Note 03 — the one taped-up maroon sign on the board */}
               <article className="lg:col-span-5 relative rounded-2xl bg-[#540c19] border border-[#D48924]/40 p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-20px_rgba(84,12,25,0.6)] lg:-rotate-[0.5deg] lg:hover:rotate-0 transition-all duration-300">
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 rotate-[2deg] bg-[#e6d3a3]/70 border-y border-white/40 shadow-sm pointer-events-none" aria-hidden="true" />
                 <div className="relative h-40 rounded-xl overflow-hidden border border-[#D48924]/25 bg-[#240409]">
                   <img
                     src="/images/products/masala_makhana_pack.jpg"
@@ -627,7 +656,7 @@ export default function Home() {
                     Stamped by hand
                   </span>
                 </div>
-                <p className="font-hand italic text-[#E2952A] text-lg leading-none mt-2.5">03</p>
+
                 <h4 className="font-hand text-[22px] font-semibold text-[#FDFBF7] leading-snug mt-0.5">
                   Made this morning, not &ldquo;best before 2027&rdquo;
                 </h4>
@@ -641,7 +670,6 @@ export default function Home() {
 
               {/* Note 04 — delivery, photo flipped to the other side */}
               <article className="lg:col-span-7 relative bg-[#FDFBF7] rounded-2xl border border-[#e5d8c3] p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(84,12,25,0.06),0_16px_30px_-20px_rgba(84,12,25,0.4)] lg:rotate-[0.4deg] lg:hover:rotate-0 hover:shadow-float transition-all duration-300">
-                <span className="absolute -top-3 left-1/3 w-20 h-6 rotate-[-3deg] bg-[#e6d3a3]/80 border-y border-white/50 shadow-sm pointer-events-none" aria-hidden="true" />
                 <div className="flex flex-col sm:flex-row-reverse gap-4">
                   <div className="sm:w-[42%] shrink-0">
                     <div className="relative h-40 sm:h-full sm:min-h-[170px] rounded-xl overflow-hidden border border-[#e5d8c3] bg-[#f3ece0]">
@@ -658,7 +686,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <p className="font-hand italic text-[#D48924] text-lg leading-none">04</p>
+
                     <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#540c19] leading-snug mt-0.5">
                       Fifteen minutes, oven to your door
                     </h4>
@@ -678,102 +706,96 @@ export default function Home() {
               <svg viewBox="0 0 34 20" className="w-8 h-5 rotate-6 text-[#D48924] shrink-0" fill="none" aria-hidden="true">
                 <path d="M2 14c83 161 22-5m0 0l-5-1m5 1l-2-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <p className="font-hand italic text-[15px] sm:text-base text-[#6b5a45]">
-                copied out of the kitchen log — morning shift, 6.40 am, before the ovens get loud.
-              </p>
+
             </div>
           </div>
         </section>
 
-        {/* Bhopal 78-Year Namkeen Heritage Showcase Section */}
-        <section className="bg-gradient-to-br from-[#FAF5EC] via-[#FDFBF7] to-[#F5EBE0] rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#e5d8c3] shadow-xl shadow-stone-900/5 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-radial from-[#D48924]/10 to-transparent blur-3xl pointer-events-none" />
-
+        {/* Bhopal 78-Year Namkeen Heritage Showcase — a story torn from the family notebook */}
+        <section className="relative rounded-3xl overflow-hidden bg-[var(--paper-2)] paper-grain p-6 sm:p-8 lg:p-10 border border-[var(--rule)] shadow-[0_18px_40px_-28px_rgba(84,12,25,0.4)]">
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Authentic Story & Culinary Pillars */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 text-xs font-black text-[#681121] uppercase tracking-wider">
-                <Sparkles size={14} className="text-[#D48924] fill-[#D48924]" />
-                <span>1948 – 2026 · Bhopal Culinary Dynasty</span>
-              </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1E1E24] tracking-tight leading-tight">
-                Bhopal&apos;s 78-Year Heritage of <span className="text-[#681121]">Authentic Royal Namkeen</span>
+
+              <h2 className="font-hand italic text-3xl sm:text-4xl lg:text-5xl text-[#540c19] tracking-tight leading-[1.05]">
+                78 years of Bhopal&apos;s
+                <br />
+                <span className="marker">royal namkeen</span>
               </h2>
 
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-                Centuries before factory-packed snacks dominated market shelves, Bhopal&apos;s nawabi alleys were famous for spicy hand-pressed Ratlam Sev, slow-roasted chana, and fragrant makhana tossed in cold-pressed groundnut oil and freshly pounded cloves.
+              <p className="font-note text-[13px] sm:text-sm text-[var(--ink-soft)] leading-relaxed">
+                Long before factory-packed snacks took over the shelves, Bhopal&apos;s nawabi alleys
+                were famous for hand-pressed Ratlam Sev, slow-roasted chana, and fragrant makhana
+                tossed in cold-pressed groundnut oil with freshly pounded cloves. We still make it
+                that way.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#e5d8c3] shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center font-black text-sm mb-2">
+                <div className="p-3.5 rounded-2xl bg-[var(--paper)] border border-[var(--rule)] shadow-sm tilt-l-sm">
+                  <div className="font-hand italic text-3xl text-[#681121] mb-1 leading-none">
                     78
                   </div>
-                  <h4 className="text-xs font-extrabold text-[#1E1E24]">Years of Craft</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Heritage spice blend preserved since 1948.</p>
+                  <h4 className="font-note text-xs font-semibold text-[var(--ink)]">Years of craft</h4>
+                  <p className="font-note text-[11px] text-[var(--ink-faint)] mt-0.5">
+                    The spice blend has stayed in the family since 1948.
+                  </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#e5d8c3] shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-[#4E8B56]/15 text-[#4E8B56] flex items-center justify-center font-black text-sm mb-2">
+                <div className="p-3.5 rounded-2xl bg-[var(--paper)] border border-[var(--rule)] shadow-sm tilt-r-sm">
+                  <div className="font-hand italic text-3xl text-[#3d7044] mb-1 leading-none">
                     0%
                   </div>
-                  <h4 className="text-xs font-extrabold text-[#1E1E24]">Zero Palm Oil</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Slow-roasted in pure cold-pressed groundnut oil.</p>
+                  <h4 className="font-note text-xs font-semibold text-[var(--ink)]">Palm oil, ever</h4>
+                  <p className="font-note text-[11px] text-[var(--ink-faint)] mt-0.5">
+                    Slow-roasted in pure cold-pressed groundnut oil instead.
+                  </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/80 border border-[#e5d8c3] shadow-sm">
-                  <div className="w-8 h-8 rounded-xl bg-[#D48924]/15 text-[#D48924] flex items-center justify-center font-black text-sm mb-2">
+                <div className="p-3.5 rounded-2xl bg-[var(--paper)] border border-[var(--rule)] shadow-sm tilt-l-sm">
+                  <div className="font-hand italic text-3xl text-[#b87319] mb-1 leading-none">
                     10m
                   </div>
-                  <h4 className="text-xs font-extrabold text-[#1E1E24]">Oven to Door</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Direct dispatch across Arera Colony, Kolar & Shahpura.</p>
+                  <h4 className="font-note text-xs font-semibold text-[var(--ink)]">Oven to door</h4>
+                  <p className="font-note text-[11px] text-[var(--ink-faint)] mt-0.5">
+                    Arera Colony, Kolar &amp; Shahpura, dispatched straight from the kitchen.
+                  </p>
                 </div>
               </div>
 
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => setTab('menu')}
-                  className="inline-flex items-center gap-2 bg-[#681121] hover:bg-[#540c19] text-white text-xs font-black px-5 py-3 rounded-2xl shadow-md transition-all active:scale-95"
-                >
-                  <span>Explore Namkeen & Makhana Vault</span>
-                  <ArrowRight size={15} />
-                </button>
-              </div>
+
             </div>
 
-            {/* Right Column: Heritage Imagery Canvas */}
+            {/* Right Column: A photo pinned to the board */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-[#e5d8c3] group">
-                <img
-                  src="/images/bhopal-namkeen-heritage.jpg"
-                  alt="78 Years of Bhopali Namkeen Heritage"
-                  className="w-full h-72 sm:h-80 object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <span className="text-[10px] uppercase font-black tracking-widest text-[#E2952A] block mb-1">
-                    Small-Batch Roasted Daily
-                  </span>
-                  <p className="text-sm font-black text-white leading-snug">
-                    Pure Laung Sev, Spiced Makhana & Shahi Nankhatai
-                  </p>
-                  <p className="text-[11px] text-white/80 mt-0.5">
-                    Fresh from our Bhopal micro-kitchens with zero shelf-life preservatives.
-                  </p>
+              <div className="relative tilt-r">
+                <span className="tape w-20 -top-3 left-1/2 -translate-x-1/2 rotate-[-4deg] z-10" aria-hidden="true" />
+                <div className="relative bg-white p-2.5 pb-12 rounded-sm border border-[var(--rule)] shadow-[4px_6px_0_rgba(84,12,25,0.08),0_20px_40px_-24px_rgba(84,12,25,0.5)] group">
+                  <div className="overflow-hidden bg-[var(--paper-3)] h-64 sm:h-80">
+                    <img
+                      src="/images/bhopal-namkeen-heritage.jpg"
+                      alt="78 Years of Bhopali Namkeen Heritage"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-3 text-center">
+
+                    <p className="font-hand italic text-lg text-[var(--ink-soft)] leading-tight mt-0.5">
+                      Laung sev, spiced makhana &amp; shahi nankhatai
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Comprehensive Luxury Brand Footer */}
-        <footer className="mt-12 bg-gradient-to-br from-[#20050a] via-[#350912] to-[#120205] text-[#FDFBF7] rounded-3xl p-8 sm:p-10 lg:p-12 shadow-2xl border border-[#681121]/40 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#D48924]/10 blur-3xl pointer-events-none" />
+        {/* Footer — the back page of the kitchen logbook */}
+        <footer className="mt-12 bg-[#540c19] text-[#FDFBF7] rounded-3xl p-8 sm:p-10 lg:p-12 shadow-[0_18px_40px_-26px_rgba(36,4,9,0.6)] border-2 border-dashed border-[#D48924]/40 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.09)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
 
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-8 border-b border-white/10">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-8 border-b border-dashed border-[#FDFBF7]/20">
             {/* Column 1: Brand Lore */}
             <div className="lg:col-span-2 space-y-3.5">
               <div className="flex items-center gap-3">
@@ -781,16 +803,16 @@ export default function Home() {
                   <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black tracking-tight text-white leading-tight">SAHI CRUNCH</h3>
-                  <p className="text-[10px] font-bold text-[#E2952A] uppercase tracking-wider">Sahi Baked Heritage · Bhopal</p>
+                  <h3 className="font-hand italic text-2xl tracking-tight text-[#FDFBF7] leading-tight">Sahi Crunch</h3>
+
                 </div>
               </div>
 
-              <p className="text-xs text-white/75 leading-relaxed font-medium max-w-sm">
+              <p className="font-note text-xs text-[#FDFBF7]/75 leading-relaxed font-medium max-w-sm">
                 Madhya Pradesh&apos;s proud guilt-free namkeen and snackery. 78 years of Bhopali culinary heritage, baked with zero preservatives, pure cold-pressed groundnut oil, and dispatched fresh within minutes.
               </p>
 
-              <div className="flex items-center gap-2 pt-1 text-xs text-amber-200/90 font-bold">
+              <div className="flex items-center gap-2 pt-1 font-note text-xs text-[#E2952A]/90 font-medium">
                 <MapPin size={14} className="text-[#E2952A]" />
                 <span>Central Kitchen: Arera Colony, Bhopal, MP 462016</span>
               </div>
@@ -798,54 +820,48 @@ export default function Home() {
 
             {/* Column 2: Quick Menus */}
             <div className="space-y-2.5">
-              <h4 className="text-xs font-black uppercase text-[#E2952A] tracking-wider">Heritage Menu</h4>
-              <ul className="space-y-2 text-xs text-white/70 font-semibold">
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Bhopali Masala Makhana</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Royal Shahi Nankhatai</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Ratlam Laung Sev</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Roasted Chana & Makhana</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-white transition-colors">Festive Sahi Gift Hampers</button></li>
+              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E2952A] tracking-[0.2em]">Heritage Menu</h4>
+              <ul className="space-y-2 font-note text-xs text-[#FDFBF7]/70 font-medium">
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Bhopali Masala Makhana</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Royal Shahi Nankhatai</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Ratlam Laung Sev</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Roasted Chana &amp; Makhana</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Festive Sahi Gift Hampers</button></li>
               </ul>
             </div>
 
             {/* Column 3: Active Clusters */}
             <div className="space-y-2.5">
-              <h4 className="text-xs font-black uppercase text-[#E2952A] tracking-wider">Active Bhopal Hubs</h4>
-              <ul className="space-y-2 text-xs text-white/70 font-semibold">
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Arera Colony (10 Mins)</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Kolar Road (12 Mins)</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Shahpura Sector A (15 Mins)</li>
-                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> MP Nagar (Coming Soon)</li>
-                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Indore (Coming Soon)</li>
+              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E2952A] tracking-[0.2em]">Active Bhopal Hubs</h4>
+              <ul className="space-y-2 font-note text-xs text-[#FDFBF7]/70 font-medium">
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#5fa768]" /> Arera Colony</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#5fa768]" /> Kolar Road</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#5fa768]" /> Shahpura Sector A</li>
+                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-[#E2952A]" /> MP Nagar</li>
+                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-[#E2952A]" /> Indore</li>
               </ul>
             </div>
 
             {/* Column 4: Concierge & Support */}
             <div className="space-y-2.5">
-              <h4 className="text-xs font-black uppercase text-[#E2952A] tracking-wider">Direct Concierge</h4>
-              <p className="text-xs text-white/75 font-medium leading-relaxed">
-                Connect directly with our Bhopal dispatch team for corporate orders & feedback:
+              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E2952A] tracking-[0.2em]">Direct Concierge</h4>
+              <p className="font-note text-xs text-[#FDFBF7]/75 font-medium leading-relaxed">
+                Connect directly with our Bhopal dispatch team for corporate orders &amp; feedback:
               </p>
               <button
                 type="button"
                 onClick={() => window.open('https://wa.me/919999999999?text=Hi%20Sahi%20Crunch,%20I%20have%20an%20inquiry', '_blank')}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-extrabold px-3 py-2.5 rounded-xl shadow transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 font-note text-xs font-semibold px-3 py-2.5 rounded-xl bg-[#25D366]/15 text-[#25D366] border-2 border-dashed border-[#25D366]/50 hover:bg-[#25D366]/25 transition-colors"
               >
-                <span>WhatsApp Live Chat</span>
+                <span>Chat on WhatsApp</span>
               </button>
             </div>
           </div>
 
-          {/* Bottom Copyright & Disclaimer */}
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/50 font-medium">
-            <p>© 2026 SAHI CRUNCH · Bhopal&apos;s 78-Year Modern Heritage Snackery. All rights reserved.</p>
-            <div className="flex items-center gap-4">
-              <span>Hygienic FSSAI Kitchens</span>
-              <span>·</span>
-              <span>100% Roasted Goodness</span>
-              <span>·</span>
-              <span>Zero Preservatives</span>
-            </div>
+          {/* Bottom Copyright & Disclaimer — a hand-written colophon */}
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 font-note text-[11px] text-[#FDFBF7]/55 font-medium">
+            <p className="font-hand italic text-base text-[#FDFBF7]/80">© 2026 Sahi Crunch · Bhopal&apos;s 78-year snackery. All rights reserved.</p>
+
           </div>
         </footer>
       </div>

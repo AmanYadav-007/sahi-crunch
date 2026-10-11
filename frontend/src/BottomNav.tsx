@@ -6,7 +6,7 @@ const TABS: Array<{ id: Tab; label: string; Icon: typeof Home }> = [
   { id: 'home', label: 'Home', Icon: Home },
   { id: 'menu', label: 'Explore', Icon: Compass },
   { id: 'orders', label: 'Orders', Icon: ReceiptText },
-  { id: 'reservations', label: 'Live Popups', Icon: Sparkles },
+  { id: 'reservations', label: 'Popups', Icon: Sparkles },
   { id: 'profile', label: 'Account', Icon: User },
 ];
 
@@ -19,11 +19,12 @@ export default function BottomNav() {
 
   return (
     <>
-      {/* Navigation Bar: Fixed Bottom on Mobile & Tablet, Hidden on Desktop (lg:hidden) */}
+      {/* Navigation Bar: A kraft-paper tab strip pinned to the bottom */}
       <nav
         aria-label="Primary"
-        className="lg:hidden fixed inset-x-0 bottom-0 z-30 mx-auto w-full bg-[#FDFBF7]/95 backdrop-blur-md border-t border-[#e8dfcf] shadow-nav pb-[env(safe-area-inset-bottom,0px)]"
+        className="lg:hidden fixed inset-x-0 bottom-0 z-30 mx-auto w-full bg-[var(--paper)] paper-grain backdrop-blur-md border-t-2 border-[var(--rule)] shadow-nav pb-[env(safe-area-inset-bottom,0px)]"
       >
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
         <div className="w-full max-w-4xl mx-auto px-4">
           <ul className="flex items-center justify-around px-3 py-2 sm:py-2.5">
             {TABS.map(({ id, label, Icon }) => {
@@ -34,26 +35,26 @@ export default function BottomNav() {
                     type="button"
                     onClick={() => setTab(id)}
                     aria-current={active ? 'page' : undefined}
-                    className="relative flex w-full flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-1 px-2 rounded-xl transition-all hover:bg-[#FBF7F0]"
+                    className="relative flex w-full flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-2 py-1 px-2 rounded-xl transition-all hover:bg-[var(--paper-2)]"
                   >
                     <div
                       className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-transform duration-200 ${
                         active
-                          ? 'text-[#681121] scale-110'
-                          : 'text-slate-400 hover:text-slate-600'
+                          ? 'text-[#681121] scale-110 bg-[#681121]/10'
+                          : 'text-[var(--ink-faint)] hover:text-[var(--ink-soft)]'
                       }`}
                     >
-                      <Icon size={20} strokeWidth={active ? 2.5 : 2} />
+                      <Icon size={19} strokeWidth={active ? 2.4 : 2} />
                     </div>
                     <span
-                      className={`text-[10px] sm:text-xs font-bold tracking-tight transition-colors ${
-                        active ? 'text-[#681121] font-extrabold' : 'text-[#1E1E24]/70'
+                      className={`font-note text-[10px] sm:text-xs tracking-tight transition-colors ${
+                        active ? 'text-[#681121] font-semibold' : 'text-[var(--ink-soft)] font-medium'
                       }`}
                     >
                       {label}
                     </span>
                     {active && (
-                      <span className="absolute -bottom-1 sm:bottom-0 h-1 w-6 rounded-full bg-[#681121]" />
+                      <span className="absolute -bottom-0.5 sm:bottom-0 h-1 w-6 rounded-full bg-[#D48924]" />
                     )}
                   </button>
                 </li>

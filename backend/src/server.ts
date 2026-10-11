@@ -21,6 +21,9 @@ import {
   getLoyalty,
   getFavorites,
   toggleFavorite,
+  getDishes,
+  getDishById,
+  getCategories,
 } from './db.js';
 import {
   hashPassword,
@@ -32,7 +35,7 @@ import {
   safeUser,
   type AuthedRequest,
 } from './auth.js';
-import { dishes, dishById } from './menuData.js';
+
 
 dotenv.config();
 
@@ -188,7 +191,7 @@ app.patch('/api/profile', requireAuthMiddleware, (req: AuthedRequest, res: Respo
 
 app.get('/api/menu', (req: Request, res: Response) => {
   const { category, location, q } = req.query as Record<string, string>;
-  let result = [...dishes];
+  let result = [...getDishes()];
 
   if (location) {
     result = result.filter((d) => d.branchAvailability.includes(location));
@@ -210,9 +213,17 @@ app.get('/api/menu', (req: Request, res: Response) => {
 
 app.get('/api/menu/:id', (req: Request, res: Response) => {
   const id = String(req.params.id);
-  const dish = dishById(id);
+  const dish = getDishById(id);
   if (!dish) return res.status(404).json({ error: 'Dish not found.' });
   return res.status(200).json({ dish });
+});
+
+/**
+ * Categories (menu chapters) — live from the same database the Admin Panel
+ * writes to, so new/edited chapters appear on the customer app immediately.
+ */
+app.get('/api/categories', (_req: Request, res: Response) => {
+  return res.status(200).json({ categories: getCategories() });
 });
 
 /* ─────────────── Orders API ─────────────── */

@@ -169,20 +169,20 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           return (
             <div
               key={t.id}
-              className={`pointer-events-auto rounded-2xl p-4 shadow-2xl backdrop-blur-xl border transition-all duration-300 animate-in fade-in slide-in-from-top-4 flex items-start gap-3.5 ${
+              className={`pointer-events-auto rounded-2xl p-4 pr-3 shadow-[3px_4px_0_rgba(84,12,25,0.1),0_18px_32px_-22px_rgba(84,12,25,0.6)] border-2 border-dashed transition-all duration-300 animate-in fade-in slide-in-from-top-4 flex items-start gap-3.5 bg-[var(--paper)] paper-grain ${
                 isSuccess
-                  ? 'bg-[#183920]/95 border-emerald-500/30 text-emerald-50 shadow-emerald-950/20'
+                  ? 'border-[#4E8B56]/55 text-[var(--ink)]'
                   : isError
-                  ? 'bg-[#3b0d14]/95 border-rose-500/30 text-rose-50 shadow-rose-950/20'
+                  ? 'border-[#b91c1c]/55 text-[var(--ink)]'
                   : isWarning
-                  ? 'bg-[#3d2407]/95 border-amber-500/30 text-amber-50 shadow-amber-950/20'
-                  : 'bg-[#29171a]/95 border-[#D48924]/30 text-[#FDFBF7] shadow-stone-950/30'
+                  ? 'border-[#D48924]/65 text-[var(--ink)]'
+                  : 'border-[#D48924]/55 text-[var(--ink)]'
               }`}
             >
               <div className="mt-0.5 shrink-0">
-                {isSuccess && <CheckCircle2 size={19} className="text-emerald-400" />}
-                {isError && <AlertCircle size={19} className="text-rose-400" />}
-                {isWarning && <AlertTriangle size={19} className="text-amber-400" />}
+                {isSuccess && <CheckCircle2 size={19} className="text-[#3d7044]" />}
+                {isError && <AlertCircle size={19} className="text-[#b91c1c]" />}
+                {isWarning && <AlertTriangle size={19} className="text-[#b87319]" />}
                 {!isSuccess && !isError && !isWarning && (
                   <Sparkles size={19} className="text-[#E2952A]" />
                 )}
@@ -190,17 +190,19 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
               <div className="flex-1 min-w-0 pr-1">
                 {t.title && (
-                  <h4 className="text-xs font-black uppercase tracking-wider opacity-90 mb-0.5">
+                  <h4 className="font-note text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--ink-faint)] mb-0.5">
                     {t.title}
                   </h4>
                 )}
-                <p className="text-xs font-medium leading-relaxed opacity-95">{t.message}</p>
+                <p className="font-hand italic text-base leading-snug text-[#540c19]">
+                  {t.message}
+                </p>
               </div>
 
               <button
                 type="button"
                 onClick={() => removeToast(t.id)}
-                className="shrink-0 p-1 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                className="shrink-0 p-1 rounded-lg text-[var(--ink-faint)] hover:text-[var(--ink)] hover:bg-[var(--paper-3)] transition-colors"
                 aria-label="Close notification"
               >
                 <X size={15} />
@@ -213,15 +215,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {/* Custom Confirmation Modal */}
       {dialog.isOpen && (
         <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-sm rounded-3xl bg-[#FBF7F0] border border-[#e5d8c3] shadow-2xl p-6 space-y-4 animate-in zoom-in-95 duration-200">
+          <div className="w-full max-w-sm rounded-3xl bg-[var(--paper)] paper-grain border border-[var(--rule)] shadow-2xl p-6 space-y-4 animate-in zoom-in-95 duration-200 relative">
             <div className="flex items-start gap-3.5">
               <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border-2 border-dashed ${
                   dialog.variant === 'danger'
-                    ? 'bg-rose-100 text-rose-600'
+                    ? 'bg-[#b91c1c]/10 text-[#b91c1c] border-[#b91c1c]/40'
                     : dialog.variant === 'warning'
-                    ? 'bg-amber-100 text-amber-700'
-                    : 'bg-[#681121]/10 text-[#681121]'
+                    ? 'bg-[#D48924]/12 text-[#b87319] border-[#D48924]/50'
+                    : 'bg-[#681121]/8 text-[#681121] border-[#681121]/35'
                 }`}
               >
                 {dialog.variant === 'danger' ? (
@@ -231,10 +233,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 )}
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-black text-[#1E1E24]">
+                <h3 className="font-hand italic text-xl text-[#540c19]">
                   {dialog.title || 'Confirm Action'}
                 </h3>
-                <p className="text-xs text-slate-600 font-medium leading-relaxed mt-1">
+                <p className="font-note text-xs text-[var(--ink-soft)] leading-relaxed mt-1">
                   {dialog.message}
                 </p>
               </div>
@@ -245,7 +247,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={handleCancelAction}
                 disabled={dialog.isLoading}
-                className="flex-1 py-2.5 px-4 rounded-xl border border-stone-300 text-stone-700 text-xs font-bold hover:bg-stone-100 transition-colors disabled:opacity-50"
+                className="btn-outline flex-1 py-2.5 px-4 font-note text-xs font-semibold disabled:opacity-50"
               >
                 {dialog.cancelLabel || 'Cancel'}
               </button>
@@ -253,10 +255,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={handleConfirmAction}
                 disabled={dialog.isLoading}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-white text-xs font-black shadow-md transition-all active:scale-95 disabled:opacity-50 ${
+                className={`flex-1 py-2.5 px-4 font-note text-xs font-semibold rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 ${
                   dialog.variant === 'danger'
-                    ? 'bg-rose-600 hover:bg-rose-700 shadow-rose-600/20'
-                    : 'bg-[#681121] hover:bg-[#540c19] shadow-[#681121]/20'
+                    ? 'bg-[#b91c1c] hover:bg-[#8f1414] text-white shadow-[#b91c1c]/20'
+                    : 'btn-ink'
                 }`}
               >
                 {dialog.isLoading ? 'Processing...' : dialog.confirmLabel || 'Confirm'}
@@ -269,22 +271,22 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {/* Custom Alert Dialog Modal */}
       {alertState.isOpen && (
         <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-sm rounded-3xl bg-[#FBF7F0] border border-[#e5d8c3] shadow-2xl p-6 text-center space-y-4 animate-in zoom-in-95 duration-200">
-            <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center bg-gradient-to-br from-[#681121] to-[#3a0812] text-white shadow-lg shadow-[#681121]/20">
+          <div className="w-full max-w-sm rounded-3xl bg-[var(--paper)] paper-grain border border-[var(--rule)] shadow-2xl p-6 text-center space-y-4 animate-in zoom-in-95 duration-200 relative">
+            <div className="w-14 h-14 mx-auto flex items-center justify-center bg-[#681121] text-[#FDFBF7] rounded-2xl border-2 border-dashed border-[#D48924]/50 tilt-r">
               {alertState.type === 'success' ? (
-                <CheckCircle2 size={26} className="text-emerald-400" />
+                <CheckCircle2 size={26} className="text-[#8ed39a]" />
               ) : alertState.type === 'error' ? (
-                <AlertCircle size={26} className="text-rose-400" />
+                <AlertCircle size={26} className="text-[#f3a2a2]" />
               ) : (
                 <Sparkles size={26} className="text-[#E2952A]" />
               )}
             </div>
 
             <div>
-              <h3 className="text-base font-black text-[#1E1E24]">
+              <h3 className="font-hand italic text-2xl text-[#540c19]">
                 {alertState.title}
               </h3>
-              <p className="text-xs text-slate-600 font-medium leading-relaxed mt-1.5 max-w-xs mx-auto">
+              <p className="font-note text-xs text-[var(--ink-soft)] leading-relaxed mt-1.5 max-w-xs mx-auto">
                 {alertState.message}
               </p>
             </div>
@@ -293,7 +295,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               <button
                 type="button"
                 onClick={() => setAlertState((prev) => ({ ...prev, isOpen: false }))}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#681121] hover:bg-[#540c19] text-white text-xs font-black shadow-md transition-all active:scale-95"
+                className="btn-ink w-full py-2.5 px-4 font-note text-xs font-semibold uppercase tracking-[0.14em]"
               >
                 {alertState.buttonLabel || 'Got It'}
               </button>

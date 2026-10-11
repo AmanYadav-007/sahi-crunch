@@ -12,8 +12,7 @@ import {
   ChevronRight,
   ShoppingBag,
 } from 'lucide-react';
-import { useApp, lineTotal, cartSubtotal, cartCount } from '../store';
-import { dishById } from '../data/menu';
+import { useApp, lineTotal, cartSubtotal, cartCount, dishById } from '../store';
 import { Sheet, DishImg, Empty, VegBadge } from '../ui';
 import { formatINR } from '../lib/utils';
 import { proxyApi } from '../lib/api';
@@ -29,6 +28,10 @@ export default function CartSheet() {
 
   const subtotal = cartSubtotal(cart);
   const count = cartCount(cart);
+
+  // Live availability — the kitchen may have sold something out while it sat in the bag
+  const soldOutLines = cart.filter((l) => dishById(l.dishId)?.available === false);
+  const hasSoldOut = soldOutLines.length > 0;
 
   const freeDeliveryThreshold = 299;
   const deliveryFee = subtotal >= freeDeliveryThreshold ? 0 : 35;
@@ -77,20 +80,29 @@ export default function CartSheet() {
 
   const footerContent = cart.length > 0 ? (
     <div className="space-y-2">
+      {hasSoldOut && (
+        <p className="stamp w-full justify-center py-2 text-[#681121] border-[#681121]/45">
+          {soldOutLines.length} item{soldOutLines.length > 1 ? 's' : ''} just sold out — remove to continue
+        </p>
+      )}
+
       <button
         type="button"
         onClick={checkout}
-        className="w-full flex items-center justify-between bg-gradient-to-r from-[#681121] via-[#7a1427] to-[#540c19] hover:from-[#540c19] hover:to-[#450A14] text-white font-black text-sm py-3.5 px-5 rounded-2xl shadow-lg shadow-[#681121]/30 active:scale-[0.99] transition-all"
+        disabled={hasSoldOut}
+        className={`btn-ink w-full flex items-center justify-between font-note text-sm font-semibold py-3.5 px-5 ${
+          hasSoldOut ? 'opacity-60' : ''
+        }`}
       >
         <div className="flex flex-col items-start leading-tight">
-          <span className="text-[10px] uppercase font-bold text-white/70 tracking-wider">
-            {count} {count === 1 ? 'Item' : 'Items'}
+          <span className="font-note text-[10px] uppercase font-medium text-[#E2952A] tracking-[0.16em]">
+            {count} {count === 1 ? 'item' : 'items'}
           </span>
-          <span className="text-base font-black tracking-tight">{formatINR(grandTotal)}</span>
+          <span className="font-hand italic text-xl tracking-tight">{formatINR(grandTotal)}</span>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-white/15 px-3.5 py-1.5 rounded-xl border border-white/20">
-          <span className="text-xs font-black uppercase tracking-wider">Proceed to Pay</span>
+        <div className="flex items-center gap-1.5 bg-[#FDFBF7]/12 px-3.5 py-1.5 rounded-xl border border-[#FDFBF7]/25">
+          <span className="font-note text-xs font-semibold uppercase tracking-[0.14em]">Pay</span>
           <ChevronRight size={16} />
         </div>
       </button>
@@ -98,10 +110,10 @@ export default function CartSheet() {
       <button
         type="button"
         onClick={orderWhatsApp}
-        className="w-full flex items-center justify-center gap-2 bg-emerald-50 hover:bg-emerald-100/70 border border-emerald-300 text-emerald-800 font-extrabold text-xs py-2.5 rounded-xl transition-all shadow-sm active:scale-[0.99]"
+        className="w-full flex items-center justify-center gap-2 font-note text-xs font-semibold py-2.5 rounded-xl bg-[#25D366]/12 text-[#1a7d3f] border-2 border-dashed border-[#25D366]/50 hover:bg-[#25D366]/20 transition-all"
       >
-        <MessageCircle size={15} className="text-emerald-600 fill-emerald-600" />
-        <span>Or Instant Order via WhatsApp (1-Click)</span>
+        <MessageCircle size={15} className="text-[#25D366] fill-[#25D366]" />
+        <span>Or order instantly on WhatsApp</span>
       </button>
     </div>
   ) : undefined;
@@ -110,7 +122,7 @@ export default function CartSheet() {
     <Sheet
       open={open}
       onClose={() => setOpen(false)}
-      title="My Cart"
+      title="My bag"
       footer={footerContent}
     >
       {/* Full-Screen Immersive Celebration Overlay */}
@@ -142,34 +154,35 @@ export default function CartSheet() {
             })}
           </div>
 
-          {/* Central High-Impact Celebration Card */}
-          <div className="animate-celebrate relative max-w-sm w-full bg-gradient-to-b from-[#1C1417] via-[#2D121B] to-[#12080D] border-2 border-[#E2952A] rounded-3xl p-7 text-center shadow-[0_0_50px_rgba(226,149,42,0.4)] text-white">
+          {/* Central High-Impact Celebration Card — a stamped receipt */}
+          <div className="animate-celebrate relative max-w-sm w-full bg-[var(--paper)] paper-grain border-2 border-dashed border-[#D48924] rounded-3xl p-7 text-center shadow-[0_0_40px_rgba(212,137,36,0.25)] text-[var(--ink)]">
             <div className="relative inline-flex mb-3">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-[#E2952A] to-[#4E8B56] flex items-center justify-center text-4xl shadow-xl shadow-[#4E8B56]/30">
+              <div className="w-20 h-20 rounded-full bg-[#4E8B56]/15 border-2 border-dashed border-[#4E8B56]/60 flex items-center justify-center text-4xl tilt-r">
                 🎉
               </div>
               <span className="absolute -top-1 -right-1 text-2xl animate-bounce">⚡</span>
             </div>
 
-            <div className="inline-flex items-center gap-1.5 bg-[#4E8B56]/20 border border-[#4E8B56]/50 text-[#5fa768] text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full mb-3">
-              <Sparkles size={13} className="fill-[#5fa768]" />
-              <span>Special Perk Unlocked</span>
-            </div>
+            <span className="stamp tilt-l-sm text-[#3d7044] border-[#4E8B56]/50 mb-3">
+              <Sparkles size={11} className="fill-[#4E8B56]" />
+              Special perk unlocked
+            </span>
 
-            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
-              FREE DELIVERY!
+            <h3 className="font-hand italic text-3xl text-[#540c19] tracking-tight leading-tight mt-2">
+              Free delivery!
             </h3>
 
-            <p className="mt-2 text-xs sm:text-sm text-slate-200/90 leading-relaxed font-medium">
-              Congratulations! Your order exceeds ₹299. You just saved <strong className="text-[#E2952A] font-black">₹35</strong> on delivery charges.
+            <p className="mt-2 font-note text-[13px] text-[var(--ink-soft)] leading-relaxed">
+              Your order crosses {formatINR(299)}. You just saved{' '}
+              <strong className="text-[#3d7044] font-semibold">₹35</strong> on delivery.
             </p>
 
             <button
               type="button"
               onClick={() => setShowCelebration(false)}
-              className="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-[#D48924] to-[#4E8B56] text-white font-black text-xs uppercase tracking-wider shadow-lg active:scale-95 transition-transform"
+              className="btn-ink mt-6 w-full py-3 font-note text-xs font-semibold uppercase tracking-[0.14em]"
             >
-              Continue to Order
+              Continue to order
             </button>
           </div>
         </div>
@@ -189,17 +202,17 @@ export default function CartSheet() {
         <div className="px-4 sm:px-5 pt-3 pb-6 space-y-4">
           {/* Free Delivery Goal Banner: Only shown when free delivery is NOT yet reached */}
           {!isFreeDelivery && (
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#D48924]/10 via-[#FDFBF7] to-[#4E8B56]/15 border border-[#e8dfcf] p-3.5 shadow-sm transition-all duration-300">
+            <div className="relative rounded-2xl bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[var(--rule)] p-3.5 shadow-sm transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white shadow-sm bg-gradient-to-br from-[#D48924] to-[#B36F15]">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#D48924]/15 border border-[#D48924]/40 text-[#b87319]">
                     <ShoppingBag size={17} />
                   </div>
                   <div>
-                    <p className="text-xs font-black text-slate-900 tracking-tight">
-                      Add <span className="text-[#681121]">{formatINR(amountToFreeDelivery)}</span> more for <span className="text-[#4E8B56]">FREE Delivery</span>
+                    <p className="font-note text-[12px] font-semibold text-[var(--ink)] tracking-tight">
+                      Add <span className="text-[#681121]">{formatINR(amountToFreeDelivery)}</span> more for <span className="text-[#3d7044]">free delivery</span>
                     </p>
-                    <p className="text-[11px] font-medium text-slate-500">
+                    <p className="font-note text-[11px] text-[var(--ink-faint)]">
                       Free delivery on orders above {formatINR(freeDeliveryThreshold)}
                     </p>
                   </div>
@@ -208,22 +221,22 @@ export default function CartSheet() {
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="flex items-center gap-1 text-[11px] font-bold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100/80 px-2.5 py-1 rounded-lg transition-colors"
+                  className="flex items-center gap-1 font-note text-[11px] font-medium text-[#b91c1c] hover:text-[#8f1414] bg-[#b91c1c]/8 hover:bg-[#b91c1c]/15 px-2.5 py-1 rounded-lg transition-colors"
                 >
                   <Trash2 size={12} />
                   <span>Clear</span>
                 </button>
               </div>
 
-              {/* Progress bar */}
+              {/* Progress bar — a pen filling a ruled line */}
               <div className="mt-3">
-                <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 mb-1">
-                  <span>Current: {formatINR(subtotal)}</span>
+                <div className="flex items-center justify-between font-note text-[10px] text-[var(--ink-faint)] mb-1">
+                  <span>So far: {formatINR(subtotal)}</span>
                   <span>Goal: {formatINR(freeDeliveryThreshold)}</span>
                 </div>
-                <div className="h-2 w-full bg-slate-200/80 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-[var(--paper-3)] rounded-full overflow-hidden border border-[var(--rule)]">
                   <div
-                    className="h-full bg-gradient-to-r from-[#D48924] to-[#4E8B56] rounded-full transition-all duration-300"
+                    className="h-full bg-[#4E8B56] rounded-full transition-all duration-300"
                     style={{ width: `${freeDeliveryPercent}%` }}
                   />
                 </div>
@@ -234,21 +247,21 @@ export default function CartSheet() {
           {/* Cart Items Section */}
           <div className="space-y-2.5">
             <div className="flex items-center justify-between px-1">
-              <span className="text-xs font-black uppercase tracking-wider text-slate-400">
-                Items Selected
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--ink-faint)]">
+                Items selected
               </span>
               {isFreeDelivery ? (
                 <button
                   type="button"
                   onClick={clearCart}
-                  className="flex items-center gap-1 text-[11px] font-bold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100/80 px-2 py-0.5 rounded-lg transition-colors"
+                  className="flex items-center gap-1 font-note text-[11px] font-medium text-[#b91c1c] hover:text-[#8f1414] bg-[#b91c1c]/8 hover:bg-[#b91c1c]/15 px-2 py-0.5 rounded-lg transition-colors"
                 >
                   <Trash2 size={11} />
-                  <span>Clear Cart</span>
+                  <span>Clear cart</span>
                 </button>
               ) : (
-                <span className="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
-                  <Clock size={11} /> 100% Freshly Packed
+                <span className="font-note text-[11px] text-[var(--ink-faint)] flex items-center gap-1">
+                  <Clock size={11} /> 100% freshly packed
                 </span>
               )}
             </div>
@@ -260,33 +273,39 @@ export default function CartSheet() {
               return (
                 <div
                   key={l.key}
-                  className="group relative flex items-center justify-between gap-3 bg-white border border-[#e8dfcf] hover:border-[#D48924]/40 p-3 sm:p-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200"
+                  className="group relative flex items-center justify-between gap-3 bg-[var(--paper-2)] border border-[var(--rule)] hover:border-[#D48924]/50 p-3 sm:p-3.5 rounded-2xl shadow-[2px_3px_0_rgba(84,12,25,0.04)] hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[#f3ece0] shrink-0 border border-[#e8dfcf] shadow-inner">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[var(--paper-3)] shrink-0 border border-[var(--rule)]">
                       <DishImg name={d.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </div>
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <VegBadge />
-                        <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 truncate">
+                        <h4 className="font-hand font-semibold text-base text-[#540c19] truncate">
                           {d.name}
                         </h4>
                       </div>
 
+                      {d.available === false && (
+                        <span className="stamp mt-1 inline-flex text-[#681121] border-[#681121]/45">
+                          Sold out — remove me
+                        </span>
+                      )}
+
                       {l.options.length > 0 && (
-                        <p className="text-[10px] font-semibold text-slate-500 truncate mt-0.5">
+                        <p className="font-note text-[10px] text-[var(--ink-faint)] truncate mt-0.5">
                           {l.options.map((o) => o.choice).join(' · ')}
                         </p>
                       )}
 
                       <div className="flex items-baseline gap-2 mt-1">
-                        <span className="text-sm font-black text-[#681121]">
+                        <span className="font-hand font-bold text-base text-[#681121]">
                           {formatINR(lineTotal(l))}
                         </span>
                         {l.qty > 1 && (
-                          <span className="text-[11px] font-semibold text-slate-400">
+                          <span className="font-note text-[11px] text-[var(--ink-faint)]">
                             ({formatINR(d.price)} each)
                           </span>
                         )}
@@ -294,24 +313,24 @@ export default function CartSheet() {
                     </div>
                   </div>
 
-                  {/* Modern Stepper Button */}
-                  <div className="flex items-center bg-[#4E8B56]/10 border border-[#4E8B56]/30 rounded-xl px-1 py-0.5 shadow-sm">
+                  {/* Quantity Stepper — a hand tally */}
+                  <div className="flex items-center bg-[#4E8B56]/10 border-2 border-dashed border-[#4E8B56]/40 rounded-xl px-1 py-0.5">
                     <button
                       type="button"
                       onClick={() => setQty(l.key, l.qty - 1)}
                       aria-label="Decrease quantity"
-                      className="w-7 h-7 flex items-center justify-center rounded-lg text-[#4E8B56] hover:bg-[#4E8B56]/20 active:scale-90 transition-all font-bold"
+                      className="w-7 h-7 flex items-center justify-center rounded-lg text-[#3d7044] hover:bg-[#4E8B56]/20 active:scale-90 transition-all font-bold"
                     >
                       <Minus size={13} strokeWidth={2.8} />
                     </button>
-                    <span className="w-6 text-center font-black text-xs text-slate-900">
+                    <span className="w-6 text-center font-note font-semibold text-xs text-[var(--ink)]">
                       {l.qty}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQty(l.key, l.qty + 1)}
                       aria-label="Increase quantity"
-                      className="w-7 h-7 flex items-center justify-center rounded-lg text-[#4E8B56] hover:bg-[#4E8B56]/20 active:scale-90 transition-all font-bold"
+                      className="w-7 h-7 flex items-center justify-center rounded-lg text-[#3d7044] hover:bg-[#4E8B56]/20 active:scale-90 transition-all font-bold"
                     >
                       <Plus size={13} strokeWidth={2.8} />
                     </button>
@@ -321,64 +340,67 @@ export default function CartSheet() {
             })}
           </div>
 
-          {/* Bill Summary Card */}
-          <div className="bg-white border border-[#e8dfcf] rounded-2xl p-4 shadow-sm space-y-2.5">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <span className="text-xs font-black uppercase tracking-wider text-[#681121]">
-                Bill Breakdown
+          {/* Bill Summary Card — a written receipt */}
+          <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-2xl p-4 shadow-sm space-y-2.5">
+            <div className="flex items-center justify-between pb-2 border-b border-dashed border-[var(--rule)]">
+              <span className="font-hand italic text-lg text-[#681121]">
+                Bill breakdown
               </span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Taxes Included
+              <span className="font-note text-[10px] text-[var(--ink-faint)] uppercase tracking-[0.14em]">
+                Taxes included
               </span>
             </div>
 
-            <div className="space-y-2 text-xs text-slate-600">
+            <div className="space-y-2 font-note text-xs text-[var(--ink-soft)]">
               <div className="flex items-center justify-between">
-                <span className="font-medium text-slate-600">Item Total</span>
-                <span className="font-bold text-slate-900">{formatINR(subtotal)}</span>
+                <span>Item total</span>
+                <span className="font-semibold text-[var(--ink)]">{formatINR(subtotal)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-medium text-slate-600 flex items-center gap-1">
-                  Delivery Partner Fee
+                <span className="flex items-center gap-1">
+                  Delivery partner fee
                 </span>
                 <span>
                   {deliveryFee === 0 ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-black text-[#4E8B56] bg-emerald-50 px-2 py-0.5 rounded-md">
-                      FREE
+                    <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">
+                      Free
                     </span>
                   ) : (
-                    <span className="font-bold text-slate-900">{formatINR(deliveryFee)}</span>
+                    <span className="font-semibold text-[var(--ink)]">{formatINR(deliveryFee)}</span>
                   )}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-medium text-slate-600">Platform Handling Fee</span>
-                <span className="font-bold text-slate-900">{formatINR(platformFee)}</span>
+                <span>Platform handling fee</span>
+                <span className="font-semibold text-[var(--ink)]">{formatINR(platformFee)}</span>
               </div>
             </div>
 
-            <div className="pt-3 border-t border-dashed border-[#e8dfcf] flex items-center justify-between">
+            <div className="pt-3 border-t border-dashed border-[var(--rule)] flex items-center justify-between">
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-slate-900 block leading-tight">
-                  To Pay
+                <span className="font-hand italic text-lg text-[#540c19] block leading-tight">
+                  To pay
                 </span>
-                <span className="text-[10px] font-semibold text-slate-400">
+                <span className="font-note text-[10px] text-[var(--ink-faint)]">
                   Incl. all standard taxes
                 </span>
               </div>
-              <span className="text-lg font-black text-[#681121] tracking-tight">
+              <span className="font-hand font-bold text-2xl text-[#681121] tracking-tight">
                 {formatINR(grandTotal)}
               </span>
             </div>
           </div>
 
-          {/* Guaranteed Savings Badge */}
-          <div className="flex items-center gap-2.5 bg-gradient-to-r from-[#4E8B56]/15 to-[#4E8B56]/5 border border-[#4E8B56]/30 text-[#245b2b] p-3 rounded-2xl text-xs font-bold shadow-sm">
+          {/* Guaranteed Savings note — pencilled in the margin */}
+          <div className="flex items-center gap-2.5 bg-[#4E8B56]/10 border-2 border-dashed border-[#4E8B56]/40 text-[#245b2b] p-3 rounded-2xl font-note text-xs">
             <div className="h-6 w-6 rounded-full bg-[#4E8B56] text-white flex items-center justify-center shrink-0">
               <ShieldCheck size={14} />
             </div>
             <div className="flex-1">
-              <span>You saved <strong className="font-black text-[#1e5025]">₹45</strong> on this direct kitchen order!</span>
+              <span>
+                You saved <strong className="font-semibold text-[#1e5025]">₹45</strong> on this
+                direct kitchen order!
+              </span>
             </div>
           </div>
         </div>

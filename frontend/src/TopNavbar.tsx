@@ -66,9 +66,7 @@ export default function TopNavbar() {
       {/* 1. SCROLLED STATE: A slip of paper taped across the top */}
       {scrolled ? (
         <div className="w-full flex justify-center pt-3 pb-2 px-4 animate-in fade-in slide-in-from-top-1 duration-200 pointer-events-auto">
-          <div className="inline-flex items-center gap-3 bg-[var(--paper-2)]/95 backdrop-blur-xl border border-[var(--rule)] px-5 py-2.5 rounded-full shadow-2xl shadow-stone-900/15 relative">
-            <span className="tape w-14 -top-2.5 left-10 rotate-[-5deg]" aria-hidden="true" />
-
+          <div className="inline-flex items-center gap-3 bg-[var(--paper-2)] border border-[var(--rule)] px-5 py-2.5 rounded-full shadow-[3px_4px_0_rgba(84,12,25,0.08),0_20px_36px_-26px_rgba(84,12,25,0.55)] relative">
             {/* Back Button (Appears before nav items if inside sub-page/stack) */}
             {hasBack && (
               <button
@@ -307,6 +305,17 @@ export default function TopNavbar() {
               >
                 Book Pass
               </button>
+
+              {/* Admin Portal Shortcut */}
+              <a
+                href="http://localhost:3001"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open Sahi Crunch Admin Control Panel"
+                className="hidden lg:flex items-center gap-1 text-[11px] font-note font-semibold text-[#681121] bg-[#D48924]/15 hover:bg-[#D48924]/25 border border-[#D48924]/40 px-2.5 py-1.5 rounded-xl transition-all"
+              >
+                <span>Admin</span>
+              </a>
             </div>
           </div>
         </div>

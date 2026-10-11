@@ -10,8 +10,7 @@ import {
   Zap,
   ArrowRight,
 } from 'lucide-react';
-import { useApp, lineTotal } from '../store';
-import { dishById } from '../data/menu';
+import { useApp, lineTotal, dishById } from '../store';
 import { locations } from '../data/locations';
 import { ORDER_STAGES } from '../data';
 import { Screen, Empty, DishImg, VegBadge } from '../ui';
@@ -57,34 +56,38 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
   return (
     <Screen eyebrow={order.code} title={delivered ? 'Delivered' : 'On The Way'}>
       <div className="w-full px-4 sm:px-6 lg:px-10 py-4 space-y-4 max-w-4xl mx-auto pb-32">
-        {/* Live Tracking Card - Navy/Maroon brand style */}
-        <div className="bg-gradient-to-br from-[#1D2E47] via-[#2C3E50] to-[#1E1E24] text-white rounded-3xl p-5 shadow-xl shadow-[#1D2E47]/20 relative overflow-hidden">
+        {/* Live Tracking — the maroon sign from the dispatch board */}
+        <div className="relative rounded-2xl bg-[#540c19] text-[#FDFBF7] border border-[#D48924]/40 p-5 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D48924] pointer-events-none" />
+          <div className="absolute inset-x-0 top-1.5 h-px bg-[#E2952A]/50 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.13)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
+
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
-              <span className="inline-flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#E2952A]">
-                <Clock size={13} /> {order.eta}
+              <span className="stamp tilt-r-sm">
+                <Clock size={10} /> {order.eta}
               </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-200">
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.18em] text-[#E2952A]">
                 {order.type}
               </span>
             </div>
 
-            <h2 className="text-2xl font-black tracking-tight leading-tight">
+            <h2 className="font-hand italic text-2xl sm:text-3xl leading-tight text-[#FDFBF7]">
               {ORDER_STAGES[order.status].label}
             </h2>
-            <p className="text-xs text-amber-100/80 mt-1 leading-relaxed">
+            <p className="font-note text-xs text-[#FDFBF7]/75 mt-1.5 leading-relaxed">
               {ORDER_STAGES[order.status].sub}
             </p>
 
-            {/* Progress bar */}
-            <div className="mt-5 relative h-2.5 w-full bg-white/20 rounded-full overflow-hidden">
+            {/* Progress bar — ink filling a ruled track */}
+            <div className="mt-5 relative h-2.5 w-full bg-[#240409]/60 border border-[#E2952A]/25 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[#D48924] to-[#E2952A] rounded-full transition-all duration-700"
+                className="h-full bg-[#D48924] rounded-full transition-all duration-700"
                 style={{ width: `${Math.max(12, pct)}%` }}
               />
             </div>
 
-            <div className="mt-3 flex items-center justify-between text-[11px] font-bold text-amber-100/90">
+            <div className="mt-3 flex items-center justify-between font-note text-[10px] font-semibold uppercase tracking-[0.12em] text-[#FDFBF7]/70">
               <span>Order Placed</span>
               <span>Roasting</span>
               <span>Packed</span>
@@ -95,16 +98,19 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
 
         {/* Delivery Partner Details */}
         {!delivered && (
-          <div className="bg-[#FBF7F0] p-4 rounded-3xl border border-[#e5d8c3] shadow-card flex items-center justify-between">
+          <div className="relative bg-[var(--paper-2)] paper-grain p-4 rounded-2xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#D48924] text-[#1E1E24] font-black">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D48924]/12 border-2 border-dashed border-[#D48924]/50 text-[#b87319] shrink-0">
                 <Bike size={22} />
               </div>
               <div>
-                <p className="text-xs font-extrabold text-[#1E1E24]">
+                <p className="font-hand italic text-[13px] text-[var(--ink-soft)] leading-none">
+                  your batch rides with
+                </p>
+                <p className="font-note text-xs font-semibold text-[var(--ink)] mt-1">
                   Ramesh (Sahi Express)
                 </p>
-                <p className="text-[11px] text-[#1E1E24]/60 font-medium">
+                <p className="font-note text-[11px] text-[var(--ink-faint)]">
                   Assigned Delivery Partner · Bhopal Hub
                 </p>
               </div>
@@ -113,7 +119,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
             <button
               type="button"
               onClick={() => showInfo('Connecting you to our Bhopal dispatch executive Ramesh...', 'Calling Delivery Partner')}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#681121]/10 text-[#681121] border border-[#681121]/20 shadow-sm hover:bg-[#681121] hover:text-white transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] hover:bg-[#681121] hover:text-[#FDFBF7] transition-colors shrink-0"
             >
               <Phone size={16} />
             </button>
@@ -121,12 +127,12 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
         )}
 
         {/* Order Details & Items Summary */}
-        <div className="bg-[#FBF7F0] p-4 rounded-3xl border border-[#e5d8c3] shadow-card">
-          <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#e5d8c3]">
-            <h3 className="text-xs font-extrabold uppercase text-[#1E1E24]/60 tracking-wider">
-              Items in this Order ({order.lines.length})
+        <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-2xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
+          <div className="flex items-center justify-between mb-3 pb-2 border-b border-dashed border-[var(--rule)]">
+            <h3 className="font-note text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--ink-faint)]">
+              Items in this order ({order.lines.length})
             </h3>
-            <span className="text-xs font-bold text-[#681121]">
+            <span className="font-hand text-base font-semibold text-[#681121]">
               {formatINR(order.total)}
             </span>
           </div>
@@ -136,20 +142,20 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
               const d = dishById(l.dishId);
               if (!d) return null;
               return (
-                <div key={l.key} className="flex items-center justify-between text-xs">
+                <div key={l.key} className="flex items-center justify-between text-xs font-note">
                   <div className="flex items-center gap-2">
                     <VegBadge />
-                    <span className="font-bold text-[#681121]">{l.qty}x</span>
-                    <span className="font-semibold text-[#1E1E24]">{d.name}</span>
+                    <span className="font-semibold text-[#681121]">{l.qty}x</span>
+                    <span className="font-medium text-[var(--ink)]">{d.name}</span>
                   </div>
-                  <span className="font-bold text-[#1E1E24]">{formatINR(lineTotal(l))}</span>
+                  <span className="font-hand font-semibold text-[var(--ink)]">{formatINR(lineTotal(l))}</span>
                 </div>
               );
             })}
           </div>
 
           {order.address && (
-            <div className="mt-4 pt-3 border-t border-[#e5d8c3] text-xs text-[#1E1E24]/70 flex items-start gap-2">
+            <div className="mt-4 pt-3 border-t border-[var(--rule)] font-note text-xs text-[var(--ink-soft)] flex items-start gap-2">
               <MapPin size={14} className="text-[#681121] shrink-0 mt-0.5" />
               <span>{order.address}</span>
             </div>
@@ -165,9 +171,9 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
             if (data?.url) window.open(data.url, '_blank');
             else window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
           }}
-          className="w-full flex items-center justify-center gap-2 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#1E1E24] border border-[#25D366]/40 font-extrabold text-xs py-3.5 rounded-2xl transition-colors"
+          className="w-full flex items-center justify-center gap-2 font-note text-xs font-semibold py-3.5 rounded-xl bg-[#25D366]/12 text-[#1a7d3f] border-2 border-dashed border-[#25D366]/50 hover:bg-[#25D366]/20 transition-colors"
         >
-          <span>Need help with order? Chat on WhatsApp</span>
+          <span>Something wrong with this one? Message us on WhatsApp</span>
         </button>
       </div>
     </Screen>

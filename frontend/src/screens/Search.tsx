@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Search as SearchIcon, X, TrendingUp, Sparkles, Plus, Minus, ArrowLeft } from 'lucide-react';
+import { Search as SearchIcon, X, TrendingUp, Plus, Minus, ArrowLeft } from 'lucide-react';
 import { useApp, activeDishes } from '../store';
 import { type Dish } from '../data/menu';
 import { DishImg, VegBadge, RatingBadge } from '../ui';
@@ -56,32 +56,33 @@ export default function Search() {
   }, [cart]);
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-28 text-[#1E1E24]">
-      {/* Search Header */}
-      <header className="sticky top-0 z-30 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#e5d8c3] px-4 py-3 shadow-sm flex items-center gap-3">
+    <div className="min-h-screen bg-[var(--paper)] paper-grain pb-28 text-[var(--ink)]">
+      {/* Search Header — writing a line in the kitchen log */}
+      <header className="sticky top-0 z-30 bg-[var(--paper)]/95 backdrop-blur-md border-b border-[var(--rule)] px-4 py-3 flex items-center gap-3">
         <button
           type="button"
           onClick={pop}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FBF7F0] text-[#1E1E24] hover:bg-[#e5d8c3]/40 border border-[#e5d8c3]"
+          aria-label="Back"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#681121] hover:bg-[var(--paper-3)] border border-[var(--rule)] transition-colors"
         >
           <ArrowLeft size={18} />
         </button>
 
         <div className="relative flex-1">
-          <SearchIcon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#681121]" />
+          <SearchIcon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D48924]" />
           <input
             autoFocus
             type="text"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search for snacks, bakes, namkeen..."
-            className="w-full bg-[#FBF7F0] border border-[#e5d8c3] rounded-2xl pl-10 pr-9 py-2.5 text-xs font-semibold text-[#1E1E24] placeholder-[#1E1E24]/40 outline-none focus:border-[#681121] focus:bg-white"
+            className="form-blank w-full pl-10 pr-9 py-2.5 font-note text-xs font-medium"
           />
           {q && (
             <button
               type="button"
               onClick={() => setQ('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#1E1E24]/50 p-1"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--ink-faint)] hover:text-[var(--ink)] p-1"
             >
               <X size={14} />
             </button>
@@ -93,17 +94,19 @@ export default function Search() {
         {/* If no query: show trending chips */}
         {!needle ? (
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase text-[#1E1E24]/60 tracking-wider mb-3">
-              <TrendingUp size={14} className="text-[#681121]" />
-              <span>Trending Searches</span>
+            <div className="flex items-center gap-1.5 mb-3">
+              <TrendingUp size={14} className="text-[#D48924]" />
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
+                What folks ask for most
+              </span>
             </div>
             <div className="flex flex-wrap gap-2">
-              {POPULAR_SEARCHES.map((item) => (
+              {POPULAR_SEARCHES.map((item, i) => (
                 <button
                   key={item}
                   type="button"
                   onClick={() => setQ(item)}
-                  className="bg-[#FBF7F0] border border-[#e5d8c3] px-3.5 py-2 rounded-xl text-xs font-bold text-[#1E1E24] hover:border-[#681121] hover:text-[#681121] transition-colors shadow-sm"
+                  className={`${i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm'} hover:tilt-0 bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[var(--rule)] px-3.5 py-2 rounded-xl font-note text-xs font-medium text-[var(--ink-soft)] hover:border-[#D48924] hover:text-[#681121] transition-all duration-300`}
                 >
                   {item}
                 </button>
@@ -112,39 +115,43 @@ export default function Search() {
           </div>
         ) : (
           <div className="space-y-3">
-            <p className="text-xs font-bold text-[#1E1E24]/70">
+            <p className="font-note text-xs font-medium text-[var(--ink-soft)]">
               {results.length} snacks found for &quot;{q}&quot;
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
 
-            {results.map((dish) => {
+            {results.map((dish, i) => {
               const inCart = cartQtyMap[dish.id];
+              const tilt = i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm';
 
               return (
                 <div
                   key={dish.id}
                   onClick={() => push({ type: 'dish', id: dish.id })}
-                  className="flex items-center justify-between gap-3 bg-[#FBF7F0] p-3.5 rounded-3xl border border-[#e5d8c3] shadow-card cursor-pointer hover:border-[#681121]/40 transition-all"
+                  className={`group flex items-center justify-between gap-3 bg-[var(--paper-2)] paper-grain p-3.5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] cursor-pointer hover:border-[#D48924]/70 ${tilt} hover:tilt-0 transition-all duration-300`}
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden bg-[#e5d8c3]/30 shrink-0">
-                      <DishImg name={dish.image} className="w-full h-full object-cover" />
+                    {/* Mini taped-in polaroid */}
+                    <div className="w-16 h-16 shrink-0 bg-white p-1 rounded-lg border border-[var(--rule)] shadow-[2px_3px_0_rgba(84,12,25,0.08)]">
+                      <div className="w-full h-full rounded-[4px] overflow-hidden bg-[var(--paper-3)]">
+                        <DishImg name={dish.image} className="w-full h-full object-cover" />
+                      </div>
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <VegBadge />
-                        <span className="font-bold text-sm text-[#1E1E24] truncate">{dish.name}</span>
+                        <span className="font-hand text-lg text-[#540c19] truncate leading-tight">{dish.name}</span>
                       </div>
-                      <p className="text-xs text-[#1E1E24]/60 line-clamp-1 mt-0.5">{dish.description}</p>
-                      <p className="text-xs font-black text-[#681121] mt-1">{formatINR(dish.price)}</p>
+                      <p className="font-note text-xs text-[var(--ink-soft)] line-clamp-1 mt-0.5">{dish.description}</p>
+                      <p className="font-hand font-bold text-base text-[#681121] mt-1">{formatINR(dish.price)}</p>
                     </div>
                   </div>
 
                   {inCart && inCart.qty > 0 ? (
                     <div
                       onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 bg-[#681121] text-white rounded-xl px-2 py-1 shadow-sm font-extrabold text-xs"
+                      className="btn-ink flex items-center gap-2 rounded-xl px-2 py-1 font-note text-xs"
                     >
                       <button
                         type="button"
@@ -152,22 +159,26 @@ export default function Search() {
                           e.stopPropagation();
                           setQty(inCart.key, inCart.qty - 1);
                         }}
-                        className="p-1 hover:bg-[#540c19] rounded"
+                        className="p-1 hover:bg-white/15 rounded"
                       >
                         <Minus size={12} strokeWidth={3} />
                       </button>
-                      <span className="font-bold">{inCart.qty}</span>
+                      <span className="font-semibold">{inCart.qty}</span>
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           setQty(inCart.key, inCart.qty + 1);
                         }}
-                        className="p-1 hover:bg-[#540c19] rounded"
+                        className="p-1 hover:bg-white/15 rounded"
                       >
                         <Plus size={12} strokeWidth={3} />
                       </button>
                     </div>
+                  ) : !dish.available ? (
+                    <span className="stamp shrink-0 text-[var(--ink-faint)] border-[var(--rule)]">
+                      Sold out
+                    </span>
                   ) : (
                     <button
                       type="button"
@@ -175,7 +186,7 @@ export default function Search() {
                         e.stopPropagation();
                         addToCart({ dishId: dish.id, qty: 1, options: [] });
                       }}
-                      className="flex items-center gap-1 bg-[#FDFBF7] hover:bg-[#681121] hover:text-white text-[#681121] border-2 border-[#681121] font-extrabold text-xs px-3 py-1.5 rounded-xl shadow-sm transition-colors"
+                      className="btn-outline shrink-0 flex items-center gap-1 font-note text-xs font-semibold px-3 py-1.5"
                     >
                       <span>ADD</span>
                       <Plus size={12} strokeWidth={3} />

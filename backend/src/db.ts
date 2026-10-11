@@ -1,11 +1,19 @@
 /**
- * db.ts — JSON database storage for Sahi Crunch standalone backend
+ * db.ts — Shared database layer for Sahi Crunch
+ * Stores Users, Orders, Reservations, Loyalty, Favorites, Dishes (Products), and Categories
  */
 
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dishes as defaultDishes, categories as defaultCategories, type Dish, type MenuCategory } from './menuData.js';
 
-const DB_PATH = path.join(process.cwd(), 'data', 'sahi-crunch-db.json');
+// Get root project dir accurately
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// Root of project is two levels up from backend/src
+const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
+const DB_PATH = path.join(PROJECT_ROOT, 'backend', 'data', 'sahi-crunch-db.json');
 
 /* ─────────────── Types ─────────────── */
 
@@ -83,6 +91,8 @@ export interface DBData {
   reservations: DBReservation[];
   loyalty: DBLoyalty[];
   favorites: DBFavorite[];
+  dishes?: Dish[];
+  categories?: MenuCategory[];
 }
 
 /* ─────────────── Load / Save ─────────────── */
@@ -97,14 +107,44 @@ function ensureDir() {
 export function loadDB(): DBData {
   ensureDir();
   if (!fs.existsSync(DB_PATH)) {
-    const empty: DBData = { users: [], orders: [], reservations: [], loyalty: [], favorites: [] };
+    const empty: DBData = {
+      users: [],
+      orders: [],
+      reservations: [],
+      loyalty: [],
+      favorites: [],
+      dishes: defaultDishes,
+      categories: defaultCategories,
+    };
     fs.writeFileSync(DB_PATH, JSON.stringify(empty, null, 2), 'utf-8');
     return empty;
   }
   try {
-    return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8')) as DBData;
+    const raw = fs.readFileSync(DB_PATH, 'utf-8');
+    const data = JSON.parse(raw) as DBData;
+    let modified = false;
+    if (!data.dishes || data.dishes.length === 0) {
+      data.dishes = defaultDishes;
+      modified = true;
+    }
+    if (!data.categories || data.categories.length === 0) {
+      data.categories = defaultCategories;
+      modified = true;
+    }
+    if (modified) {
+      saveDB(data);
+    }
+    return data;
   } catch {
-    const empty: DBData = { users: [], orders: [], reservations: [], loyalty: [], favorites: [] };
+    const empty: DBData = {
+      users: [],
+      orders: [],
+      reservations: [],
+      loyalty: [],
+      favorites: [],
+      dishes: defaultDishes,
+      categories: defaultCategories,
+    };
     return empty;
   }
 }
@@ -122,6 +162,11 @@ export const randCode = (prefix: string) =>
   `${prefix}-${Math.random().toString(36).slice(2, 6).toUpperCase()}${Date.now().toString(36).slice(-3).toUpperCase()}`;
 
 /* ─────────────── User Queries ─────────────── */
+
+export function getAllUsers(): DBUser[] {
+  const db = loadDB();
+  return db.users;
+}
 
 export function findUserByEmail(email: string): DBUser | undefined {
   const db = loadDB();
@@ -163,6 +208,11 @@ export function updateUser(id: string, patch: Partial<DBUser>): DBUser | null {
 }
 
 /* ─────────────── Order Queries ─────────────── */
+
+export function getAllOrders(): DBOrder[] {
+  const db = loadDB();
+  return (db.orders || []).sort((a, b) => b.placedAt - a.placedAt);
+}
 
 export function getOrdersByUser(userId: string): DBOrder[] {
   const db = loadDB();
@@ -212,6 +262,11 @@ export function updateOrderStatus(id: string, status: number): DBOrder | null {
 
 /* ─────────────── Reservation Queries ─────────────── */
 
+export function getAllReservations(): DBReservation[] {
+  const db = loadDB();
+  return (db.reservations || []).sort((a, b) => b.createdAt - a.createdAt);
+}
+
 export function getReservationsByUser(userId: string): DBReservation[] {
   const db = loadDB();
   return db.reservations.filter((r) => r.userId === userId).sort((a, b) => b.createdAt - a.createdAt);
@@ -235,6 +290,15 @@ export function createReservation(data: Omit<DBReservation, 'id' | 'code' | 'cre
   }
   saveDB(db);
   return res;
+}
+
+export function updateReservationStatus(id: string, status: 'pending' | 'confirmed' | 'cancelled'): DBReservation | null {
+  const db = loadDB();
+  const idx = db.reservations.findIndex((r) => r.id === id);
+  if (idx === -1) return null;
+  db.reservations[idx].status = status;
+  saveDB(db);
+  return db.reservations[idx];
 }
 
 export function cancelReservation(id: string, userId: string): boolean {
@@ -275,4 +339,72 @@ export function toggleFavorite(userId: string, dishId: string): string[] {
   }
   saveDB(db);
   return fav.dishIds;
+}
+
+/* ─────────────── Dishes / Products Queries ─────────────── */
+
+export function getDishes(): Dish[] {
+  const db = loadDB();
+  return db.dishes ?? defaultDishes;
+}
+
+export function getDishById(id: string): Dish | undefined {
+  const dishes = getDishes();
+  return dishes.find((d) => d.id === id);
+}
+
+export function addDish(dish: Dish): Dish {
+  const db = loadDB();
+  if (!db.dishes) db.dishes = [...defaultDishes];
+  // check if id exists
+  const existingIdx = db.dishes.findIndex((d) => d.id === dish.id);
+  if (existingIdx !== -1) {
+    db.dishes[existingIdx] = dish;
+  } else {
+    db.dishes.unshift(dish);
+  }
+  saveDB(db);
+  return dish;
+}
+
+export function updateDish(id: string, patch: Partial<Dish>): Dish | null {
+  const db = loadDB();
+  if (!db.dishes) db.dishes = [...defaultDishes];
+  const idx = db.dishes.findIndex((d) => d.id === id);
+  if (idx === -1) return null;
+  db.dishes[idx] = { ...db.dishes[idx], ...patch };
+  saveDB(db);
+  return db.dishes[idx];
+}
+
+export function deleteDish(id: string): boolean {
+  const db = loadDB();
+  if (!db.dishes) return false;
+  const initialLength = db.dishes.length;
+  db.dishes = db.dishes.filter((d) => d.id !== id);
+  if (db.dishes.length !== initialLength) {
+    saveDB(db);
+    return true;
+  }
+  return false;
+}
+
+/* ─────────────── Categories Queries ─────────────── */
+
+export function getCategories(): MenuCategory[] {
+  const db = loadDB();
+  return db.categories ?? defaultCategories;
+}
+
+export function addCategory(category: MenuCategory): MenuCategory {
+  const db = loadDB();
+  if (!db.categories) db.categories = [...defaultCategories];
+  const idx = db.categories.findIndex((c) => c.id === category.id);
+  if (idx !== -1) {
+    db.categories[idx] = category;
+  } else {
+    db.categories.push(category);
+  }
+  saveDB(db);
+  return category;
 }

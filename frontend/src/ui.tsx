@@ -184,7 +184,6 @@ export function Sheet({
         {/* Header - Fixed / Sticky */}
         <div className="shrink-0 flex flex-col items-center bg-[var(--paper)] pt-2.5 pb-2.5 border-b border-[var(--rule)] px-5 relative">
           <div className="h-1.5 w-12 rounded-full bg-[var(--rule)] sm:hidden mb-1.5" />
-          <span className="tape w-16 -top-2.5 left-8 rotate-[-4deg]" aria-hidden="true" />
           <div className="flex w-full items-center justify-between">
             <h2 className="font-hand italic text-xl text-[#540c19]">{title}</h2>
             <button

@@ -192,12 +192,46 @@ export const reservationsApi = {
 
 /* ─── Menu API ─── */
 
+export type ApiSpiceLevel = 0 | 1 | 2 | 3;
+
+export interface ApiDish {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  price: number;
+  image: string;
+  ingredients: string[];
+  dietaryTags: string[];
+  spiceLevel: ApiSpiceLevel;
+  veg: boolean;
+  bestseller?: boolean;
+  available: boolean;
+  branchAvailability: string[];
+  weight?: string;
+  shelfLife?: string;
+  fresh?: boolean;
+  pptHero?: boolean;
+}
+
+export interface ApiCategory {
+  id: string;
+  name: string;
+  eyebrow: string;
+  line: string;
+  archetype: 'plate' | 'grill' | 'bowl' | 'round' | 'glass' | 'cup' | 'dessert';
+  tint: string;
+  fire?: boolean;
+  smoke?: boolean;
+}
+
 export const menuApi = {
   list: (params?: { category?: string; location?: string; q?: string }) => {
     const qs = new URLSearchParams(params as Record<string, string>).toString();
-    return apiFetch<{ dishes: unknown[] }>(`/api/menu${qs ? `?${qs}` : ''}`);
+    return apiFetch<{ dishes: ApiDish[] }>(`/api/menu${qs ? `?${qs}` : ''}`);
   },
-  get: (id: string) => apiFetch<{ dish: unknown }>(`/api/menu/${id}`),
+  get: (id: string) => apiFetch<{ dish: ApiDish }>(`/api/menu/${id}`),
+  categories: () => apiFetch<{ categories: ApiCategory[] }>('/api/categories'),
 };
 
 /* ─── Secure Backend Proxy API (No raw API keys on client) ─── */

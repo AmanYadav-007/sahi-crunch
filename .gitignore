@@ -1,12 +1,12 @@
 # Dependencies
 node_modules/
-*/node_modules/
+**/node_modules/
 
 # Production builds & cache
 dist/
-*/dist/
+**/dist/
 .next/
-*/.next/
+**/.next/
 .vercel
 .dev.log
 *.tsbuildinfo

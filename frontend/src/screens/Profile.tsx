@@ -93,30 +93,32 @@ export default function Profile() {
   );
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-32 text-[#1E1E24]">
-      {/* Editorial Luxury Header Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#540c19] via-[#681121] to-[#2e050c] text-white pt-8 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-radial from-[#D48924]/25 to-transparent blur-2xl pointer-events-none" />
-        <div className="absolute -left-12 -bottom-10 w-48 h-48 rounded-full bg-radial from-[#FDFBF7]/10 to-transparent blur-xl pointer-events-none" />
-
+    <div className="min-h-screen bg-[var(--paper)] paper-grain pb-32 text-[var(--ink)]">
+      {/* ============ Ledger masthead — the top of a kitchen account book ============ */}
+      <div className="relative border-b border-[var(--rule)] bg-[var(--paper-2)]/70 px-4 sm:px-6 lg:px-8 pt-8 pb-16">
         <div className="max-w-4xl mx-auto relative z-10">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white mt-1">
-                Member Profile
+              <p className="font-note text-[10px] font-semibold uppercase tracking-[0.24em] text-[#b87319]">
+                Kitchen account book · Bhopal
+              </p>
+              <h1 className="font-hand italic text-2xl sm:text-3xl text-[#540c19] tracking-tight leading-tight mt-1">
+                Your member page
               </h1>
+              <svg viewBox="0 0 160 9" className="w-36 h-2.5 mt-1" fill="none" aria-hidden="true">
+                <path d="M2 6c18-3.5 34-4.5 52-3.2s34 3.2 52 2 30-3.4 50-4.6" stroke="#D48924" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
             </div>
 
             {auth.isLoggedIn ? (
-              <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Verified
+              <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">
+                <Check size={11} /> Verified
               </span>
             ) : (
               <button
                 type="button"
                 onClick={auth.openLogin}
-                className="flex items-center gap-1.5 bg-[#D48924] hover:bg-[#c37b1d] text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-md transition-all active:scale-95"
+                className="btn-ink flex items-center gap-1.5 px-3.5 py-2 font-note text-[11px] font-semibold uppercase tracking-[0.14em]"
               >
                 <LogIn size={14} />
                 <span>Sign In</span>
@@ -126,19 +128,19 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Main Content Floating Overlay */}
+      {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 space-y-5 relative z-20">
 
         {/* 1. Identity & Card */}
-        <div className="bg-[#FBF7F0] rounded-3xl p-6 border border-[#e5d8c3] shadow-xl shadow-stone-900/5">
+        <div className="bg-[var(--paper-2)] paper-grain rounded-3xl p-6 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-gradient-to-br from-[#681121] to-[#3a0812] text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-[#681121]/30 border-2 border-white">
+                <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl bg-[#681121] text-[#FDFBF7] flex items-center justify-center font-hand italic text-2xl border-2 border-[var(--rule)] shadow-[2px_3px_0_rgba(84,12,25,0.18)]">
                   {initial}
                 </div>
                 {auth.isLoggedIn && (
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#4E8B56] text-white flex items-center justify-center border-2 border-white shadow-sm" title="Verified Account">
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#3d7044] text-white flex items-center justify-center border-2 border-[var(--paper-2)] shadow-sm" title="Verified Account">
                     <Check size={12} strokeWidth={3} />
                   </div>
                 )}
@@ -148,7 +150,7 @@ export default function Profile() {
                 {!editing ? (
                   <>
                     <div className="flex items-center gap-2">
-                      <h2 className="text-lg sm:text-xl font-black text-[#1E1E24] truncate">
+                      <h2 className="font-hand italic text-lg sm:text-xl text-[#540c19] truncate">
                         {displayName}
                       </h2>
                       {auth.isLoggedIn && (
@@ -159,28 +161,28 @@ export default function Profile() {
                             setEditEmail(auth.user?.email ?? '');
                             setEditing(true);
                           }}
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-[#681121] hover:bg-[#681121]/10 transition-colors"
+                          className="p-1.5 rounded-lg text-[var(--ink-faint)] hover:text-[#681121] hover:bg-[#681121]/10 transition-colors"
                           title="Edit Personal Info"
                         >
                           <Pencil size={14} />
                         </button>
                       )}
                     </div>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 font-medium mt-0.5">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-note text-xs text-[var(--ink-soft)] mt-0.5">
                       {displayPhone && (
                         <span className="flex items-center gap-1">
-                          <Phone size={12} className="text-slate-400" />
+                          <Phone size={12} className="text-[var(--ink-faint)]" />
                           {displayPhone}
                         </span>
                       )}
                       {displayEmail && (
                         <span className="flex items-center gap-1">
-                          <Mail size={12} className="text-slate-400" />
+                          <Mail size={12} className="text-[var(--ink-faint)]" />
                           {displayEmail}
                         </span>
                       )}
                       {!displayPhone && !displayEmail && (
-                        <span className="text-amber-800/80 font-semibold text-[11px]">
+                        <span className="text-[#b87319] font-semibold text-[11px]">
                           Guest Access · Sign in to preserve your history
                         </span>
                       )}
@@ -192,23 +194,23 @@ export default function Profile() {
                       type="text"
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
-                      className="w-full text-sm font-bold border border-[#e5d8c3] rounded-xl px-3 py-1.5 bg-white focus:outline-none focus:border-[#681121] focus:ring-1 focus:ring-[#681121]"
+                      className="form-blank w-full text-sm font-note px-3 py-1.5"
                       placeholder="Full Name"
                     />
                     <input
                       type="email"
                       value={editEmail}
                       onChange={(e) => setEditEmail(e.target.value)}
-                      className="w-full text-xs border border-[#e5d8c3] rounded-xl px-3 py-1.5 bg-white focus:outline-none focus:border-[#681121] focus:ring-1 focus:ring-[#681121]"
+                      className="form-blank w-full text-xs font-note px-3 py-1.5"
                       placeholder="Email Address"
                     />
-                    {editError && <p className="text-xs text-red-600 font-semibold">{editError}</p>}
+                    {editError && <p className="font-note text-xs text-[#a32230] font-semibold">{editError}</p>}
                     <div className="flex gap-2 pt-1">
                       <button
                         type="button"
                         onClick={handleSave}
                         disabled={saving}
-                        className="inline-flex items-center gap-1.5 bg-[#4E8B56] hover:bg-[#3d7044] text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm transition-colors"
+                        className="btn-ink inline-flex items-center gap-1.5 font-note text-xs font-semibold uppercase tracking-[0.12em] px-3.5 py-2"
                       >
                         {saving ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />}
                         Save
@@ -216,7 +218,7 @@ export default function Profile() {
                       <button
                         type="button"
                         onClick={() => { setEditing(false); setEditError(''); }}
-                        className="inline-flex items-center gap-1 bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-slate-300 transition-colors"
+                        className="btn-outline inline-flex items-center gap-1 font-note text-xs font-semibold uppercase tracking-[0.12em] px-3.5 py-2"
                       >
                         <X size={13} />
                         Cancel
@@ -227,32 +229,32 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Quick Stats Badges */}
+            {/* Quick Stats — two rubber-stamped boxes */}
             <div className="flex items-center gap-2 sm:self-center">
-              <div className="flex-1 sm:flex-initial bg-[#F5ECE0] border border-[#e2d2ba] rounded-2xl px-4 py-2 text-center">
-                <span className="block text-[10px] font-black uppercase text-amber-800/80 tracking-wide">
+              <div className="flex-1 sm:flex-initial bg-[var(--paper-3)]/60 border-2 border-dashed border-[var(--rule)] rounded-xl px-4 py-2 text-center tilt-l-sm">
+                <span className="block font-note text-[9px] font-semibold uppercase tracking-[0.16em] text-[#b87319]">
                   Tier Status
                 </span>
-                <span className="text-sm font-black text-[#681121]">{tier.name}</span>
+                <span className="font-hand italic text-base text-[#540c19]">{tier.name}</span>
               </div>
-              <div className="flex-1 sm:flex-initial bg-[#F5ECE0] border border-[#e2d2ba] rounded-2xl px-4 py-2 text-center">
-                <span className="block text-[10px] font-black uppercase text-amber-800/80 tracking-wide">
+              <div className="flex-1 sm:flex-initial bg-[var(--paper-3)]/60 border-2 border-dashed border-[var(--rule)] rounded-xl px-4 py-2 text-center tilt-r-sm">
+                <span className="block font-note text-[9px] font-semibold uppercase tracking-[0.16em] text-[#b87319]">
                   Crunch Pts
                 </span>
-                <span className="text-sm font-black text-[#b87319]">{points}</span>
+                <span className="font-hand italic text-base text-[#681121]">{points}</span>
               </div>
             </div>
           </div>
 
-          {/* Guest welcome callout */}
+          {/* Guest welcome note — scribbled on ruled paper */}
           {!auth.isLoggedIn && (
-            <div className="mt-5 p-4 rounded-2xl bg-gradient-to-r from-[#681121]/10 via-[#D48924]/10 to-[#681121]/5 border border-[#681121]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="ruled mt-5 p-4 rounded-2xl bg-[var(--paper-3)]/50 border-2 border-dashed border-[#681121]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h4 className="text-xs font-extrabold text-[#681121] flex items-center gap-1.5">
+                <h4 className="font-note text-xs font-semibold text-[#681121] flex items-center gap-1.5">
                   <Gift size={15} className="text-[#D48924]" />
-                  Unlock 120 Welcome Points & Secret Offers
+                  120 welcome points are waiting on your first sign-in
                 </h4>
-                <p className="text-[11px] text-slate-600 mt-0.5">
+                <p className="font-note text-[11px] text-[var(--ink-soft)] mt-0.5">
                   Sign in with your phone or email to activate exclusive club discounts and live tracking.
                 </p>
               </div>
@@ -260,14 +262,14 @@ export default function Profile() {
                 <button
                   type="button"
                   onClick={auth.openRegister}
-                  className="flex-1 sm:flex-initial text-xs font-extrabold bg-[#681121] hover:bg-[#540c19] text-white px-4 py-2 rounded-xl shadow-sm transition-all"
+                  className="btn-ink flex-1 sm:flex-initial font-note text-xs font-semibold uppercase tracking-[0.12em] px-4 py-2.5"
                 >
                   Join Free
                 </button>
                 <button
                   type="button"
                   onClick={auth.openLogin}
-                  className="flex-1 sm:flex-initial text-xs font-bold bg-white text-[#681121] border border-[#681121]/30 hover:bg-slate-50 px-3 py-2 rounded-xl transition-all"
+                  className="btn-outline flex-1 sm:flex-initial font-note text-xs font-semibold uppercase tracking-[0.12em] px-4 py-2.5"
                 >
                   Log In
                 </button>
@@ -276,65 +278,64 @@ export default function Profile() {
           )}
         </div>
 
-        {/* 2. Interactive VIP Club Loyalty Card */}
+        {/* 2. Club Passport — stamped, not glossy */}
         <div
           onClick={() => push({ type: 'loyalty' })}
-          className="relative overflow-hidden bg-gradient-to-br from-[#681121] via-[#751728] to-[#b87319] text-white rounded-3xl p-6 sm:p-7 shadow-xl shadow-[#681121]/20 border border-white/20 cursor-pointer group transition-all duration-300 hover:shadow-2xl hover:scale-[1.007]"
+          className="relative overflow-hidden bg-[var(--paper-2)] paper-grain rounded-3xl p-6 sm:p-7 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] cursor-pointer group transition-transform duration-300 hover:-translate-y-0.5"
         >
-          {/* Card Decorative Elements */}
-          <div className="absolute right-0 top-0 translate-x-12 -translate-y-8 w-56 h-56 rounded-full bg-white/10 blur-2xl group-hover:bg-white/15 transition-all" />
-          <div className="absolute left-1/3 -bottom-10 w-40 h-40 rounded-full bg-[#E2952A]/20 blur-xl pointer-events-none" />
+          {/* Passport's inner dashed frame */}
+          <div className="pointer-events-none absolute inset-2.5 rounded-2xl border-2 border-dashed border-[#681121]/25" aria-hidden="true" />
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-black tracking-widest uppercase text-amber-200 border border-white/20">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="stamp tilt-l-sm text-[#681121] border-[#681121]/40">
                   {tier.name} CLUB PASSPORT
                 </span>
-                <span className="text-[11px] font-semibold text-white/70">
+                <span className="font-note text-[11px] text-[var(--ink-faint)]">
                   Tap for rewards vault →
                 </span>
               </div>
 
               <div>
-                <p className="text-xs uppercase tracking-wider text-orange-200/90 font-bold">
+                <p className="font-note text-[10px] uppercase tracking-[0.18em] text-[var(--ink-soft)] font-semibold">
                   Available Crunch Balance
                 </p>
                 <div className="flex items-baseline gap-2.5 mt-0.5">
-                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-white">
+                  <span className="font-hand italic font-bold text-4xl sm:text-5xl tracking-tight text-[#540c19]">
                     {points}
                   </span>
-                  <span className="text-sm font-extrabold text-orange-200">Points</span>
-                  <span className="text-xs text-white/80 font-medium ml-1">
+                  <span className="font-hand italic text-sm text-[#b87319]">Points</span>
+                  <span className="font-note text-xs text-[var(--ink-soft)] ml-1">
                     (₹{(points * 0.5).toFixed(0)} cashback value)
                   </span>
                 </div>
               </div>
 
-              {/* Tier Progress Bar */}
+              {/* Tier Progress — ink filled in a pressed groove */}
               <div className="pt-1 max-w-md">
-                <div className="flex justify-between text-[11px] font-bold text-orange-100/90 mb-1.5">
+                <div className="flex justify-between font-note text-[11px] font-semibold text-[var(--ink-soft)] mb-1.5">
                   <span>Current: {tier.name}</span>
                   <span>Next: {nextTier.name} ({tierNextMin} pts)</span>
                 </div>
-                <div className="h-2 w-full bg-black/25 rounded-full overflow-hidden p-0.5 backdrop-blur-sm border border-white/10">
+                <div className="h-2.5 w-full bg-[var(--paper-3)] border border-[var(--rule)] rounded-full overflow-hidden p-0.5">
                   <div
-                    className="h-full bg-gradient-to-r from-[#F5C26B] via-[#FFE4A0] to-[#E2952A] rounded-full transition-all duration-700"
+                    className="h-full bg-[#681121] rounded-full transition-all duration-700"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
-                <p className="text-[10px] text-white/75 mt-1.5">
+                <p className="font-note text-[10px] text-[var(--ink-faint)] mt-1.5">
                   Earn 10 points per ₹100 spent · Unlock free side dishes at {tierNextMin} points
                 </p>
               </div>
             </div>
 
-            <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 border-t sm:border-t-0 sm:border-l border-white/15 pt-4 sm:pt-0 sm:pl-6">
+            <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 border-t sm:border-t-0 sm:border-l border-[var(--rule)] pt-4 sm:pt-0 sm:pl-6">
               <div className="text-left sm:text-right">
-                <span className="block text-[10px] uppercase font-bold text-orange-200">Redeem Perks</span>
-                <span className="text-xs font-black text-white">Instant Cart Discount</span>
+                <span className="block font-note text-[10px] uppercase tracking-[0.14em] font-semibold text-[var(--ink-faint)]">Redeem Perks</span>
+                <span className="font-hand italic text-base text-[#540c19]">Instant Cart Discount</span>
               </div>
-              <div className="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-[#681121] transition-all">
+              <div className="w-10 h-10 rounded-full bg-[#681121] text-[#FDFBF7] flex items-center justify-center group-hover:bg-[#540c19] transition-colors">
                 <ChevronRight size={22} />
               </div>
             </div>
@@ -342,15 +343,15 @@ export default function Profile() {
         </div>
 
         {/* 3. Quick Foodie Preferences */}
-        <div className="bg-[#FBF7F0] rounded-3xl p-5 border border-[#e5d8c3] shadow-card">
+        <div className="bg-[var(--paper-2)] paper-grain rounded-3xl p-5 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-[#4E8B56]/15 text-[#4E8B56] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#4E8B56]/12 text-[#3d7044] border border-[#4E8B56]/30 flex items-center justify-center">
                 <Sliders size={20} />
               </div>
               <div>
-                <p className="text-sm font-black text-[#1E1E24]">Pure Vegetarian Mode</p>
-                <p className="text-xs text-slate-500 font-medium">
+                <p className="font-note text-sm font-semibold text-[var(--ink)]">Pure Vegetarian Mode</p>
+                <p className="font-note text-xs text-[var(--ink-soft)]">
                   {vegMode ? 'Active: Showing green dot certified veg treats only' : 'Inactive: Showing entire royal snacking menu'}
                 </p>
               </div>
@@ -360,7 +361,7 @@ export default function Profile() {
               type="button"
               onClick={() => setVegMode((v) => !v)}
               className={`relative inline-flex h-7 w-13 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                vegMode ? 'bg-[#4E8B56]' : 'bg-slate-300'
+                vegMode ? 'bg-[#4E8B56]' : 'bg-[var(--rule)]'
               }`}
               role="switch"
               aria-checked={vegMode}
@@ -378,9 +379,9 @@ export default function Profile() {
         {/* 4. Categorized Service Hub */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Section 1: Orders & Delivery */}
-          <div className="bg-[#FBF7F0] rounded-3xl border border-[#e5d8c3] shadow-card divide-y divide-[#e8dfcf] overflow-hidden">
-            <div className="px-5 py-3.5 bg-[#f5ece0]/60 flex items-center justify-between">
-              <span className="text-[11px] font-black uppercase text-[#681121] tracking-wider">
+          <div className="bg-[var(--paper-2)] paper-grain rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] divide-y divide-[var(--rule)] overflow-hidden">
+            <div className="px-5 py-3.5 bg-[var(--paper-3)]/60 flex items-center justify-between">
+              <span className="font-note text-[11px] font-semibold uppercase tracking-[0.16em] text-[#681121]">
                 Orders & Delivery
               </span>
               <Clock size={14} className="text-[#681121]" />
@@ -389,42 +390,42 @@ export default function Profile() {
             <button
               type="button"
               onClick={() => setTab('orders')}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-[#f3ece0] transition-colors group"
+              className="w-full flex items-center justify-between p-4 text-left hover:bg-[var(--paper-3)]/60 transition-colors group"
             >
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-[#681121]/8 text-[#681121] border border-[#681121]/15 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Clock size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#1E1E24]">Active & Past Orders</p>
-                  <p className="text-[11px] text-slate-500">Track kitchen dispatch, bills & receipts</p>
+                  <p className="font-note text-xs font-semibold text-[var(--ink)]">Active & Past Orders</p>
+                  <p className="font-note text-[11px] text-[var(--ink-soft)]">Track kitchen dispatch, bills & receipts</p>
                 </div>
               </div>
-              <ChevronRight size={18} className="text-slate-400 group-hover:text-[#681121] group-hover:translate-x-0.5 transition-all" />
+              <ChevronRight size={18} className="text-[var(--ink-faint)] group-hover:text-[#681121] group-hover:translate-x-0.5 transition-all" />
             </button>
 
             <button
               type="button"
               onClick={() => push({ type: 'location' })}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-[#f3ece0] transition-colors group"
+              className="w-full flex items-center justify-between p-4 text-left hover:bg-[var(--paper-3)]/60 transition-colors group"
             >
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#681121]/10 text-[#681121] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-[#681121]/8 text-[#681121] border border-[#681121]/15 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <MapPin size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#1E1E24]">Saved Delivery Outpost</p>
-                  <p className="text-[11px] text-slate-500">{branch.area}, {branch.city}</p>
+                  <p className="font-note text-xs font-semibold text-[var(--ink)]">Saved Delivery Outpost</p>
+                  <p className="font-note text-[11px] text-[var(--ink-soft)]">{branch.area}, {branch.city}</p>
                 </div>
               </div>
-              <ChevronRight size={18} className="text-slate-400 group-hover:text-[#681121] group-hover:translate-x-0.5 transition-all" />
+              <ChevronRight size={18} className="text-[var(--ink-faint)] group-hover:text-[#681121] group-hover:translate-x-0.5 transition-all" />
             </button>
           </div>
 
           {/* Section 2: Rewards & Specials */}
-          <div className="bg-[#FBF7F0] rounded-3xl border border-[#e5d8c3] shadow-card divide-y divide-[#e8dfcf] overflow-hidden">
-            <div className="px-5 py-3.5 bg-[#f5ece0]/60 flex items-center justify-between">
-              <span className="text-[11px] font-black uppercase text-[#681121] tracking-wider">
+          <div className="bg-[var(--paper-2)] paper-grain rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] divide-y divide-[var(--rule)] overflow-hidden">
+            <div className="px-5 py-3.5 bg-[var(--paper-3)]/60 flex items-center justify-between">
+              <span className="font-note text-[11px] font-semibold uppercase tracking-[0.16em] text-[#681121]">
                 Rewards & Club
               </span>
               <Award size={14} className="text-[#681121]" />
@@ -433,34 +434,34 @@ export default function Profile() {
             <button
               type="button"
               onClick={() => push({ type: 'offers' })}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-[#f3ece0] transition-colors group"
+              className="w-full flex items-center justify-between p-4 text-left hover:bg-[var(--paper-3)]/60 transition-colors group"
             >
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-[#D48924]/15 text-[#D48924] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-[#D48924]/15 text-[#b87319] border border-[#D48924]/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Award size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#1E1E24]">Offers, Coupons & Deals</p>
-                  <p className="text-[11px] text-slate-500">View active promo codes & discounts</p>
+                  <p className="font-note text-xs font-semibold text-[var(--ink)]">Offers, Coupons & Deals</p>
+                  <p className="font-note text-[11px] text-[var(--ink-soft)]">View active promo codes & discounts</p>
                 </div>
               </div>
-              <ChevronRight size={18} className="text-slate-400 group-hover:text-[#681121] group-hover:translate-x-0.5 transition-all" />
+              <ChevronRight size={18} className="text-[var(--ink-faint)] group-hover:text-[#681121] group-hover:translate-x-0.5 transition-all" />
             </button>
 
             <button
               type="button"
               onClick={handleShareApp}
-              className="w-full flex items-center justify-between p-4 text-left hover:bg-[#f3ece0] transition-colors group"
+              className="w-full flex items-center justify-between p-4 text-left hover:bg-[var(--paper-3)]/60 transition-colors group"
             >
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-[#D48924]/15 text-[#b87319] border border-[#D48924]/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <Share2 size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#1E1E24]">Invite Friends</p>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="font-note text-xs font-semibold text-[var(--ink)]">Invite Friends</p>
+                  <p className="font-note text-[11px] text-[var(--ink-soft)]">
                     {copiedShare ? (
-                      <span className="text-emerald-600 font-bold flex items-center gap-1">
+                      <span className="text-[#3d7044] font-semibold flex items-center gap-1">
                         <CheckCircle2 size={11} /> Link copied! Send via WhatsApp
                       </span>
                     ) : (
@@ -469,7 +470,7 @@ export default function Profile() {
                   </p>
                 </div>
               </div>
-              <span className="text-xs font-black text-purple-700 bg-purple-100 px-2 py-0.5 rounded-lg">
+              <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/60">
                 +200 Pts
               </span>
             </button>
@@ -477,15 +478,15 @@ export default function Profile() {
         </div>
 
         {/* 5. Support & Direct Concierge */}
-        <div className="bg-[#FBF7F0] rounded-3xl p-5 border border-[#e5d8c3] shadow-card">
+        <div className="bg-[var(--paper-2)] paper-grain rounded-3xl p-5 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3.5">
-              <div className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-[#3d7044]/12 text-[#3d7044] border border-[#4E8B56]/30 flex items-center justify-center shrink-0">
                 <MessageCircle size={22} />
               </div>
               <div>
-                <h3 className="text-sm font-black text-[#1E1E24]">Royal WhatsApp Concierge</h3>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                <h3 className="font-hand italic text-lg text-[#540c19]">Kitchen WhatsApp Concierge</h3>
+                <p className="font-note text-xs text-[var(--ink-soft)] font-medium mt-0.5">
                   Instant order assistance, corporate bulk inquiries, or culinary feedback.
                 </p>
               </div>
@@ -499,7 +500,7 @@ export default function Profile() {
                 if (data?.url) window.open(data.url, '_blank');
                 else window.open(`https://wa.me/919999999999?text=${encodeURIComponent(msg)}`, '_blank');
               }}
-              className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-extrabold px-4 py-3 rounded-2xl shadow-md transition-all active:scale-95"
+              className="inline-flex items-center justify-center gap-2 bg-[#25D366]/12 text-[#1a7d3f] border-2 border-dashed border-[#25D366]/50 hover:bg-[#25D366]/20 transition-colors font-note text-xs font-semibold px-4 py-3 rounded-xl"
             >
               <MessageCircle size={15} />
               <span>Connect on WhatsApp</span>
@@ -525,7 +526,7 @@ export default function Profile() {
                   },
                 });
               }}
-              className="w-full flex items-center justify-center gap-2 p-3.5 rounded-2xl border border-red-200/80 text-red-600 bg-red-50/60 hover:bg-red-100/70 text-xs font-extrabold transition-colors shadow-sm"
+              className="w-full flex items-center justify-center gap-2 p-3.5 rounded-2xl border-2 border-dashed border-[#a32230]/45 text-[#a32230] bg-[#a32230]/5 hover:bg-[#a32230]/10 font-note text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
             >
               <LogOut size={16} />
               <span>Sign Out of Sahi Crunch</span>
@@ -534,21 +535,21 @@ export default function Profile() {
             <button
               type="button"
               onClick={auth.openLogin}
-              className="w-full flex items-center justify-center gap-2 p-3.5 rounded-2xl border border-[#681121]/30 text-white bg-[#681121] hover:bg-[#540c19] text-xs font-black transition-all shadow-md active:scale-[0.99]"
+              className="btn-ink w-full flex items-center justify-center gap-2 p-3.5 font-note text-xs font-semibold uppercase tracking-[0.14em]"
             >
               <LogIn size={16} />
-              <span>Sign In / Create VIP Account</span>
+              <span>Sign In / Create Account</span>
             </button>
           )}
         </div>
 
         {/* Footer Brand Info */}
         <div className="text-center pt-3 pb-6 space-y-1">
-          <p className="text-[11px] text-stone-400 font-semibold uppercase tracking-wider">
-            SAHI CRUNCH LUXURY STREET FOOD · BHOPAL, MP
+          <p className="font-note text-[11px] text-[var(--ink-faint)] font-semibold uppercase tracking-[0.18em]">
+            Sahi Crunch kitchen log · Bhopal, MP
           </p>
-          <p className="text-[10px] text-stone-400">
-            Crafted for pure flavor & crispy perfection · App v2.4.0
+          <p className="font-hand italic text-xs text-[var(--ink-faint)]">
+            Made in small batches, packed by hand · App v2.4.0
           </p>
         </div>
 
@@ -556,4 +557,3 @@ export default function Profile() {
     </div>
   );
 }
-

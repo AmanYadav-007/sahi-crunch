@@ -94,7 +94,7 @@ export default function App() {
 
   const isNavigatingFromPopstate = useRef(false);
 
-  // Initial load from URL
+  // Initial load from URL and sync live products from backend
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const parsed = parsePathToState(window.location.pathname);
@@ -103,6 +103,21 @@ export default function App() {
     } else if (parsed.tab) {
       setTab(parsed.tab);
     }
+
+    // Live sync menu + chapters from the backend so admin panel changes
+    // (new products, price edits, sold-out toggles, new chapters) show up here.
+    const { refreshMenu } = useApp.getState();
+    refreshMenu();
+    const interval = setInterval(refreshMenu, 15000); // 15s refresh
+    // Refetch the moment the tab regains focus
+    const onFocus = () => refreshMenu();
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onFocus);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onFocus);
+    };
   }, []);
 
   // Update browser URL on tab or screen stack change
@@ -141,7 +156,7 @@ export default function App() {
   }, [setTab, push]);
 
   useEffect(() => {
-    document.title = 'SAHI CRUNCH — Sahi Spice. Modern Crunch.';
+    document.title = 'Sahi Crunch';
     const on = () => setOnline(true);
     const off = () => setOnline(false);
     window.addEventListener('online', on);

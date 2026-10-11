@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Sparkles, Calendar, MapPin, Clock, Users, ArrowRight, Check } from 'lucide-react';
+import { Sparkles, MapPin, Clock, Users, Check } from 'lucide-react';
 import { useApp } from '../store';
 import { events } from '../data';
-import { TabHeader, DishImg, Empty } from '../ui';
+import { TabHeader, DishImg } from '../ui';
 import { useAuth } from '../lib/AuthContext';
 import { reservationsApi } from '../lib/api';
 import { useToast } from '../lib/ToastContext';
@@ -42,53 +42,76 @@ export default function Reservations() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pb-36 text-[#1E1E24]">
-      <div className="w-full px-4 sm:px-6 lg:px-10 py-6 max-w-6xl mx-auto space-y-6">
-        {/* Banner */}
-        <div className="bg-gradient-to-r from-[#681121] via-[#701222] to-[#b87319] text-white p-5 sm:p-7 rounded-3xl shadow-lg shadow-[#681121]/20">
-          <h2 className="text-xl sm:text-2xl font-black tracking-tight leading-snug text-[#FDFBF7]">
-            Free Sampling & Tasting Passes
-          </h2>
-          <p className="text-xs sm:text-sm text-orange-100 mt-1 font-medium leading-relaxed max-w-2xl">
-            Taste our 5 Makhana varieties, freshly baked Nankhatai, and Ratlam Sev directly at our high-footfall Bhopal weekend spots (Boat Club & New Market).
-          </p>
+    <div className="min-h-screen bg-[var(--paper)] paper-grain pb-36 text-[var(--ink)]">
+      <TabHeader eyebrow="Tasting calendar · Bhopal" title="Pop-up Tastings" />
+
+      <div className="w-full px-4 sm:px-6 lg:px-10 py-6 max-w-6xl mx-auto space-y-7">
+        {/* Banner — a notice pinned to the kitchen board */}
+        <div className="relative tilt-l-sm">
+          <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-3xl p-5 sm:p-7 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
+            <span className="font-note text-[10px] font-semibold uppercase tracking-[0.24em] text-[#b87319]">
+              Written on the kitchen board
+            </span>
+            <h2 className="font-hand italic text-2xl sm:text-3xl text-[#540c19] tracking-tight leading-snug mt-1.5">
+              Come taste before you order
+            </h2>
+            <svg viewBox="0 0 240 10" className="w-44 sm:w-56 h-2.5 mt-1.5" fill="none" aria-hidden="true">
+              <path d="M3 7c26-4 50-5.5 77-4s50 4 77 2.5 44-4.5 78-5.5" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+            <p className="font-note text-xs sm:text-sm text-[var(--ink-soft)] mt-2 leading-relaxed max-w-2xl">
+              Taste our 5 Makhana varieties, freshly baked Nankhatai, and Ratlam Sev directly at our high-footfall Bhopal weekend spots (Boat Club &amp; New Market).
+            </p>
+          </div>
         </div>
 
-        {/* Live Pop-up Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {events.map((ev) => {
+        {/* Live Pop-up Cards — photos taped into the log */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {events.map((ev, i) => {
             const isBooked = bookedEvents.includes(ev.id);
+            const tilt = i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm';
 
             return (
               <div
                 key={ev.id}
-                className="bg-[#FBF7F0] rounded-3xl overflow-hidden border border-[#e5d8c3] shadow-card hover:shadow-float transition-all"
+                className={`${tilt} hover:tilt-0 bg-[var(--paper-2)] paper-grain rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:border-[#D48924]/70 transition-all duration-300`}
               >
-                <div className="relative h-44 w-full bg-[#f3ece0]">
-                  <DishImg name={ev.image} className="w-full h-full object-cover" />
-                  <div className="absolute top-3 left-3 bg-[#FDFBF7]/95 backdrop-blur-md px-2.5 py-1 rounded-xl text-xs font-black text-[#1E1E24] shadow-sm flex items-center gap-1.5">
-                    <MapPin size={13} className="text-[#681121]" />
+                <div className="relative px-4 pt-6 pb-2">
+                  <span className="tape w-20 top-4 left-1/2 -translate-x-1/2 rotate-[-3deg] z-10" aria-hidden="true" />
+
+                  {/* Polaroid frame */}
+                  <div className="relative bg-white p-2.5 pb-9 rounded-sm border border-[var(--rule)] shadow-[4px_6px_0_rgba(84,12,25,0.08),0_20px_40px_-24px_rgba(84,12,25,0.5)]">
+                    <div className="relative h-44 w-full overflow-hidden bg-[var(--paper-3)]">
+                      <DishImg name={ev.image} className="w-full h-full object-cover" />
+                    </div>
+                    <p className="font-hand italic text-sm text-[var(--ink-soft)] text-center mt-2 leading-none">
+                      {ev.date}
+                    </p>
+                  </div>
+
+                  {/* Ink stamps over the photo */}
+                  <span className="stamp tilt-l-sm absolute top-8 left-7 bg-[var(--paper-2)]/95 text-[var(--ink)]">
+                    <MapPin size={11} className="text-[#681121]" />
                     <span>{ev.location}</span>
-                  </div>
-                  <div className="absolute top-3 right-3 bg-[#4E8B56] text-white px-2.5 py-1 rounded-xl text-[10px] font-extrabold uppercase shadow">
+                  </span>
+                  <span className="stamp tilt-r-sm absolute top-8 right-7 bg-[var(--paper-2)]/95 text-[#3d7044] border-[#4E8B56]/60">
                     Free Entry
-                  </div>
+                  </span>
                 </div>
 
-                <div className="p-4 space-y-2.5">
-                  <h3 className="text-base font-extrabold text-[#1E1E24] tracking-tight">
+                <div className="px-4 pb-4 pt-1 space-y-2.5">
+                  <h3 className="font-hand italic text-xl text-[#540c19] tracking-tight leading-snug">
                     {ev.title}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  <p className="font-note text-xs text-[var(--ink-soft)] leading-relaxed">
                     {ev.desc}
                   </p>
 
-                  <div className="pt-2 border-t border-[#e8dfcf] flex items-center justify-between text-xs text-slate-500 font-semibold">
-                    <span className="flex items-center gap-1">
+                  <div className="pt-2 border-t border-dashed border-[var(--rule)] flex items-center justify-between font-note text-[11px] text-[var(--ink-faint)]">
+                    <span className="flex items-center gap-1.5">
                       <Clock size={13} className="text-[#D48924]" /> {ev.date} · {ev.time}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Users size={13} className="text-slate-400" /> {ev.seats} slots
+                    <span className="flex items-center gap-1.5">
+                      <Users size={13} className="text-[var(--ink-faint)]" /> {ev.seats} slots
                     </span>
                   </div>
 
@@ -96,10 +119,10 @@ export default function Reservations() {
                     type="button"
                     disabled={isBooked}
                     onClick={() => handleBook(ev.id, ev.title)}
-                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-xs font-extrabold transition-all ${
+                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-[0.7rem] font-note text-xs font-semibold uppercase tracking-[0.12em] transition-all ${
                       isBooked
-                        ? 'bg-[#4E8B56]/15 text-[#4E8B56] border border-[#4E8B56]/30'
-                        : 'bg-[#681121] hover:bg-[#540c19] text-white shadow-md shadow-[#681121]/20 active:scale-[0.99]'
+                        ? 'bg-[#4E8B56]/10 text-[#3d7044] border-2 border-dashed border-[#4E8B56]/60 tilt-l-sm cursor-default'
+                        : 'btn-ink'
                     }`}
                   >
                     {isBooked ? (

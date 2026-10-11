@@ -5,11 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"magenta,cyan\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:all": "concurrently -n \"BACKEND,FRONTEND,ADMIN-API,ADMIN-UI\" -c \"magenta,cyan,yellow,green\" \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:admin:backend\" \"npm run dev:admin:frontend\"",
+    "dev:admin": "concurrently -n \"ADMIN-API,ADMIN-UI\" -c \"yellow,green\" \"npm run dev:admin:backend\" \"npm run dev:admin:frontend\"",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
+    "dev:admin:backend": "cd admin/backend && npm run dev",
+    "dev:admin:frontend": "cd admin/frontend && npm run dev",
     "build:backend": "cd backend && npm run build",
     "build:frontend": "cd frontend && npm run build",
-    "build": "npm run build:backend && npm run build:frontend",
+    "build:admin:backend": "cd admin/backend && npm run build",
+    "build:admin:frontend": "cd admin/frontend && npm run build",
+    "build": "npm run build:backend && npm run build:frontend && npm run build:admin:backend && npm run build:admin:frontend",
     "start:backend": "cd backend && npm run start",
     "start:frontend": "cd frontend && npm run start",
     "start": "concurrently -n \"BACKEND,FRONTEND\" -c \"magenta,cyan\" \"npm run start:backend\" \"npm run start:frontend\""

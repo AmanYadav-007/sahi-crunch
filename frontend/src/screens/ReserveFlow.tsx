@@ -42,32 +42,43 @@ export default function ReserveFlow() {
 
   if (done) {
     return (
-      <Screen eyebrow="CONFIRMED" title="YOUR TABLE">
+      <Screen eyebrow="CONFIRMED" title="Your Table">
         <div className="flex flex-col items-center px-6 pb-10 pt-10 text-center">
-          <span className="grid h-20 w-20 place-items-center rounded-full border-2 border-herb text-herb">
+          <span className="grid h-20 w-20 place-items-center rounded-full border-2 border-dashed border-[#4E8B56]/60 bg-[#4E8B56]/10 text-[#3d7044] tilt-l">
             <Check size={34} strokeWidth={2.5} />
           </span>
-          <h2 className="h2 mt-6">A CHAIR IS YOURS</h2>
-          <p className="mt-2 max-w-xs text-sm text-ivory-dim">
+          <h2 className="font-hand italic text-3xl text-[#540c19] mt-6">A chair is yours</h2>
+          <p className="mt-2 max-w-xs font-note text-sm text-[var(--ink-soft)] leading-relaxed">
             We’ve held {done.guests} seat{done.guests > 1 ? 's' : ''} at {branch.area}. Arrive within 15 minutes of
             your slot and the table stays yours.
           </p>
 
-          <div className="card-amber mt-7 w-full p-6">
-            <span className="num text-2xl tracking-[0.3em] text-amber">{done.code}</span>
-            <div className="hair-t mt-4 grid grid-cols-3 gap-2 pt-4">
+          {/* Confirmation slip — torn off the pad */}
+          <div className="relative mt-7 w-full bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[#D48924]/70 rounded-3xl p-6 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
+            <span className="font-hand italic text-3xl tracking-[0.3em] text-[#681121]">{done.code}</span>
+            <div className="mt-4 grid grid-cols-3 gap-2 border-t border-dashed border-[var(--rule)] pt-4">
               <Cell label="DATE" value={new Date(done.date + 'T00:00:00').toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })} />
               <Cell label="TIME" value={done.time} />
               <Cell label="GUESTS" value={String(done.guests)} />
             </div>
           </div>
 
-          <p className="eyebrow mt-4">+50 CRUNCH POINTS ADDED</p>
+          <span className="stamp tilt-r-sm mt-5 text-[#b87319] border-[#D48924]/60">
+            +50 CRUNCH POINTS ADDED
+          </span>
 
-          <button type="button" onClick={() => setTab('reservations')} className="btn-solid mt-7 w-full !py-4">
+          <button
+            type="button"
+            onClick={() => setTab('reservations')}
+            className="btn-ink mt-7 w-full py-4 font-note text-xs font-semibold uppercase tracking-[0.14em]"
+          >
             VIEW MY TABLES
           </button>
-          <button type="button" onClick={() => setTab('home')} className="eyebrow mt-3 w-full py-2">
+          <button
+            type="button"
+            onClick={() => setTab('home')}
+            className="btn-outline mt-3 w-full py-2.5 font-note text-[11px] font-semibold uppercase tracking-[0.14em]"
+          >
             BACK HOME
           </button>
         </div>
@@ -76,25 +87,27 @@ export default function ReserveFlow() {
   }
 
   return (
-    <Screen eyebrow="RESERVATIONS" title="HOLD A TABLE">
+    <Screen eyebrow="RESERVATIONS" title="Hold a Table">
       <div className="max-w-xl mx-auto space-y-7 px-5 pt-5 pb-10">
         {/* room */}
-        <div className="card flex items-center justify-between px-4 py-3">
+        <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-2xl flex items-center justify-between gap-3 px-4 py-3.5 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div>
-            <span className="eyebrow">YOUR ROOM</span>
-            <p className="h3">
+            <span className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b87319]">
+              YOUR KITCHEN
+            </span>
+            <p className="font-hand italic text-xl text-[#540c19] leading-tight mt-0.5">
               {branch.area}, {branch.city}
             </p>
           </div>
-          <span className="label gold">{branch.hours}</span>
+          <span className="stamp tilt-r-sm text-right leading-relaxed max-w-[50%]">{branch.hours}</span>
         </div>
 
         {/* date */}
         <section>
-          <h2 className="mb-3 flex items-center gap-2 label text-ivory">
-            <CalendarDays size={13} className="text-amber" /> PICK A DAY
+          <h2 className="mb-3 flex items-center gap-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
+            <CalendarDays size={13} className="text-[#D48924]" /> PICK A DAY
           </h2>
-          <div className="no-bar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+          <div className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
             {days.map((d) => {
               const v = iso(d);
               const on = v === date;
@@ -106,13 +119,19 @@ export default function ReserveFlow() {
                     setDate(v);
                     setTime('');
                   }}
-                  className={`tile w-16 shrink-0 py-3 text-center ${
-                    on ? 'tile-on' : ''
+                  className={`w-16 shrink-0 py-3 text-center rounded-2xl border-2 font-note transition-colors ${
+                    on
+                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
                   }`}
                 >
-                  <span className={`block label ${on ? 'gold' : 'text-ivory-faint'}`}>{dayName(d)}</span>
-                  <span className={`num mt-1 block text-xl ${on ? 'text-ivory' : 'text-ivory-dim'}`}>{d.getDate()}</span>
-                  <span className="eyebrow block">
+                  <span className={`block font-note text-[9px] font-semibold uppercase tracking-[0.16em] ${on ? 'text-[#E6D3A3]' : 'text-[var(--ink-faint)]'}`}>
+                    {dayName(d)}
+                  </span>
+                  <span className={`block mt-1 font-hand text-xl font-bold ${on ? 'text-[#FDFBF7]' : 'text-[var(--ink)]'}`}>
+                    {d.getDate()}
+                  </span>
+                  <span className={`block font-note text-[9px] uppercase tracking-[0.12em] ${on ? 'text-[#E6D3A3]' : 'text-[var(--ink-faint)]'}`}>
                     {d.toLocaleDateString('en-IN', { month: 'short' })}
                   </span>
                 </button>
@@ -123,21 +142,21 @@ export default function ReserveFlow() {
 
         {/* guests */}
         <section>
-          <h2 className="mb-3 flex items-center gap-2 label text-ivory">
-            <Users size={13} className="text-amber" /> SIZE OF THE TABLE
+          <h2 className="mb-3 flex items-center gap-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
+            <Users size={13} className="text-[#D48924]" /> SIZE OF THE TABLE
           </h2>
-          <div className="card flex items-center justify-between px-5 py-4">
+          <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-2xl flex items-center justify-between px-5 py-4 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
             <button
               type="button"
               aria-label="Fewer guests"
               onClick={() => setGuests((g) => Math.max(1, g - 1))}
-              className="icon-btn"
+              className="h-9 w-9 flex items-center justify-center rounded-full bg-[var(--paper-3)] border border-[var(--rule)] text-[#681121] hover:bg-[#681121] hover:text-[#FDFBF7] transition-colors"
             >
               <Minus size={16} />
             </button>
             <div className="text-center">
-              <span className="num block text-4xl text-ivory">{guests}</span>
-              <span className="eyebrow block">
+              <span className="block font-hand text-4xl font-bold text-[#540c19]">{guests}</span>
+              <span className="block font-note text-[9px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
                 GUEST{guests > 1 ? 'S' : ''} {guests >= 8 ? '· LONG TABLE NEEDED' : ''}
               </span>
             </div>
@@ -145,7 +164,7 @@ export default function ReserveFlow() {
               type="button"
               aria-label="More guests"
               onClick={() => setGuests((g) => Math.min(20, g + 1))}
-              className="icon-btn"
+              className="h-9 w-9 flex items-center justify-center rounded-full bg-[var(--paper-3)] border border-[var(--rule)] text-[#681121] hover:bg-[#681121] hover:text-[#FDFBF7] transition-colors"
             >
               <Plus size={16} />
             </button>
@@ -154,12 +173,14 @@ export default function ReserveFlow() {
 
         {/* slots */}
         <section>
-          <h2 className="mb-3 flex items-center gap-2 label text-ivory">
-            <Clock size={13} className="text-amber" /> CHOOSE A SEATING
+          <h2 className="mb-3 flex items-center gap-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
+            <Clock size={13} className="text-[#D48924]" /> CHOOSE A SEATING
           </h2>
           {(['Lunch', 'Dinner'] as const).map((meal) => (
             <div key={meal} className="mb-4">
-              <p className="eyebrow mb-2">{meal.toUpperCase()}</p>
+              <p className="mb-2 font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b87319]">
+                {meal.toUpperCase()}
+              </p>
               <div className="grid grid-cols-4 gap-2">
                 {timeSlots
                   .filter((s) => s.meal === meal)
@@ -172,14 +193,14 @@ export default function ReserveFlow() {
                         type="button"
                         disabled={st === 'unavailable'}
                         onClick={() => setTime(t)}
-                        className={`chip justify-center py-2.5 ${
+                        className={`flex items-center justify-center py-2.5 rounded-xl font-note text-xs font-semibold transition-colors ${
                           st === 'unavailable'
-                            ? 'hair border opacity-40 line-through'
+                            ? 'border border-dashed border-[var(--rule)] text-[var(--ink-faint)] opacity-50 line-through'
                             : on
-                              ? 'chip-on'
+                              ? 'bg-[#681121] border border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
                               : st === 'limited'
-                                ? 'chip-danger'
-                                : ''
+                                ? 'bg-[#D48924]/12 border border-[#D48924]/60 text-[#b87319] hover:bg-[#D48924]/20'
+                                : 'bg-[var(--paper-2)] border border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
                         }`}
                       >
                         {t}
@@ -189,28 +210,30 @@ export default function ReserveFlow() {
               </div>
             </div>
           ))}
-          <p className="eyebrow flex flex-wrap gap-x-4">
-            <span className="text-ivory-dim">● OPEN</span>
-            <span className="text-chili">● FEW LEFT</span>
-            <span className="text-ivory-faint/40">● FULL</span>
+          <p className="flex flex-wrap gap-x-4 font-note text-[10px] font-semibold uppercase tracking-[0.14em]">
+            <span className="text-[#3d7044]">● OPEN</span>
+            <span className="text-[#b87319]">● FEW LEFT</span>
+            <span className="text-[var(--ink-faint)]">● FULL</span>
           </p>
         </section>
 
         {/* notes */}
         <section>
-          <h2 className="mb-2 label text-ivory">ANYTHING WE SHOULD KNOW</h2>
+          <h2 className="mb-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
+            ANYTHING WE SHOULD KNOW
+          </h2>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={2}
             maxLength={160}
             placeholder="Birthday, window seat, high chair…"
-            className="field w-full resize-none"
+            className="form-blank w-full resize-none px-3.5 py-2.5 font-note text-xs"
           />
         </section>
 
         {!profile.name && (
-          <p className="card px-4 py-3 eyebrow">
+          <p className="bg-[var(--paper-3)]/60 border-2 border-dashed border-[var(--rule)] rounded-2xl px-4 py-3 font-note text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)] leading-relaxed">
             BOOKING AS A GUEST — ADD YOUR NAME IN PROFILE SO WE KNOW WHO’S ARRIVING.
           </p>
         )}
@@ -220,12 +243,12 @@ export default function ReserveFlow() {
           onClick={confirm}
           disabled={!time}
           data-cursor="HOLD"
-          className="btn-solid w-full !py-4 disabled:opacity-40"
+          className="btn-ink w-full py-4 font-note text-xs font-semibold uppercase tracking-[0.14em] disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {time ? `HOLD TABLE FOR ${guests} · ${time}` : 'PICK A SEATING TIME'}
         </button>
 
-        <p className="caption pb-4 text-center">
+        <p className="pb-4 text-center font-note text-[11px] text-[var(--ink-faint)]">
           Held 15 minutes past your slot · Free cancellation up to 2 hours before
         </p>
       </div>
@@ -236,8 +259,10 @@ export default function ReserveFlow() {
 function Cell({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <span className="eyebrow block">{label}</span>
-      <span className="mt-1 block num text-lg text-ivory">{value}</span>
+      <span className="block font-note text-[9px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+        {label}
+      </span>
+      <span className="mt-1 block font-hand text-lg font-bold text-[var(--ink)]">{value}</span>
     </div>
   );
 }
