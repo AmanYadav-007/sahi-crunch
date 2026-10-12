@@ -50,7 +50,7 @@ app.use(express.json());
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
-    service: 'Sahi Crunch Backend API',
+    service: 'Gharelu Hub Backend API',
     version: '1.0.0',
     timestamp: new Date().toISOString(),
   });
@@ -70,7 +70,7 @@ app.post('/api/proxy/whatsapp', (req: Request, res: Response) => {
   // In production, backend communicates with WhatsApp Business Cloud API using secretKey
   // For client redirect/handoff, return approved sanitized URL without revealing raw credentials
   const targetPhone = phone || '91XXXXXXXXXX';
-  const encodedMsg = encodeURIComponent(message || 'Hi Sahi Crunch! I want to order.');
+  const encodedMsg = encodeURIComponent(message || 'Hi Gharelu Hub! I want to order.');
   const waUrl = `https://wa.me/${targetPhone}?text=${encodedMsg}`;
 
   res.json({

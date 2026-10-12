@@ -24,7 +24,7 @@ export default function BottomNav() {
         aria-label="Primary"
         className="lg:hidden fixed inset-x-0 bottom-0 z-30 mx-auto w-full bg-[var(--paper)] paper-grain backdrop-blur-md border-t-2 border-[var(--rule)] shadow-nav pb-[env(safe-area-inset-bottom,0px)]"
       >
-        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
         <div className="w-full max-w-4xl mx-auto px-4">
           <ul className="flex items-center justify-around px-3 py-2 sm:py-2.5">
             {TABS.map(({ id, label, Icon }) => {
@@ -40,7 +40,7 @@ export default function BottomNav() {
                     <div
                       className={`flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full transition-transform duration-200 ${
                         active
-                          ? 'text-[#681121] scale-110 bg-[#681121]/10'
+                          ? 'text-[#C45688] scale-110 bg-[#C45688]/10'
                           : 'text-[var(--ink-faint)] hover:text-[var(--ink-soft)]'
                       }`}
                     >
@@ -48,13 +48,13 @@ export default function BottomNav() {
                     </div>
                     <span
                       className={`font-note text-[10px] sm:text-xs tracking-tight transition-colors ${
-                        active ? 'text-[#681121] font-semibold' : 'text-[var(--ink-soft)] font-medium'
+                        active ? 'text-[#C45688] font-semibold' : 'text-[var(--ink-soft)] font-medium'
                       }`}
                     >
                       {label}
                     </span>
                     {active && (
-                      <span className="absolute -bottom-0.5 sm:bottom-0 h-1 w-6 rounded-full bg-[#D48924]" />
+                      <span className="absolute -bottom-0.5 sm:bottom-0 h-1 w-6 rounded-full bg-[#C45688]" />
                     )}
                   </button>
                 </li>

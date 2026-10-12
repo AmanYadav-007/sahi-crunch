@@ -63,8 +63,8 @@ export default function Home() {
       {
         image: 'hero-pack-combo',
         tag: '₹129 HERO PACK',
-        tagBg: 'bg-[#D48924] text-[#1E1E24]',
-        title: 'Sahi Hero Pack',
+        tagBg: 'bg-[#D86B9B] text-[#1E1E24]',
+        title: 'Gharelu Hero Pack',
         dishId: 'mk-bhopali-masala',
         items: 'Masala Makhana + Shahi Nankhatai + Bhopali Sev Namkeen Trio',
         badge: 'What’s inside ₹129 Pack',
@@ -81,7 +81,7 @@ export default function Home() {
       {
         image: 'snack-01',
         tag: 'HERITAGE RECIPE',
-        tagBg: 'bg-[#681121] text-white',
+        tagBg: 'bg-[#C45688] text-white',
         title: 'Puffed Rice Sev Mixture',
         dishId: 'nm-zenith-mixture',
         items: 'Crisp Laung Sev · Puffed Rice · Peanuts & Curry Leaves',
@@ -90,7 +90,7 @@ export default function Home() {
       {
         image: 'in-04',
         tag: '100% ROASTED',
-        tagBg: 'bg-[#E2952A] text-[#1E1E24]',
+        tagBg: 'bg-[#E88EB5] text-[#1E1E24]',
         title: 'Cream & Herb Makhana',
         dishId: 'mk-roasted-chana-mint',
         items: 'Chana + Mint Makhana · Slow Kettle Roasted',
@@ -139,16 +139,16 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--paper)] paper-grain pb-24 lg:pb-8 text-[var(--ink)]">
       {/* ================= 1. RESPONSIVE TOP HEADER (MOBILE & TABLET ONLY: lg:hidden) ================= */}
       <header className="lg:hidden sticky top-0 z-30 bg-[var(--paper)] paper-grain backdrop-blur-md border-b border-[var(--rule)] shadow-sm px-4 sm:px-6 pt-3.5 pb-3.5 relative">
-        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
         <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6">
           {/* Brand Logo & Location delivery selector */}
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 overflow-hidden rounded-2xl bg-[#681121] shadow-md border border-[#D48924]/30 shrink-0">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center">
                 <img
                   src="/logo.png"
-                  alt="Sahi Crunch Logo"
-                  className="w-full h-full object-cover"
+                  alt="Gharelu Hub Logo"
+                  className="w-full h-full object-contain"
                 />
               </div>
 
@@ -157,12 +157,12 @@ export default function Home() {
                 onClick={() => push({ type: 'location' })}
                 className="flex items-center gap-2.5 text-left min-w-0"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#D48924] text-white shadow-sm">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#D86B9B] text-white shadow-sm">
                   <Zap size={20} className="fill-white" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-hand italic font-bold text-lg sm:text-xl text-[#540c19] tracking-tight flex items-center gap-1">
+                    <span className="font-hand italic font-bold text-lg sm:text-xl text-[#8F2859] tracking-tight flex items-center gap-1">
                       Delivery in 10-15 mins
                     </span>
                     <span className="stamp text-[#3d7044] border-[#4E8B56]/50 text-[8px]">
@@ -184,9 +184,9 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => push({ type: 'loyalty' })}
-                className="stamp tilt-l-sm text-[#681121] border-[#D48924]/50"
+                className="stamp tilt-l-sm text-[#C45688] border-[#D86B9B]/50"
               >
-                <Sparkles size={12} className="text-[#D48924] fill-[#D48924]" />
+                <Sparkles size={12} className="text-[#D86B9B] fill-[#D86B9B]" />
                 <span>{points} pts</span>
               </button>
             </div>
@@ -200,7 +200,7 @@ export default function Home() {
               className="flex-1 min-w-0 flex items-center justify-between form-blank rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm transition-colors"
             >
               <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <Search size={18} className="text-[#D48924] shrink-0" />
+                <Search size={18} className="text-[#D86B9B] shrink-0" />
                 <span className="font-note font-medium text-[var(--ink-faint)] truncate text-xs sm:text-sm">
                   Search &quot;Masala Makhana&quot;, &quot;Shahi Nankhatai&quot;...
                 </span>
@@ -214,9 +214,9 @@ export default function Home() {
             <button
               type="button"
               onClick={() => push({ type: 'loyalty' })}
-              className="hidden md:flex items-center gap-1.5 sm:gap-2 form-blank px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl font-note text-xs font-semibold text-[#681121] shrink-0 hover:bg-[var(--paper-3)] transition-colors"
+              className="hidden md:flex items-center gap-1.5 sm:gap-2 form-blank px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl font-note text-xs font-semibold text-[#C45688] shrink-0 hover:bg-[var(--paper-3)] transition-colors"
             >
-              <Sparkles size={15} className="text-[#D48924] fill-[#D48924]" />
+              <Sparkles size={15} className="text-[#D86B9B] fill-[#D86B9B]" />
               <span>{points} Points</span>
             </button>
           </div>
@@ -230,14 +230,14 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-5 sm:p-7 lg:p-9 items-center">
               {/* Left: handwritten pitch */}
               <div className="lg:col-span-7 flex flex-col">
-                <h2 className="font-hand italic text-4xl sm:text-5xl lg:text-[58px] text-[#540c19] tracking-tight leading-[1.02]">
+                <h2 className="font-hand italic text-4xl sm:text-5xl lg:text-[58px] text-[#8F2859] tracking-tight leading-[1.02]">
                   Sahi spice,
                   <br />
                   <span className="marker">100% roasted, never fried.</span>
                 </h2>
 
                 <svg viewBox="0 0 260 12" className="w-52 sm:w-64 h-3 mt-2" fill="none" aria-hidden="true">
-                  <path d="M3 8.5c30-5 58-6.5 88-5s56 4.5 86 3 48-5 78-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M3 8.5c30-5 58-6.5 88-5s56 4.5 86 3 48-5 78-6" stroke="#D86B9B" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
 
                 <p className="font-note text-[13px] sm:text-sm text-[var(--ink-soft)] max-w-md mt-3 leading-relaxed">
@@ -259,17 +259,17 @@ export default function Home() {
                     type="button"
                     onClick={() => {
                       const heroDish = pool.find((d) => d.id === 'mk-bhopali-masala') || pool[0];
-                      if (heroDish) push({ type: 'dish', dish: heroDish });
+                      if (heroDish) push({ type: 'dish', id: heroDish.id });
                     }}
-                    className="font-note text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl flex items-center gap-2 bg-[#D48924]/15 text-[#915408] border-2 border-dashed border-[#D48924]/60 hover:bg-[#D48924]/25 transition-colors"
+                    className="font-note text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl flex items-center gap-2 bg-[#D86B9B]/15 text-[#A83A6E] border-2 border-dashed border-[#D86B9B]/60 hover:bg-[#D86B9B]/25 transition-colors"
                   >
-                    <Sparkles size={15} className="text-[#D48924]" />
+                    <Sparkles size={15} className="text-[#D86B9B]" />
                     Get ₹129 Hero Pack
                   </button>
                   <button
                     type="button"
                     onClick={async () => {
-                      const msg = 'Hi Sahi Crunch! I want to order the ₹129 Hero Pack.';
+                      const msg = 'Hi Gharelu Hub! I want to order the ₹129 Hero Pack.';
                       const { data } = await proxyApi.sendWhatsApp({ message: msg });
                       if (data?.url) window.open(data.url, '_blank');
                       else window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
@@ -281,11 +281,11 @@ export default function Home() {
                 </div>
 
                 {/* ₹129 Hero Pack: What's inside showcase */}
-                <div className="mt-5 bg-[var(--paper)]/90 border border-[#D48924]/40 rounded-2xl p-3 sm:p-3.5 max-w-lg shadow-sm">
+                <div className="mt-5 bg-[var(--paper)]/90 border border-[#D86B9B]/40 rounded-2xl p-3 sm:p-3.5 max-w-lg shadow-sm">
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#D48924] animate-pulse" />
-                      <span className="font-note text-[11px] font-bold uppercase tracking-wider text-[#915408]">
+                      <span className="w-2 h-2 rounded-full bg-[#D86B9B] animate-pulse" />
+                      <span className="font-note text-[11px] font-bold uppercase tracking-wider text-[#A83A6E]">
                         ₹129 Hero Pack — What&apos;s Inside
                       </span>
                     </div>
@@ -296,19 +296,19 @@ export default function Home() {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 border-t border-dashed border-[var(--rule)]">
                     <div className="text-left">
                       <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Base</p>
-                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Jumbo Makhana</p>
+                      <p className="font-note text-[11px] font-semibold text-[#8F2859] mt-0.5">Jumbo Makhana</p>
                     </div>
                     <div className="text-left">
                       <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Fat</p>
-                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Pure Desi Ghee</p>
+                      <p className="font-note text-[11px] font-semibold text-[#8F2859] mt-0.5">Pure Desi Ghee</p>
                     </div>
                     <div className="text-left">
                       <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Spices</p>
-                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Malwa Hing & Kali Mirch</p>
+                      <p className="font-note text-[11px] font-semibold text-[#8F2859] mt-0.5">Malwa Hing & Kali Mirch</p>
                     </div>
                     <div className="text-left">
                       <p className="font-note text-[10px] text-[var(--ink-faint)] leading-none">Salt</p>
-                      <p className="font-note text-[11px] font-semibold text-[#540c19] mt-0.5">Himalayan Rock Salt</p>
+                      <p className="font-note text-[11px] font-semibold text-[#8F2859] mt-0.5">Himalayan Rock Salt</p>
                     </div>
                   </div>
                 </div>
@@ -354,8 +354,8 @@ export default function Home() {
 
                     {/* Handwritten polaroid caption with slide details */}
                     <div className="mt-2 text-center">
-                      <p className="font-hand italic text-lg text-[#540c19] leading-tight">
-                        {heroSlides[activeHeroSlide]?.title} — <span className="text-[#915408]">{heroSlides[activeHeroSlide]?.tag}</span>
+                      <p className="font-hand italic text-lg text-[#8F2859] leading-tight">
+                        {heroSlides[activeHeroSlide]?.title} — <span className="text-[#A83A6E]">{heroSlides[activeHeroSlide]?.tag}</span>
                       </p>
                       <p className="font-note text-[11px] text-[var(--ink-faint)] mt-0.5 truncate px-2">
                         {heroSlides[activeHeroSlide]?.items}
@@ -370,7 +370,7 @@ export default function Home() {
                     <span
                       key={slide.image}
                       className={`rounded-full transition-all ${idx === activeHeroSlide
-                        ? 'w-4 h-2 bg-[#681121]'
+                        ? 'w-4 h-2 bg-[#C45688]'
                         : 'w-2 h-2 bg-[var(--rule)]'
                         }`}
                       aria-hidden="true"
@@ -385,11 +385,11 @@ export default function Home() {
         {/* ================= 3. FRESH BATCH SNACKS WITH INTEGRATED CATEGORY SORTING ================= */}
         <section>
           <div className="mb-3.5">
-            <h3 className="font-hand italic text-3xl text-[#540c19] tracking-tight leading-tight">
+            <h3 className="font-hand italic text-3xl text-[#8F2859] tracking-tight leading-tight">
               Today&apos;s menu
             </h3>
             <svg viewBox="0 0 160 8" className="w-32 h-2 mt-0.5" fill="none" aria-hidden="true">
-              <path d="M2 5.5c20-3 40-3.5 60-2.5s38 2.5 58 1.5 28-2.5 38-3.5" stroke="#D48924" strokeWidth="2" strokeLinecap="round" />
+              <path d="M2 5.5c20-3 40-3.5 60-2.5s38 2.5 58 1.5 28-2.5 38-3.5" stroke="#D86B9B" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </div>
 
@@ -399,11 +399,11 @@ export default function Home() {
               type="button"
               onClick={() => setActiveCategory('all')}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl shrink-0 font-note text-xs font-semibold transition-all border-2 ${activeCategory === 'all'
-                ? 'bg-[#681121] text-[#FDFBF7] border-[#681121] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
-                : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                ? 'bg-[#C45688] text-[#FDFBF7] border-[#C45688] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
                 }`}
             >
-              <span className="w-2 h-2 rounded-full bg-[#E2952A]" />
+              <span className="w-2 h-2 rounded-full bg-[#E88EB5]" />
               <span>All Snacks</span>
             </button>
 
@@ -415,8 +415,8 @@ export default function Home() {
                   type="button"
                   onClick={() => setActiveCategory(c.id)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl shrink-0 font-note text-xs font-medium transition-all border-2 ${active
-                    ? 'bg-[#681121] text-[#FDFBF7] border-[#681121] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
-                    : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                    ? 'bg-[#C45688] text-[#FDFBF7] border-[#C45688] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                    : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
                     }`}
                 >
                   <div className="w-5 h-5 rounded-full overflow-hidden bg-[#f3ece0] shrink-0 border border-black/10">
@@ -454,7 +454,7 @@ export default function Home() {
                 <div
                   key={dish.id}
                   onClick={() => push({ type: 'dish', id: dish.id })}
-                  className={`group relative flex flex-col justify-between bg-[var(--paper-2)] paper-grain p-4 sm:p-5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:shadow-float hover:border-[#D48924]/70 ${tilt} hover:tilt-0 transition-all duration-300 cursor-pointer`}
+                  className={`group relative flex flex-col justify-between bg-[var(--paper-2)] paper-grain p-4 sm:p-5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:shadow-float hover:border-[#D86B9B]/70 ${tilt} hover:tilt-0 transition-all duration-300 cursor-pointer`}
                 >
                   <div className="flex flex-col">
                     {/* Big Square Image framed like a taped-in photo */}
@@ -470,24 +470,24 @@ export default function Home() {
                           e.stopPropagation();
                           toggleFavorite(dish.id);
                         }}
-                        className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--paper-2)]/90 backdrop-blur-sm shadow text-[var(--ink-faint)] hover:text-[#681121] hover:bg-white active:scale-90 transition-all"
+                        className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--paper-2)]/90 backdrop-blur-sm shadow text-[var(--ink-faint)] hover:text-[#C45688] hover:bg-white active:scale-90 transition-all"
                       >
                         <Heart
                           size={16}
-                          className={isFav ? 'fill-[#681121] text-[#681121]' : ''}
+                          className={isFav ? 'fill-[#C45688] text-[#C45688]' : ''}
                         />
                       </button>
                     </div>
 
                     {/* Vertically Aligned Info Details */}
                     <div className="mt-4 flex flex-col gap-1.5">
-                      <h3 className="font-hand font-bold text-xl text-[#540c19] tracking-tight leading-snug line-clamp-1 group-hover:text-[#681121] transition-colors">
+                      <h3 className="font-hand font-bold text-xl text-[#8F2859] tracking-tight leading-snug line-clamp-1 group-hover:text-[#C45688] transition-colors">
                         {dish.name}
                       </h3>
 
                       {/* Price Details — serif numerals */}
                       <div className="mt-1 flex items-baseline gap-2">
-                        <span className="font-hand font-bold text-2xl text-[#681121] tracking-tight">
+                        <span className="font-hand font-bold text-2xl text-[#C45688] tracking-tight">
                           {formatINR(dish.price)}
                         </span>
                         <span className="font-note text-xs sm:text-sm text-[var(--ink-faint)] font-medium line-through">
@@ -603,18 +603,18 @@ export default function Home() {
         <section className="relative rounded-3xl overflow-hidden bg-[#f5edda] border border-[#e0d2b6] shadow-[0_24px_50px_-30px_rgba(84,12,25,0.45)]">
           {/* Kitchen-log paper: fibre grain, ruled top edge */}
           <div className="absolute inset-0 bg-[radial-gradient(rgba(122,92,48,0.09)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
-          <div className="absolute inset-x-0 top-0 h-2 bg-[#681121] pointer-events-none" />
-          <div className="absolute inset-x-0 top-2 h-px bg-[#D48924]/60 pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-2 bg-[#C45688] pointer-events-none" />
+          <div className="absolute inset-x-0 top-2 h-px bg-[#D86B9B]/60 pointer-events-none" />
 
           <div className="relative z-10 p-5 sm:p-8 lg:p-10">
             {/* Logbook header — written, not marketed */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
               <div className="max-w-2xl">
-                <h3 className="font-hand italic text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#540c19] tracking-tight leading-[1.1]">
+                <h3 className="font-hand italic text-3xl sm:text-4xl lg:text-[42px] font-medium text-[#8F2859] tracking-tight leading-[1.1]">
                   So, why does Bhopal keep choosing us?
                 </h3>
                 <svg viewBox="0 0 240 12" className="w-40 sm:w-52 h-3 mt-1" fill="none" aria-hidden="true">
-                  <path d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6" stroke="#D86B9B" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
                 <p className="font-note text-[13px] sm:text-sm text-[#4b3a2c] mt-2.5 leading-relaxed">
                   No big secret, honestly. We just got tired of namkeen packets whose ingredient lists were longer than our grocery bill — so we started making ours the slow way. You can taste the difference by the second bite.
@@ -630,8 +630,8 @@ export default function Home() {
                   </div>
                   <p className="font-hand italic text-[13px] text-[#6b5a45] leading-none mt-1">kitchen-inspected, we mind it</p>
                 </div>
-                <div className="rotate-[2.5deg] bg-[#FDFBF7]/80 border-2 border-dashed border-[#D48924]/70 rounded-lg px-3 py-2 text-center shadow-[2px_3px_0_rgba(84,12,25,0.06)]">
-                  <div className="flex items-center justify-center gap-1.5 text-[#b87319]">
+                <div className="rotate-[2.5deg] bg-[#FDFBF7]/80 border-2 border-dashed border-[#D86B9B]/70 rounded-lg px-3 py-2 text-center shadow-[2px_3px_0_rgba(84,12,25,0.06)]">
+                  <div className="flex items-center justify-center gap-1.5 text-[#C45688]">
                     <QrCode size={13} />
                     <p className="font-note text-[10px] font-semibold uppercase tracking-[0.14em]">Batch QR</p>
                   </div>
@@ -653,14 +653,14 @@ export default function Home() {
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
-                      <span className="absolute bottom-2.5 left-2.5 -rotate-[6deg] bg-[#FDFBF7]/90 border border-[#681121]/60 text-[#681121] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm">
+                      <span className="absolute bottom-2.5 left-2.5 -rotate-[6deg] bg-[#FDFBF7]/90 border border-[#C45688]/60 text-[#C45688] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm">
                         Farm direct
                       </span>
                     </div>
                   </div>
                   <div className="flex-1">
 
-                    <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#540c19] leading-snug mt-0.5">
+                    <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#8F2859] leading-snug mt-0.5">
                       The wheat actually comes from Malwa
                     </h4>
                     <p className="font-note text-[12.5px] text-[#5b4a38] leading-relaxed mt-1.5">
@@ -683,13 +683,13 @@ export default function Home() {
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  <span className="absolute bottom-2.5 left-2.5 rotate-[4deg] bg-[#FDFBF7]/90 border border-[#b87319]/60 text-[#b87319] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
+                  <span className="absolute bottom-2.5 left-2.5 rotate-[4deg] bg-[#FDFBF7]/90 border border-[#C45688]/60 text-[#C45688] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
                     <Flame size={10} />
                     Slow-roasted
                   </span>
                 </div>
 
-                <h4 className="font-hand text-[22px] font-semibold text-[#540c19] leading-snug mt-0.5">
+                <h4 className="font-hand text-[22px] font-semibold text-[#8F2859] leading-snug mt-0.5">
                   Baked in a kettle, never dunked in oil
                 </h4>
                 <p className="font-note text-[12.5px] text-[#5b4a38] leading-relaxed mt-1.5">
@@ -701,15 +701,15 @@ export default function Home() {
               </article>
 
               {/* Note 03 — the one taped-up maroon sign on the board */}
-              <article className="lg:col-span-5 relative rounded-2xl bg-[#540c19] border border-[#D48924]/40 p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-20px_rgba(84,12,25,0.6)] lg:-rotate-[0.5deg] lg:hover:rotate-0 transition-all duration-300">
-                <div className="relative h-40 rounded-xl overflow-hidden border border-[#D48924]/25 bg-[#240409]">
+              <article className="lg:col-span-5 relative rounded-2xl bg-[#8F2859] border border-[#D86B9B]/40 p-3.5 sm:p-4 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-20px_rgba(84,12,25,0.6)] lg:-rotate-[0.5deg] lg:hover:rotate-0 transition-all duration-300">
+                <div className="relative h-40 rounded-xl overflow-hidden border border-[#D86B9B]/25 bg-[#240409]">
                   <img
                     src="/images/products/masala_makhana_pack.jpg"
                     alt="Pouch stamped with its made-on date"
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  <span className="absolute bottom-2.5 left-2.5 -rotate-[3deg] bg-[#540c19]/90 border border-[#D48924]/60 text-[#E2952A] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm">
+                  <span className="absolute bottom-2.5 left-2.5 -rotate-[3deg] bg-[#8F2859]/90 border border-[#D86B9B]/60 text-[#E88EB5] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm">
                     Stamped by hand
                   </span>
                 </div>
@@ -720,7 +720,7 @@ export default function Home() {
                 <p className="font-note text-[12.5px] text-[#FDFBF7]/80 leading-relaxed mt-1.5">
                   Every pouch gets its made-on date pressed in while the batch is still warm, and the QR shows which farm the grain came from. Past 48 hours it doesn&apos;t leave the kitchen — it goes home with the staff.
                 </p>
-                <p className="font-hand italic text-[15px] text-[#E2952A] mt-2.5 inline-block border-b-2 border-dashed border-[#E2952A]/40 pb-0.5">
+                <p className="font-hand italic text-[15px] text-[#E88EB5] mt-2.5 inline-block border-b-2 border-dashed border-[#E88EB5]/40 pb-0.5">
                   we eat a lot of &ldquo;failed&rdquo; batches, honestly.
                 </p>
               </article>
@@ -736,7 +736,7 @@ export default function Home() {
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />
-                      <span className="absolute bottom-2.5 right-2.5 rotate-[5deg] bg-[#FDFBF7]/90 border border-[#681121]/60 text-[#681121] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
+                      <span className="absolute bottom-2.5 right-2.5 rotate-[5deg] bg-[#FDFBF7]/90 border border-[#C45688]/60 text-[#C45688] font-note text-[9px] font-semibold uppercase tracking-[0.16em] px-2 py-1 rounded shadow-sm inline-flex items-center gap-1">
                         <Bike size={10} />
                         10–15 mins
                       </span>
@@ -744,13 +744,13 @@ export default function Home() {
                   </div>
                   <div className="flex-1">
 
-                    <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#540c19] leading-snug mt-0.5">
+                    <h4 className="font-hand text-[22px] sm:text-2xl font-semibold text-[#8F2859] leading-snug mt-0.5">
                       Fifteen minutes, oven to your door
                     </h4>
                     <p className="font-note text-[12.5px] text-[#5b4a38] leading-relaxed mt-1.5">
                       Our little hubs sit inside Arera Colony, Shahpura and Kolar Road — no godown in the middle, no third-party warehouse. Order at 7 pm and it&apos;s still warm when it reaches your gate.
                     </p>
-                    <p className="font-hand italic text-[15px] text-[#681121] mt-2.5 inline-block border-b-2 border-dashed border-[#681121]/30 pb-0.5">
+                    <p className="font-hand italic text-[15px] text-[#C45688] mt-2.5 inline-block border-b-2 border-dashed border-[#C45688]/30 pb-0.5">
                       touch the pack when it lands. still warm, promise.
                     </p>
                   </div>
@@ -760,7 +760,7 @@ export default function Home() {
 
             {/* Signed off like an actual log entry */}
             <div className="mt-8 flex items-center gap-2.5 pl-1">
-              <svg viewBox="0 0 34 20" className="w-8 h-5 rotate-6 text-[#D48924] shrink-0" fill="none" aria-hidden="true">
+              <svg viewBox="0 0 34 20" className="w-8 h-5 rotate-6 text-[#D86B9B] shrink-0" fill="none" aria-hidden="true">
                 <path d="M2 14c83 161 22-5m0 0l-5-1m5 1l-2-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
 
@@ -775,7 +775,7 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-4">
 
 
-              <h2 className="font-hand italic text-3xl sm:text-4xl lg:text-5xl text-[#540c19] tracking-tight leading-[1.05]">
+              <h2 className="font-hand italic text-3xl sm:text-4xl lg:text-5xl text-[#8F2859] tracking-tight leading-[1.05]">
                 78 years of Bhopal&apos;s
                 <br />
                 <span className="marker">royal namkeen</span>
@@ -790,7 +790,7 @@ export default function Home() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                 <div className="p-3.5 rounded-2xl bg-[var(--paper)] border border-[var(--rule)] shadow-sm tilt-l-sm">
-                  <div className="font-hand italic text-3xl text-[#681121] mb-1 leading-none">
+                  <div className="font-hand italic text-3xl text-[#C45688] mb-1 leading-none">
                     78
                   </div>
                   <h4 className="font-note text-xs font-semibold text-[var(--ink)]">Years of craft</h4>
@@ -810,7 +810,7 @@ export default function Home() {
                 </div>
 
                 <div className="p-3.5 rounded-2xl bg-[var(--paper)] border border-[var(--rule)] shadow-sm tilt-l-sm">
-                  <div className="font-hand italic text-3xl text-[#b87319] mb-1 leading-none">
+                  <div className="font-hand italic text-3xl text-[#C45688] mb-1 leading-none">
                     10m
                   </div>
                   <h4 className="font-note text-xs font-semibold text-[var(--ink)]">Oven to door</h4>
@@ -849,18 +849,18 @@ export default function Home() {
         </section>
 
         {/* Footer — the back page of the kitchen logbook */}
-        <footer className="mt-12 bg-[#540c19] text-[#FDFBF7] rounded-3xl p-8 sm:p-10 lg:p-12 shadow-[0_18px_40px_-26px_rgba(36,4,9,0.6)] border-2 border-dashed border-[#D48924]/40 relative overflow-hidden">
+        <footer className="mt-12 bg-[#8F2859] text-[#FDFBF7] rounded-3xl p-8 sm:p-10 lg:p-12 shadow-[0_18px_40px_-26px_rgba(36,4,9,0.6)] border-2 border-dashed border-[#D86B9B]/40 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.09)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-8 border-b border-dashed border-[#FDFBF7]/20">
             {/* Column 1: Brand Lore */}
             <div className="lg:col-span-2 space-y-3.5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl overflow-hidden bg-[#681121] border border-[#D48924]/40 flex items-center justify-center shadow-md">
-                  <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+                <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                  <img src="/logo.png" alt="Gharelu Hub" className="w-full h-full object-contain" />
                 </div>
                 <div>
-                  <h3 className="font-hand italic text-2xl tracking-tight text-[#FDFBF7] leading-tight">Sahi Crunch</h3>
+                  <h3 className="font-hand italic text-2xl tracking-tight text-[#FDFBF7] leading-tight">Gharelu Hub</h3>
 
                 </div>
               </div>
@@ -869,39 +869,39 @@ export default function Home() {
                 Madhya Pradesh&apos;s proud guilt-free namkeen and snackery. 78 years of Bhopali culinary heritage, baked with zero preservatives, pure cold-pressed groundnut oil, and dispatched fresh within minutes.
               </p>
 
-              <div className="flex items-center gap-2 pt-1 font-note text-xs text-[#E2952A]/90 font-medium">
-                <MapPin size={14} className="text-[#E2952A]" />
+              <div className="flex items-center gap-2 pt-1 font-note text-xs text-[#E88EB5]/90 font-medium">
+                <MapPin size={14} className="text-[#E88EB5]" />
                 <span>Central Kitchen: Arera Colony, Bhopal, MP 462016</span>
               </div>
             </div>
 
             {/* Column 2: Quick Menus */}
             <div className="space-y-2.5">
-              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E2952A] tracking-[0.2em]">Heritage Menu</h4>
+              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E88EB5] tracking-[0.2em]">Heritage Menu</h4>
               <ul className="space-y-2 font-note text-xs text-[#FDFBF7]/70 font-medium">
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Bhopali Masala Makhana</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Royal Shahi Nankhatai</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Ratlam Laung Sev</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Roasted Chana &amp; Makhana</button></li>
-                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E2952A] transition-colors">Festive Sahi Gift Hampers</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E88EB5] transition-colors">Bhopali Masala Makhana</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E88EB5] transition-colors">Royal Shahi Nankhatai</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E88EB5] transition-colors">Ratlam Laung Sev</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E88EB5] transition-colors">Roasted Chana &amp; Makhana</button></li>
+                <li><button type="button" onClick={() => setTab('menu')} className="hover:text-[#E88EB5] transition-colors">Festive Sahi Gift Hampers</button></li>
               </ul>
             </div>
 
             {/* Column 3: Active Clusters */}
             <div className="space-y-2.5">
-              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E2952A] tracking-[0.2em]">Active Bhopal Hubs</h4>
+              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E88EB5] tracking-[0.2em]">Active Bhopal Hubs</h4>
               <ul className="space-y-2 font-note text-xs text-[#FDFBF7]/70 font-medium">
                 <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#5fa768]" /> Arera Colony</li>
                 <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#5fa768]" /> Kolar Road</li>
                 <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#5fa768]" /> Shahpura Sector A</li>
-                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-[#E2952A]" /> MP Nagar</li>
-                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-[#E2952A]" /> Indore</li>
+                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-[#E88EB5]" /> MP Nagar</li>
+                <li className="flex items-center gap-1.5 opacity-60"><span className="w-1.5 h-1.5 rounded-full bg-[#E88EB5]" /> Indore</li>
               </ul>
             </div>
 
             {/* Column 4: Concierge & Support */}
             <div className="space-y-2.5">
-              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E2952A] tracking-[0.2em]">Direct Concierge</h4>
+              <h4 className="font-note text-[10px] font-semibold uppercase text-[#E88EB5] tracking-[0.2em]">Direct Concierge</h4>
               <p className="font-note text-xs text-[#FDFBF7]/75 font-medium leading-relaxed">
                 Connect directly with our Bhopal dispatch team for corporate orders &amp; feedback:
               </p>
@@ -917,7 +917,7 @@ export default function Home() {
 
           {/* Bottom Copyright & Disclaimer — a hand-written colophon */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 font-note text-[11px] text-[#FDFBF7]/55 font-medium">
-            <p className="font-hand italic text-base text-[#FDFBF7]/80">© 2026 Sahi Crunch · Bhopal&apos;s 78-year snackery. All rights reserved.</p>
+            <p className="font-hand italic text-base text-[#FDFBF7]/80">© 2026 Gharelu Hub · Bhopal&apos;s 78-year snackery. All rights reserved.</p>
 
           </div>
         </footer>

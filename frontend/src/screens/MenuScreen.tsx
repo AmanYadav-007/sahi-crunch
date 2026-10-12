@@ -90,12 +90,12 @@ export default function MenuScreen() {
     <div className="min-h-screen bg-[var(--paper)] paper-grain pb-36 text-[var(--ink)]">
       {/* Header Search & Category Filter — the top of a recipe card */}
       <header className="sticky top-0 lg:static z-20 bg-[var(--paper)] border-b border-[var(--rule)] px-4 sm:px-6 lg:px-10 xl:px-12 pt-3 pb-3 relative">
-        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
         <div className="w-full">
           {/* Search Input Bar — a blank on a form */}
           <div className="flex items-center gap-2 max-w-md">
             <div className="relative flex-1">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#D48924]" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#D86B9B]" />
               <input
                 type="text"
                 value={q}
@@ -120,8 +120,8 @@ export default function MenuScreen() {
               title="Filters"
               className={`flex h-8 sm:h-9 w-8 sm:w-9 shrink-0 items-center justify-center rounded-xl border-2 transition-colors ${
                 active.length > 0
-                  ? 'bg-[#681121]/10 border-[#681121] text-[#681121]'
-                  : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                  ? 'bg-[#C45688]/10 border-[#C45688] text-[#C45688]'
+                  : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
               }`}
             >
               <SlidersHorizontal size={14} />
@@ -139,8 +139,8 @@ export default function MenuScreen() {
                   onClick={() => setCat(c.id)}
                   className={`px-4 py-2 rounded-full font-note text-xs font-medium whitespace-nowrap transition-all border-2 ${
                     isSelected
-                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
-                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                      ? 'bg-[#C45688] border-[#C45688] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
                   }`}
                 >
                   {c.name}
@@ -185,18 +185,18 @@ export default function MenuScreen() {
               <div
                 key={dish.id}
                 onClick={() => push({ type: 'dish', id: dish.id })}
-                className={`group relative flex items-center justify-between gap-3.5 sm:gap-4 bg-[var(--paper-2)] paper-grain p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_14px_26px_-20px_rgba(84,12,25,0.4)] hover:shadow-lg hover:border-[#D48924]/60 ${tilt} hover:tilt-0 transition-all duration-300 cursor-pointer`}
+                className={`group relative flex items-center justify-between gap-3.5 sm:gap-4 bg-[var(--paper-2)] paper-grain p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_14px_26px_-20px_rgba(84,12,25,0.4)] hover:shadow-lg hover:border-[#D86B9B]/60 ${tilt} hover:tilt-0 transition-all duration-300 cursor-pointer`}
               >
                 {/* Left Info Column: Name -> Price -> Thumbs Feedback */}
                 <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch py-0.5">
                   <div>
-                    <h3 className="font-hand font-bold text-xl text-[#540c19] tracking-tight leading-snug line-clamp-2 group-hover:text-[#681121] transition-colors">
+                    <h3 className="font-hand font-bold text-xl text-[#8F2859] tracking-tight leading-snug line-clamp-2 group-hover:text-[#C45688] transition-colors">
                       {dish.name}
                     </h3>
 
                     {/* Price */}
                     <div className="mt-1.5 flex items-baseline gap-2">
-                      <span className="font-hand font-bold text-xl sm:text-2xl text-[#681121] tracking-tight">
+                      <span className="font-hand font-bold text-xl sm:text-2xl text-[#C45688] tracking-tight">
                         {formatINR(dish.price)}
                       </span>
                       <span className="font-note text-xs text-[var(--ink-faint)] font-medium line-through">
@@ -268,11 +268,11 @@ export default function MenuScreen() {
                         e.stopPropagation();
                         toggleFavorite(dish.id);
                       }}
-                      className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--paper-2)]/90 backdrop-blur-sm shadow text-[var(--ink-faint)] hover:text-[#681121] hover:bg-white active:scale-90 transition-all"
+                      className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--paper-2)]/90 backdrop-blur-sm shadow text-[var(--ink-faint)] hover:text-[#C45688] hover:bg-white active:scale-90 transition-all"
                     >
                       <Heart
                         size={14}
-                        className={isFav ? 'fill-[#681121] text-[#681121]' : ''}
+                        className={isFav ? 'fill-[#C45688] text-[#C45688]' : ''}
                       />
                     </button>
                   </div>

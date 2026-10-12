@@ -160,8 +160,8 @@ export default function Checkout() {
                     onClick={() => setType(t.id)}
                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-note text-xs font-medium transition-all ${
                       active
-                        ? 'bg-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
-                        : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper)]'
+                        ? 'bg-[#C45688] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                        : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper)]'
                     }`}
                   >
                     <t.Icon size={16} />
@@ -176,9 +176,9 @@ export default function Checkout() {
               <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-note text-[10px] font-semibold uppercase text-[var(--ink-faint)] tracking-[0.2em] flex items-center gap-1.5">
-                    <MapPin size={14} className="text-[#681121]" /> Delivering to
+                    <MapPin size={14} className="text-[#C45688]" /> Delivering to
                   </span>
-                  <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/50">Home</span>
+                  <span className="stamp tilt-r-sm text-[#C45688] border-[#D86B9B]/50">Home</span>
                 </div>
                 <input
                   type="text"
@@ -192,8 +192,8 @@ export default function Checkout() {
               /* Takeaway Kitchen Pickup Details Box */
               <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-note text-[10px] font-semibold uppercase text-[#681121] tracking-[0.2em] flex items-center gap-1.5">
-                    <ShoppingBag size={14} className="text-[#681121]" /> Self pickup counter
+                  <span className="font-note text-[10px] font-semibold uppercase text-[#C45688] tracking-[0.2em] flex items-center gap-1.5">
+                    <ShoppingBag size={14} className="text-[#C45688]" /> Self pickup counter
                   </span>
                   <span className="stamp tilt-l-sm text-[#3d7044] border-[#4E8B56]/50">
                     Ready in 10 mins
@@ -202,9 +202,9 @@ export default function Checkout() {
 
                 <div className="bg-[var(--paper)] p-3 rounded-2xl border border-[var(--rule)] space-y-1.5">
                   <div className="flex items-start gap-2.5">
-                    <MapPin size={16} className="text-[#D48924] shrink-0 mt-0.5" />
+                    <MapPin size={16} className="text-[#D86B9B] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-hand font-semibold text-base text-[#540c19] leading-tight">
+                      <p className="font-hand font-semibold text-base text-[#8F2859] leading-tight">
                         {branch.area} Kitchen
                       </p>
                       <p className="font-note text-[11px] text-[var(--ink-faint)] mt-0.5 leading-relaxed">
@@ -227,7 +227,7 @@ export default function Checkout() {
 
             {/* Selected Items Breakdown — a written order slip */}
             <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
-              <h3 className="font-hand italic text-xl text-[#540c19] mb-3">
+              <h3 className="font-hand italic text-xl text-[#8F2859] mb-3">
                 On your slip ({cart.length})
               </h3>
               <div className="space-y-2.5">
@@ -237,7 +237,7 @@ export default function Checkout() {
                   return (
                     <div key={l.key} className="flex items-center justify-between font-note text-xs">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="font-semibold text-[#681121]">{l.qty}x</span>
+                        <span className="font-semibold text-[#C45688]">{l.qty}x</span>
                         <span className="text-[var(--ink-soft)] truncate">{d.name}</span>
                       </div>
                       <span className="font-semibold text-[var(--ink)]">{formatINR(lineTotal(l))}</span>
@@ -250,10 +250,10 @@ export default function Checkout() {
             {/* Coupons & Offers Box — a tear-off coupon */}
             <div
               onClick={() => setShowCoupons(true)}
-              className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border-2 border-dashed border-[#D48924]/50 shadow-[2px_3px_0_rgba(84,12,25,0.05)] flex items-center justify-between cursor-pointer hover:border-[#681121]/60 transition-all"
+              className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border-2 border-dashed border-[#D86B9B]/50 shadow-[2px_3px_0_rgba(84,12,25,0.05)] flex items-center justify-between cursor-pointer hover:border-[#C45688]/60 transition-all"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#681121]/10 border border-[#681121]/30 text-[#681121] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-2xl bg-[#C45688]/10 border border-[#C45688]/30 text-[#C45688] flex items-center justify-center">
                   <Ticket size={18} />
                 </div>
                 <div>
@@ -285,7 +285,7 @@ export default function Checkout() {
                   Remove
                 </button>
               ) : (
-                <div className="flex items-center gap-1 font-note text-xs font-semibold text-[#681121]">
+                <div className="flex items-center gap-1 font-note text-xs font-semibold text-[#C45688]">
                   <span>Pick</span>
                   <ChevronRight size={14} />
                 </div>
@@ -294,7 +294,7 @@ export default function Checkout() {
 
             {/* Payment Methods — ticks on a form */}
             <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
-              <h3 className="font-hand italic text-xl text-[#540c19] mb-3">
+              <h3 className="font-hand italic text-xl text-[#8F2859] mb-3">
                 How you&apos;ll pay
               </h3>
               <div className="space-y-2">
@@ -307,12 +307,12 @@ export default function Checkout() {
                       onClick={() => setPay(p.id)}
                       className={`w-full flex items-center justify-between p-3 rounded-2xl border-2 text-left transition-all ${
                         active
-                          ? 'border-[#681121] bg-[#681121]/8 text-[#681121] font-medium shadow-[2px_3px_0_rgba(36,4,9,0.12)]'
-                          : 'border-dashed border-[var(--rule)] bg-[var(--paper)] hover:border-[#D48924] text-[var(--ink)]'
+                          ? 'border-[#C45688] bg-[#C45688]/8 text-[#C45688] font-medium shadow-[2px_3px_0_rgba(36,4,9,0.12)]'
+                          : 'border-dashed border-[var(--rule)] bg-[var(--paper)] hover:border-[#D86B9B] text-[var(--ink)]'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <p.Icon size={18} className={active ? 'text-[#681121]' : 'text-[var(--ink-faint)]'} />
+                        <p.Icon size={18} className={active ? 'text-[#C45688]' : 'text-[var(--ink-faint)]'} />
                         <div>
                           <p className="font-note text-xs font-medium">{p.label}</p>
                           <p className="font-note text-[10px] text-[var(--ink-faint)]">{p.sub}</p>
@@ -320,7 +320,7 @@ export default function Checkout() {
                       </div>
                       <div
                         className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                          active ? 'border-[#681121] bg-[#681121]' : 'border-[var(--rule)] bg-white'
+                          active ? 'border-[#C45688] bg-[#C45688]' : 'border-[var(--rule)] bg-white'
                         }`}
                       >
                         {active && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -336,7 +336,7 @@ export default function Checkout() {
           <div className="space-y-4">
             {/* Bill Summary — a hand-written receipt */}
             <div className="bg-[var(--paper-2)] paper-grain p-5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] space-y-3 font-note text-xs">
-              <h3 className="font-hand italic text-xl text-[#540c19] mb-2">
+              <h3 className="font-hand italic text-xl text-[#8F2859] mb-2">
                 The bill
               </h3>
               <div className="flex justify-between text-[var(--ink-soft)]">
@@ -370,8 +370,8 @@ export default function Checkout() {
                 <span className="text-[var(--ink)]">{formatINR(tax)}</span>
               </div>
               <div className="pt-2 border-t border-dashed border-[var(--rule)] flex justify-between items-baseline">
-                <span className="font-hand italic text-lg text-[#540c19]">Total to pay</span>
-                <span className="font-hand font-bold text-2xl text-[#681121]">{formatINR(total)}</span>
+                <span className="font-hand italic text-lg text-[#8F2859]">Total to pay</span>
+                <span className="font-hand font-bold text-2xl text-[#C45688]">{formatINR(total)}</span>
               </div>
             </div>
           </div>
@@ -380,7 +380,7 @@ export default function Checkout() {
 
       {/* Floating Bottom Place Order Bar — the order slip stub */}
       <div className="fixed bottom-0 inset-x-0 z-40 bg-[var(--paper)]/95 paper-grain backdrop-blur-md border-t-2 border-[var(--rule)] px-4 py-3 shadow-nav relative">
-        <div className="absolute top-0 inset-x-0 h-0.5 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-0.5 bg-[#C45688]" aria-hidden="true" />
         <div className="mx-auto max-w-xl space-y-2">
           {placeError && (
             <div className="font-note text-xs text-[#b91c1c] bg-[#b91c1c]/8 border-2 border-dashed border-[#b91c1c]/40 px-3 py-2 rounded-xl">
@@ -392,7 +392,7 @@ export default function Checkout() {
               <p className="font-note text-[10px] text-[var(--ink-faint)] uppercase tracking-[0.16em]">
                 Pay via {pay.toUpperCase()}
               </p>
-              <p className="font-hand font-bold text-xl text-[#681121] tracking-tight leading-none mt-0.5">
+              <p className="font-hand font-bold text-xl text-[#C45688] tracking-tight leading-none mt-0.5">
                 {formatINR(total)}
               </p>
             </div>
@@ -438,7 +438,7 @@ export default function Checkout() {
             {/* Sheet Header */}
             <div className="flex items-center justify-between pb-3 border-b border-dashed border-[var(--rule)]">
               <div>
-                <h4 className="font-hand italic text-xl text-[#540c19]">Apply a coupon</h4>
+                <h4 className="font-hand italic text-xl text-[#8F2859]">Apply a coupon</h4>
                 <p className="font-note text-xs text-[var(--ink-faint)] mt-0.5">
                   Offers on your cart ({formatINR(subtotal)})
                 </p>
@@ -503,15 +503,15 @@ export default function Checkout() {
                     key={o.id}
                     className={`p-4 rounded-2xl border-2 transition-all ${tilt} ${
                       isSelected
-                        ? 'bg-[#681121]/6 border-[#681121] shadow-[2px_3px_0_rgba(36,4,9,0.12)]'
-                        : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] hover:border-[#D48924]'
+                        ? 'bg-[#C45688]/6 border-[#C45688] shadow-[2px_3px_0_rgba(36,4,9,0.12)]'
+                        : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] hover:border-[#D86B9B]'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-hand italic text-xl text-[#540c19]">{o.value}</span>
-                          <span className="stamp text-[#681121] border-[#681121]/40">
+                          <span className="font-hand italic text-xl text-[#8F2859]">{o.value}</span>
+                          <span className="stamp text-[#C45688] border-[#C45688]/40">
                             {o.code}
                           </span>
                         </div>
@@ -528,7 +528,7 @@ export default function Checkout() {
                         className={`font-note text-xs font-semibold px-3.5 py-1.5 rounded-xl border transition-all active:scale-95 ${
                           isSelected
                             ? 'text-[#b91c1c] bg-[var(--paper)] border-[#b91c1c]/40'
-                            : 'text-[#681121] bg-[var(--paper)] border-[#681121]/30 hover:bg-[#681121] hover:text-[#FDFBF7]'
+                            : 'text-[#C45688] bg-[var(--paper)] border-[#C45688]/30 hover:bg-[#C45688] hover:text-[#FDFBF7]'
                         }`}
                       >
                         {isSelected ? 'Remove' : 'Use this'}

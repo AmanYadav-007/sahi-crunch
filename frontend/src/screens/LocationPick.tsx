@@ -91,7 +91,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
     <div className="min-h-screen bg-[var(--paper)] paper-grain pb-32 text-[var(--ink)]">
       {/* Header — the cover page of the delivery ledger */}
       <div className="relative overflow-hidden bg-[var(--paper-3)]/60 paper-grain border-b border-[var(--rule)] pt-6 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
 
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="flex items-center justify-between mb-2">
@@ -99,7 +99,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
               <button
                 type="button"
                 onClick={pop}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] border border-[var(--rule)] text-[#681121] hover:bg-[var(--paper)] transition-colors"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] border border-[var(--rule)] text-[#C45688] hover:bg-[var(--paper)] transition-colors"
                 aria-label="Back"
               >
                 <ArrowLeft size={18} />
@@ -108,17 +108,17 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
               <div className="h-9" />
             )}
 
-            <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/60">
-              <Zap size={11} className="fill-[#b87319]" />
+            <span className="stamp tilt-r-sm text-[#C45688] border-[#D86B9B]/60">
+              <Zap size={11} className="fill-[#C45688]" />
               10–15 Min Express Delivery
             </span>
           </div>
 
-          <h1 className="font-hand italic text-2xl sm:text-3xl text-[#540c19] tracking-tight mt-1">
+          <h1 className="font-hand italic text-2xl sm:text-3xl text-[#8F2859] tracking-tight mt-1">
             {firstTime ? 'Which kitchen should we pack from?' : 'Choose your kitchen'}
           </h1>
           <svg viewBox="0 0 260 12" className="w-44 sm:w-56 h-3 mt-1.5" fill="none" aria-hidden="true">
-            <path d="M3 8.5c30-5 58-6.5 88-5s56 4.5 86 3 48-5 78-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M3 8.5c30-5 58-6.5 88-5s56 4.5 86 3 48-5 78-6" stroke="#D86B9B" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
           <p className="font-note text-xs sm:text-sm text-[var(--ink-soft)] mt-2 max-w-lg leading-relaxed">
             Fresh small-batch roasted makhana &amp; bakery dispatched directly from our certified oven micro-kitchens.
@@ -133,11 +133,11 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
         <div className="bg-[var(--paper-2)] paper-grain p-4 sm:p-5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-[#681121] text-[#FDFBF7] flex items-center justify-center shrink-0 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
+              <div className="w-12 h-12 rounded-2xl bg-[#C45688] text-[#FDFBF7] flex items-center justify-center shrink-0 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
                 <Navigation size={20} className={locating ? 'animate-spin' : ''} />
               </div>
               <div>
-                <h3 className="font-hand italic text-lg text-[#540c19] leading-tight">
+                <h3 className="font-hand italic text-lg text-[#8F2859] leading-tight">
                   {locating ? 'Detecting Nearest Kitchen...' : 'Use Precise GPS Location'}
                 </h3>
                 <p className="font-note text-xs text-[var(--ink-soft)] mt-0.5">
@@ -161,7 +161,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
         {/* Search & Filter Strip */}
         <div className="bg-[var(--paper-2)] paper-grain p-4 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] space-y-3">
           <div className="relative">
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D48924]" />
+            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D86B9B]" />
             <input
               type="text"
               value={searchQuery}
@@ -197,8 +197,8 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                   onClick={() => setActiveFilter(tab.id)}
                   className={`font-note text-xs font-semibold px-3 py-1.5 rounded-xl border-2 transition-all ${
                     active
-                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
-                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                      ? 'bg-[#C45688] border-[#C45688] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
                   }`}
                 >
                   {tab.label}
@@ -214,7 +214,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
             <h2 className="font-note text-[10px] font-semibold uppercase text-[var(--ink-faint)] tracking-[0.18em]">
               Kitchens on the list ({filteredLocations.length})
             </h2>
-            <span className="font-hand italic text-sm text-[#681121]">
+            <span className="font-hand italic text-sm text-[#C45688]">
               MP Headquarters: Bhopal
             </span>
           </div>
@@ -231,9 +231,9 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                   onClick={() => handleSelectCluster(loc)}
                   className={`p-5 rounded-3xl border transition-all duration-300 cursor-pointer relative overflow-hidden group ${tilt} hover:tilt-0 ${
                     isSelected
-                      ? 'border-[#681121] bg-[#681121]/5 shadow-[3px_4px_0_rgba(104,17,33,0.14)]'
+                      ? 'border-[#C45688] bg-[#C45688]/5 shadow-[3px_4px_0_rgba(104,17,33,0.14)]'
                       : isOpen
-                      ? 'bg-[var(--paper-2)] paper-grain border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:border-[#D48924]/70'
+                      ? 'bg-[var(--paper-2)] paper-grain border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] hover:border-[#D86B9B]/70'
                       : 'bg-[var(--paper-3)]/40 border border-dashed border-[var(--rule)] opacity-90'
                   }`}
                 >
@@ -242,10 +242,10 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                       <div
                         className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
                           isSelected
-                            ? 'bg-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                            ? 'bg-[#C45688] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
                             : isOpen
                             ? 'bg-[#4E8B56]/15 text-[#3d7044] border border-[#4E8B56]/40'
-                            : 'bg-[#D48924]/15 text-[#b87319] border border-[#D48924]/40'
+                            : 'bg-[#D86B9B]/15 text-[#C45688] border border-[#D86B9B]/40'
                         }`}
                       >
                         <Store size={20} />
@@ -253,7 +253,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
 
                       <div className="space-y-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="font-hand italic text-lg text-[#540c19] leading-tight">
+                          <h3 className="font-hand italic text-lg text-[#8F2859] leading-tight">
                             {loc.area}
                           </h3>
                           <span className="font-note text-[11px] font-medium text-[var(--ink-faint)] uppercase tracking-wide">
@@ -265,7 +265,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                               Active Dispatch
                             </span>
                           ) : (
-                            <span className="stamp tilt-l-sm text-[#b87319] border-[#D48924]/60">
+                            <span className="stamp tilt-l-sm text-[#C45688] border-[#D86B9B]/60">
                               {loc.openingDate || 'Launching Soon'}
                             </span>
                           )}
@@ -281,7 +281,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
 
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 font-note text-[11px] font-medium text-[var(--ink-faint)]">
                           <span className="flex items-center gap-1">
-                            <Clock size={12} className="text-[#D48924]" />
+                            <Clock size={12} className="text-[#D86B9B]" />
                             {loc.hours}
                           </span>
                           {loc.mapUrl && (
@@ -290,7 +290,7 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-1 text-[#681121] hover:underline font-semibold"
+                              className="inline-flex items-center gap-1 text-[#C45688] hover:underline font-semibold"
                             >
                               <span>View on Maps</span>
                               <ExternalLink size={11} />
@@ -303,11 +303,11 @@ export default function LocationPick({ firstTime }: { firstTime?: boolean }) {
                     {/* Selection Checkmark — pressed seal */}
                     <div className="shrink-0 pt-0.5">
                       {isSelected ? (
-                        <div className="w-7 h-7 rounded-full bg-[#681121] text-[#FDFBF7] flex items-center justify-center shadow-[2px_3px_0_rgba(36,4,9,0.3)]">
+                        <div className="w-7 h-7 rounded-full bg-[#C45688] text-[#FDFBF7] flex items-center justify-center shadow-[2px_3px_0_rgba(36,4,9,0.3)]">
                           <Check size={16} strokeWidth={3} />
                         </div>
                       ) : (
-                        <div className="w-7 h-7 rounded-full border-2 border-dashed border-[var(--rule)] group-hover:border-[#681121] transition-colors" />
+                        <div className="w-7 h-7 rounded-full border-2 border-dashed border-[var(--rule)] group-hover:border-[#C45688] transition-colors" />
                       )}
                     </div>
                   </div>

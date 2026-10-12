@@ -29,8 +29,8 @@ export default function Login({ onLogin }: { onLogin: (user: any) => void }) {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 page-bg relative overflow-hidden">
       {/* Ruled banner across the top — same as the customer navbar */}
-      <span className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
-      <span className="absolute top-1 inset-x-0 h-px bg-[#E2952A]/50" aria-hidden="true" />
+      <span className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
+      <span className="absolute top-1 inset-x-0 h-px bg-[#E88EB5]/50" aria-hidden="true" />
 
       <div className="w-full max-w-[420px] relative z-10">
         {/* A sheet taped to the board */}
@@ -38,15 +38,15 @@ export default function Login({ onLogin }: { onLogin: (user: any) => void }) {
           <div className="sc-card p-6 sm:p-7">
             {/* Brand lockup — identical to the customer panel */}
             <div className="flex flex-col items-center text-center">
-              <div className="h-16 w-16 rounded-2xl overflow-hidden shadow-md border border-[#D48924]/30 bg-[#681121] flex items-center justify-center mb-3">
-                <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+              <div className="h-16 w-16 flex items-center justify-center mb-3">
+                <img src="/logo.png" alt="Gharelu Hub" className="w-full h-full object-contain" />
               </div>
 
-              <p className="font-note text-[10px] font-semibold uppercase tracking-[0.24em] text-[#b87319]">
-                Sahi Baked Heritage
+              <p className="font-note text-[10px] font-semibold uppercase tracking-[0.24em] text-[#C45688]">
+                Gharelu Baked Heritage
               </p>
-              <h1 className="font-hand italic font-bold text-3xl text-[#540c19] leading-tight mt-0.5">
-                Sahi Crunch
+              <h1 className="font-hand italic font-bold text-3xl text-[#8F2859] leading-tight mt-0.5">
+                Gharelu Hub
               </h1>
               <Squiggle />
               <p className="font-note text-[11px] text-[var(--ink-faint)] mt-1 font-medium">
@@ -55,7 +55,7 @@ export default function Login({ onLogin }: { onLogin: (user: any) => void }) {
             </div>
 
             {error && (
-              <div className="mt-5 p-3 rounded-xl border-2 border-dashed border-[#681121]/40 bg-[#681121]/8 text-[#681121] font-note text-xs font-semibold flex items-center gap-2">
+              <div className="mt-5 p-3 rounded-xl border-2 border-dashed border-[#C45688]/40 bg-[#C45688]/8 text-[#C45688] font-note text-xs font-semibold flex items-center gap-2">
                 <AlertCircle size={15} className="shrink-0" />
                 <span>{error}</span>
               </div>
@@ -72,7 +72,7 @@ export default function Login({ onLogin }: { onLogin: (user: any) => void }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="admin@sahicrunch.in"
-                    className="form-blank w-full pl-9 pr-3 py-2.5 font-note text-sm text-[var(--ink)] outline-none focus:border-[#681121]"
+                    className="form-blank w-full pl-9 pr-3 py-2.5 font-note text-sm text-[var(--ink)] outline-none focus:border-[#C45688]"
                   />
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function Login({ onLogin }: { onLogin: (user: any) => void }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="form-blank w-full pl-9 pr-3 py-2.5 font-note text-sm text-[var(--ink)] outline-none focus:border-[#681121]"
+                    className="form-blank w-full pl-9 pr-3 py-2.5 font-note text-sm text-[var(--ink)] outline-none focus:border-[#C45688]"
                   />
                 </div>
               </div>

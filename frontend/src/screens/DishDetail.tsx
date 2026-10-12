@@ -85,12 +85,12 @@ export default function DishDetail({ id }: { id: string }) {
     <div className="min-h-screen bg-[var(--paper)] paper-grain pb-36 text-[var(--ink)]">
       {/* Top Header — the tab of a recipe card */}
       <div className="sticky top-0 z-30 flex items-center justify-between p-4 sm:px-6 lg:px-8 bg-[var(--paper)]/95 backdrop-blur-md border-b border-[var(--rule)] shadow-sm relative">
-        <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
         <div className="max-w-6xl w-full mx-auto flex items-center justify-between">
           <button
             type="button"
             onClick={pop}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#681121] border border-[var(--rule)] hover:bg-[var(--paper-3)] transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#C45688] border border-[var(--rule)] hover:bg-[var(--paper-3)] transition-colors"
           >
             <ArrowLeft size={18} />
           </button>
@@ -99,7 +99,7 @@ export default function DishDetail({ id }: { id: string }) {
             <button
               type="button"
               onClick={() => {
-                const shareText = `${dish.name} — Sahi Crunch Bhopal`;
+                const shareText = `${dish.name} — Gharelu Hub Bhopal`;
                 if (navigator.clipboard) {
                   navigator.clipboard.writeText(shareText);
                   showSuccess(`Copied "${dish.name}" to clipboard!`, 'Share Treat');
@@ -116,7 +116,7 @@ export default function DishDetail({ id }: { id: string }) {
               onClick={() => toggleFavorite(dish.id)}
               className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[var(--ink-soft)] border border-[var(--rule)] hover:bg-[var(--paper-3)] transition-colors"
             >
-              <Heart size={16} className={isFav ? 'fill-[#681121] text-[#681121]' : ''} />
+              <Heart size={16} className={isFav ? 'fill-[#C45688] text-[#C45688]' : ''} />
             </button>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function DishDetail({ id }: { id: string }) {
                   <DeliveryPill time="10 MINS" />
                 </div>
                 {dish.bestseller && (
-                  <span className="stamp absolute top-5 right-5 rotate-[3deg] text-[#681121] border-[#681121]/50">
+                  <span className="stamp absolute top-5 right-5 rotate-[3deg] text-[#C45688] border-[#C45688]/50">
                     Bestseller
                   </span>
                 )}
@@ -154,7 +154,7 @@ export default function DishDetail({ id }: { id: string }) {
             <div className="bg-[var(--paper-2)] paper-grain rounded-3xl p-5 sm:p-6 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h1 className="font-hand italic text-3xl sm:text-4xl text-[#540c19] tracking-tight leading-tight">
+                  <h1 className="font-hand italic text-3xl sm:text-4xl text-[#8F2859] tracking-tight leading-tight">
                     {dish.name}
                   </h1>
                   <div className="mt-2 flex items-center gap-2">
@@ -168,7 +168,7 @@ export default function DishDetail({ id }: { id: string }) {
                   <span className="font-note text-xs text-[var(--ink-faint)] line-through block font-medium">
                     ₹{Math.round(dish.price * 1.25)}
                   </span>
-                  <span className="font-hand font-bold text-3xl sm:text-4xl text-[#681121]">
+                  <span className="font-hand font-bold text-3xl sm:text-4xl text-[#C45688]">
                     {formatINR(dish.price)}
                   </span>
                 </div>
@@ -181,7 +181,7 @@ export default function DishDetail({ id }: { id: string }) {
               {/* Kitchen guarantees — three ink stamps */}
               <div className="mt-5 pt-4 border-t border-dashed border-[var(--rule)] grid grid-cols-3 gap-2 text-center">
                 <div className="bg-[var(--paper)] rounded-2xl p-3 border-2 border-dashed border-[var(--rule)]">
-                  <Clock size={18} className="mx-auto text-[#D48924] mb-1" />
+                  <Clock size={18} className="mx-auto text-[#D86B9B] mb-1" />
                   <p className="font-note text-[11px] font-semibold text-[var(--ink)]">48h SLA</p>
                   <p className="font-note text-[10px] text-[var(--ink-faint)]">Baked-on stamp</p>
                 </div>
@@ -191,7 +191,7 @@ export default function DishDetail({ id }: { id: string }) {
                   <p className="font-note text-[10px] text-[var(--ink-faint)]">0% preservatives</p>
                 </div>
                 <div className="bg-[var(--paper)] rounded-2xl p-3 border-2 border-dashed border-[var(--rule)]">
-                  <Zap size={18} className="mx-auto text-[#D48924] mb-1" />
+                  <Zap size={18} className="mx-auto text-[#D86B9B] mb-1" />
                   <p className="font-note text-[11px] font-semibold text-[var(--ink)]">Deck roasted</p>
                   <p className="font-note text-[10px] text-[var(--ink-faint)]">Convection oven</p>
                 </div>
@@ -199,7 +199,7 @@ export default function DishDetail({ id }: { id: string }) {
 
               {dish.ingredients && dish.ingredients.length > 0 && (
                 <div className="mt-5 pt-4 border-t border-dashed border-[var(--rule)]">
-                  <p className="font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#681121] mb-2">
+                  <p className="font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C45688] mb-2">
                     Clean ingredients
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -225,11 +225,11 @@ export default function DishDetail({ id }: { id: string }) {
                     className="bg-[var(--paper-2)] paper-grain rounded-3xl p-5 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]"
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-hand italic text-xl text-[#540c19]">
+                      <h3 className="font-hand italic text-xl text-[#8F2859]">
                         {group.label}
                       </h3>
                       {group.required && (
-                        <span className="stamp text-[#681121] border-[#681121]/40">
+                        <span className="stamp text-[#C45688] border-[#C45688]/40">
                           Required
                         </span>
                       )}
@@ -245,15 +245,15 @@ export default function DishDetail({ id }: { id: string }) {
                             onClick={() => toggle(group.id, choice.id, !!group.multi)}
                             className={`w-full flex items-center justify-between p-3.5 rounded-2xl border-2 text-left transition-all ${
                               isChosen
-                                ? 'border-[#681121] bg-[#681121]/8 font-medium text-[#681121] shadow-[2px_3px_0_rgba(36,4,9,0.12)]'
-                                : 'border-dashed border-[var(--rule)] bg-[var(--paper)] hover:border-[#D48924] text-[var(--ink)]'
+                                ? 'border-[#C45688] bg-[#C45688]/8 font-medium text-[#C45688] shadow-[2px_3px_0_rgba(36,4,9,0.12)]'
+                                : 'border-dashed border-[var(--rule)] bg-[var(--paper)] hover:border-[#D86B9B] text-[var(--ink)]'
                             }`}
                           >
                             <div className="flex items-center gap-3">
                               <div
                                 className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
                                   isChosen
-                                    ? 'border-[#681121] bg-[#681121]'
+                                    ? 'border-[#C45688] bg-[#C45688]'
                                     : 'border-[var(--rule)] bg-white'
                                 }`}
                               >
@@ -263,7 +263,7 @@ export default function DishDetail({ id }: { id: string }) {
                             </div>
 
                             {choice.delta > 0 && (
-                              <span className="font-note text-xs font-semibold text-[#681121]">
+                              <span className="font-note text-xs font-semibold text-[#C45688]">
                                 +{formatINR(choice.delta)}
                               </span>
                             )}
@@ -281,22 +281,22 @@ export default function DishDetail({ id }: { id: string }) {
         {/* Pairings — suggested by the kitchen */}
         {pairings.length > 0 && (
           <div className="mt-10">
-            <h3 className="font-hand italic text-2xl text-[#540c19] mb-1">Goes well with</h3>
+            <h3 className="font-hand italic text-2xl text-[#8F2859] mb-1">Goes well with</h3>
             <svg viewBox="0 0 140 8" className="w-28 h-2 mb-4" fill="none" aria-hidden="true">
-              <path d="M2 5.5c18-3 36-3.5 54-2.5s34 2.5 52 1.5 20-2.5 30-3.5" stroke="#D48924" strokeWidth="2" strokeLinecap="round" />
+              <path d="M2 5.5c18-3 36-3.5 54-2.5s34 2.5 52 1.5 20-2.5 30-3.5" stroke="#D86B9B" strokeWidth="2" strokeLinecap="round" />
             </svg>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {pairings.slice(0, 4).map((p) => (
                 <div
                   key={p.id}
                   onClick={() => push({ type: 'dish', id: p.id })}
-                  className="bg-[var(--paper-2)] paper-grain rounded-3xl p-3 border border-[var(--rule)] shadow-[2px_3px_0_rgba(84,12,25,0.05)] hover:shadow-lg hover:border-[#D48924] transition-all cursor-pointer"
+                  className="bg-[var(--paper-2)] paper-grain rounded-3xl p-3 border border-[var(--rule)] shadow-[2px_3px_0_rgba(84,12,25,0.05)] hover:shadow-lg hover:border-[#D86B9B] transition-all cursor-pointer"
                 >
                   <div className="aspect-square w-full rounded-2xl overflow-hidden bg-[var(--paper-3)] mb-2">
                     <DishImg name={p.image} className="w-full h-full object-cover" />
                   </div>
-                  <p className="font-hand font-semibold text-base text-[#540c19] truncate">{p.name}</p>
-                  <p className="font-hand font-bold text-base text-[#681121] mt-0.5">{formatINR(p.price)}</p>
+                  <p className="font-hand font-semibold text-base text-[#8F2859] truncate">{p.name}</p>
+                  <p className="font-hand font-bold text-base text-[#C45688] mt-0.5">{formatINR(p.price)}</p>
                 </div>
               ))}
             </div>
@@ -306,13 +306,13 @@ export default function DishDetail({ id }: { id: string }) {
 
       {/* Floating Bottom Bar — the order slip */}
       <div className="fixed bottom-0 inset-x-0 z-40 bg-[var(--paper)]/95 paper-grain backdrop-blur-md border-t-2 border-[var(--rule)] px-4 py-3 shadow-nav relative">
-        <div className="absolute top-0 inset-x-0 h-0.5 bg-[#681121]" aria-hidden="true" />
+        <div className="absolute top-0 inset-x-0 h-0.5 bg-[#C45688]" aria-hidden="true" />
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center bg-[var(--paper-2)] border-2 border-dashed border-[var(--rule)] rounded-2xl px-3 py-2">
             <button
               type="button"
               onClick={() => setQty(Math.max(1, qty - 1))}
-              className="p-1 text-[var(--ink-soft)] hover:text-[#681121] rounded"
+              className="p-1 text-[var(--ink-soft)] hover:text-[#C45688] rounded"
             >
               <Minus size={16} />
             </button>
@@ -320,7 +320,7 @@ export default function DishDetail({ id }: { id: string }) {
             <button
               type="button"
               onClick={() => setQty(qty + 1)}
-              className="p-1 text-[var(--ink-soft)] hover:text-[#681121] rounded"
+              className="p-1 text-[var(--ink-soft)] hover:text-[#C45688] rounded"
             >
               <Plus size={16} />
             </button>

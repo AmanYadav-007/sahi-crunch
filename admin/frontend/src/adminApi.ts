@@ -4,8 +4,8 @@ const TOKEN_KEY = 'sahi_crunch_admin_token';
 const ADMIN_USER_KEY = 'sahi_crunch_admin_user';
 
 export const ORDER_STAGES = [
-  { label: 'Order Received', desc: 'Sent to master kitchen', color: 'text-[#681121] border-[#681121]/45' },
-  { label: 'Woodfire Roasting', desc: 'Fresh small-batch roasting', color: 'text-[#b87319] border-[#D48924]/50' },
+  { label: 'Order Received', desc: 'Sent to master kitchen', color: 'text-[#C45688] border-[#C45688]/45' },
+  { label: 'Woodfire Roasting', desc: 'Fresh small-batch roasting', color: 'text-[#C45688] border-[#D86B9B]/50' },
   { label: 'Heritage Spice Toss', desc: '78-yr recipe seasoning', color: 'text-[#b88c57] border-[#D1A673]/75' },
   { label: 'Packed & Stamped', desc: 'Vacuum nitrogen sealed', color: 'text-[var(--ink-soft)] border-[var(--rule)]' },
   { label: 'Rider Out for Delivery', desc: 'On route in Bhopal', color: 'text-[#1D2E47] border-[#1D2E47]/35' },

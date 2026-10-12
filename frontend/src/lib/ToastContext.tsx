@@ -175,16 +175,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   : isError
                   ? 'border-[#b91c1c]/55 text-[var(--ink)]'
                   : isWarning
-                  ? 'border-[#D48924]/65 text-[var(--ink)]'
-                  : 'border-[#D48924]/55 text-[var(--ink)]'
+                  ? 'border-[#D86B9B]/65 text-[var(--ink)]'
+                  : 'border-[#D86B9B]/55 text-[var(--ink)]'
               }`}
             >
               <div className="mt-0.5 shrink-0">
                 {isSuccess && <CheckCircle2 size={19} className="text-[#3d7044]" />}
                 {isError && <AlertCircle size={19} className="text-[#b91c1c]" />}
-                {isWarning && <AlertTriangle size={19} className="text-[#b87319]" />}
+                {isWarning && <AlertTriangle size={19} className="text-[#C45688]" />}
                 {!isSuccess && !isError && !isWarning && (
-                  <Sparkles size={19} className="text-[#E2952A]" />
+                  <Sparkles size={19} className="text-[#E88EB5]" />
                 )}
               </div>
 
@@ -194,7 +194,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                     {t.title}
                   </h4>
                 )}
-                <p className="font-hand italic text-base leading-snug text-[#540c19]">
+                <p className="font-hand italic text-base leading-snug text-[#8F2859]">
                   {t.message}
                 </p>
               </div>
@@ -222,8 +222,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   dialog.variant === 'danger'
                     ? 'bg-[#b91c1c]/10 text-[#b91c1c] border-[#b91c1c]/40'
                     : dialog.variant === 'warning'
-                    ? 'bg-[#D48924]/12 text-[#b87319] border-[#D48924]/50'
-                    : 'bg-[#681121]/8 text-[#681121] border-[#681121]/35'
+                    ? 'bg-[#D86B9B]/12 text-[#C45688] border-[#D86B9B]/50'
+                    : 'bg-[#C45688]/8 text-[#C45688] border-[#C45688]/35'
                 }`}
               >
                 {dialog.variant === 'danger' ? (
@@ -233,7 +233,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 )}
               </div>
               <div className="flex-1">
-                <h3 className="font-hand italic text-xl text-[#540c19]">
+                <h3 className="font-hand italic text-xl text-[#8F2859]">
                   {dialog.title || 'Confirm Action'}
                 </h3>
                 <p className="font-note text-xs text-[var(--ink-soft)] leading-relaxed mt-1">
@@ -272,18 +272,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {alertState.isOpen && (
         <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="w-full max-w-sm rounded-3xl bg-[var(--paper)] paper-grain border border-[var(--rule)] shadow-2xl p-6 text-center space-y-4 animate-in zoom-in-95 duration-200 relative">
-            <div className="w-14 h-14 mx-auto flex items-center justify-center bg-[#681121] text-[#FDFBF7] rounded-2xl border-2 border-dashed border-[#D48924]/50 tilt-r">
+            <div className="w-14 h-14 mx-auto flex items-center justify-center bg-[#C45688] text-[#FDFBF7] rounded-2xl border-2 border-dashed border-[#D86B9B]/50 tilt-r">
               {alertState.type === 'success' ? (
                 <CheckCircle2 size={26} className="text-[#8ed39a]" />
               ) : alertState.type === 'error' ? (
                 <AlertCircle size={26} className="text-[#f3a2a2]" />
               ) : (
-                <Sparkles size={26} className="text-[#E2952A]" />
+                <Sparkles size={26} className="text-[#E88EB5]" />
               )}
             </div>
 
             <div>
-              <h3 className="font-hand italic text-2xl text-[#540c19]">
+              <h3 className="font-hand italic text-2xl text-[#8F2859]">
                 {alertState.title}
               </h3>
               <p className="font-note text-xs text-[var(--ink-soft)] leading-relaxed mt-1.5 max-w-xs mx-auto">

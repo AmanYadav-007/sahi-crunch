@@ -61,22 +61,22 @@
    no glossy gradients, no glassmorphism)
    ============================================================ */
 :root {
-  --primary-maroon: #681121;
-  --primary-maroon-deep: #701222;
-  --accent-amber: #d48924;
-  --accent-amber-light: #e2952a;
-  --bg-cream: #fdfbf7;
-  --text-charcoal: #1e1e24;
+  --primary-maroon: #C45688;
+  --primary-maroon-deep: #A83A6E;
+  --accent-amber: #D86B9B;
+  --accent-amber-light: #E88EB5;
+  --bg-cream: #FAF7F9;
+  --text-charcoal: #231C22;
 
   /* Ink palette — single source of truth */
-  --ink: #3a2c20; /* warm sepia ink, body copy */
-  --ink-soft: #6b5a45; /* secondary handwritten notes */
-  --ink-faint: #8c7a63; /* placeholders, meta */
-  --paper: #f7f0e1; /* base sheet */
-  --paper-2: #fbf7f0; /* raised card */
-  --paper-3: #efe5cf; /* recessed / pressed */
-  --rule: #ddceb2; /* ruled lines & borders */
-  --tape: #e6d3a3; /* masking tape */
+  --ink: #2b1f28; /* deep warm plum-charcoal ink */
+  --ink-soft: #634b5c; /* secondary handwritten notes */
+  --ink-faint: #8a7082; /* placeholders, meta */
+  --paper: #faf6f8; /* base sheet */
+  --paper-2: #ffffff; /* raised card */
+  --paper-3: #f2e9ee; /* recessed / pressed */
+  --rule: #e5d7df; /* ruled lines & borders */
+  --tape: #e8d7e2; /* masking tape */
 }
 
 @layer base {
@@ -94,7 +94,7 @@
   }
 
   ::selection {
-    background: #681121;
+    background: #C45688;
     color: #fdfbf7;
   }
 }
@@ -126,7 +126,7 @@
   border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #d48924;
+  background: #D86B9B;
   border-radius: 9999px;
 }
 .no-scrollbar::-webkit-scrollbar {
@@ -280,7 +280,7 @@
   .sc-select:focus,
   .sc-textarea:focus {
     outline: none;
-    border-color: #681121;
+    border-color: #C45688;
     background: #fff;
     box-shadow: 0 0 0 3px rgba(104, 17, 33, 0.1);
   }
@@ -331,7 +331,7 @@
   /* Primary — hand-stamped maroon ink */
   .btn-ink,
   .sc-btn-primary {
-    background: #681121;
+    background: #C45688;
     color: #fdfbf7;
     border: none;
     border-radius: 0.7rem;
@@ -339,7 +339,7 @@
   }
   .btn-ink:hover,
   .sc-btn-primary:hover {
-    background: #540c19;
+    background: #8F2859;
   }
   .btn-ink:active,
   .sc-btn-primary:active {
@@ -351,14 +351,14 @@
   .btn-outline,
   .sc-btn-ghost {
     background: var(--paper-2);
-    color: #681121;
-    border: 1.5px solid #681121;
+    color: #C45688;
+    border: 1.5px solid #C45688;
     border-radius: 0.7rem;
     box-shadow: 2px 3px 0 rgba(104, 17, 33, 0.14);
   }
   .btn-outline:hover,
   .sc-btn-ghost:hover {
-    background: #681121;
+    background: #C45688;
     color: #fdfbf7;
   }
   .btn-outline:active,
@@ -370,7 +370,7 @@
   /* Accent — amber stamp, used on the maroon sign */
   .btn-amber,
   .sc-btn-gold {
-    background: #d48924;
+    background: #D86B9B;
     color: #3b1f00;
     border: none;
     border-radius: 0.7rem;
@@ -378,7 +378,7 @@
   }
   .btn-amber:hover,
   .sc-btn-gold:hover {
-    background: #e2952a;
+    background: #E88EB5;
   }
   .btn-amber:active,
   .sc-btn-gold:active {
@@ -437,7 +437,7 @@
 
   /* ---------- Admin chart bars (ink filling the ruled track) ---------- */
   .sc-bar {
-    background-image: linear-gradient(90deg, #681121 0%, #a83a2a 45%, #d48924 100%);
+    background-image: linear-gradient(90deg, #C45688 0%, #a83a2a 45%, #D86B9B 100%);
     animation: sc-grow 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
     transform-origin: left;
     border-radius: 9999px;

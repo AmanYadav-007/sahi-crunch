@@ -78,9 +78,9 @@ export default function OrdersView() {
   return (
     <div>
       {/* ===== Dispatch board hero — the maroon sign ===== */}
-      <div className="relative bg-[#540c19] -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 pt-8 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D48924] pointer-events-none" />
-        <div className="absolute inset-x-0 top-1.5 h-px bg-[#E2952A]/50 pointer-events-none" />
+      <div className="relative bg-[#8F2859] -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 pt-8 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D86B9B] pointer-events-none" />
+        <div className="absolute inset-x-0 top-1.5 h-px bg-[#E88EB5]/50 pointer-events-none" />
         <div
           className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.13)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none"
           aria-hidden="true"
@@ -89,7 +89,7 @@ export default function OrdersView() {
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E2952A]">
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E88EB5]">
                 Dispatch board · Bhopal kitchen
               </span>
               <h1 className="font-hand italic text-3xl sm:text-4xl tracking-tight text-[#FDFBF7] leading-tight mt-1">
@@ -98,7 +98,7 @@ export default function OrdersView() {
               <svg viewBox="0 0 240 12" className="w-44 sm:w-56 h-3 mt-1" fill="none" aria-hidden="true">
                 <path
                   d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6"
-                  stroke="#D48924"
+                  stroke="#D86B9B"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                 />
@@ -108,16 +108,16 @@ export default function OrdersView() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2.5 self-start sm:self-auto tilt-l-sm bg-[#240409]/50 border-2 border-dashed border-[#E2952A]/50 rounded-lg px-3.5 py-2 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
+            <div className="flex items-center gap-2.5 self-start sm:self-auto tilt-l-sm bg-[#240409]/50 border-2 border-dashed border-[#E88EB5]/50 rounded-lg px-3.5 py-2 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
               <div className="text-right">
-                <span className="block font-note text-[10px] font-semibold uppercase tracking-[0.14em] text-[#E2952A]">
+                <span className="block font-note text-[10px] font-semibold uppercase tracking-[0.14em] text-[#E88EB5]">
                   On the board
                 </span>
                 <span className="font-hand italic text-base leading-tight text-[#FDFBF7]">
                   {activeCount} in progress
                 </span>
               </div>
-              <div className="w-2 h-2 rounded-full bg-[#E2952A]" />
+              <div className="w-2 h-2 rounded-full bg-[#E88EB5]" />
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function OrdersView() {
               <span className="font-note text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
                 {s.label}
               </span>
-              <p className="font-hand text-2xl font-semibold text-[#540c19] leading-tight mt-0.5">
+              <p className="font-hand text-2xl font-semibold text-[#8F2859] leading-tight mt-0.5">
                 {s.value}
               </p>
             </div>
@@ -155,7 +155,7 @@ export default function OrdersView() {
                   className={`px-3.5 py-1.5 rounded-xl font-note text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
                     isSelected
                       ? 'btn-ink'
-                      : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper-3)]'
+                      : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper-3)]'
                   }`}
                 >
                   <span>{tab.label}</span>
@@ -179,7 +179,7 @@ export default function OrdersView() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search code, address, ID…"
-                className="form-blank w-full pl-8 pr-3 py-1.5 font-note text-xs text-[var(--ink)] outline-none focus:border-[#681121]"
+                className="form-blank w-full pl-8 pr-3 py-1.5 font-note text-xs text-[var(--ink)] outline-none focus:border-[#C45688]"
               />
             </div>
 
@@ -262,7 +262,7 @@ export default function OrdersView() {
                           className={`w-10 h-10 rounded-xl border-2 border-dashed flex items-center justify-center shrink-0 ${
                             isDone
                               ? 'bg-[#4E8B56]/10 border-[#4E8B56]/40 text-[#3d7044]'
-                              : 'bg-[#D48924]/10 border-[#D48924]/50 text-[#b87319]'
+                              : 'bg-[#D86B9B]/10 border-[#D86B9B]/50 text-[#C45688]'
                           }`}
                         >
                           {isDone ? <PackageCheck size={20} /> : <Truck size={20} />}
@@ -270,7 +270,7 @@ export default function OrdersView() {
 
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-hand italic text-base tracking-tight text-[#540c19]">
+                            <span className="font-hand italic text-base tracking-tight text-[#8F2859]">
                               #{order.code}
                             </span>
                             <span className={`stamp ${currentStage.color}`}>{currentStage.label}</span>
@@ -286,10 +286,10 @@ export default function OrdersView() {
                       </div>
 
                       <div className="flex sm:flex-col items-center sm:items-end justify-between pt-2 sm:pt-0 border-t sm:border-t-0 border-[var(--rule)] gap-1">
-                        <span className="font-hand text-xl font-semibold text-[#681121]">
+                        <span className="font-hand text-xl font-semibold text-[#C45688]">
                           ₹{order.total}
                         </span>
-                        <span className="font-note text-[11px] font-semibold text-[#b87319]">
+                        <span className="font-note text-[11px] font-semibold text-[#C45688]">
                           {currentStage.desc}
                         </span>
                       </div>
@@ -311,7 +311,7 @@ export default function OrdersView() {
                             <span className="flex items-center gap-2.5 truncate max-w-[75%]">
                               <span className="veg-badge" />
                               <span className="truncate">
-                                <span className="font-semibold text-[#540c19] mr-1.5">
+                                <span className="font-semibold text-[#8F2859] mr-1.5">
                                   {line.qty} ×
                                 </span>
                                 <span className="font-medium text-[var(--ink)]">
@@ -331,7 +331,7 @@ export default function OrdersView() {
 
                       {order.address ? (
                         <p className="font-note text-[11px] text-[var(--ink-soft)] font-medium flex items-start gap-1.5">
-                          <MapPin size={12} className="text-[#681121] shrink-0 mt-0.5" />
+                          <MapPin size={12} className="text-[#C45688] shrink-0 mt-0.5" />
                           <span>{order.address}</span>
                         </p>
                       ) : (
@@ -342,10 +342,10 @@ export default function OrdersView() {
 
                       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-note text-[11px] text-[var(--ink-faint)] font-medium mt-2.5">
                         <span>
-                          Payment: <strong className="text-[#540c19] uppercase">{order.paymentMethod}</strong>
+                          Payment: <strong className="text-[#8F2859] uppercase">{order.paymentMethod}</strong>
                         </span>
                         <span>
-                          ETA: <strong className="text-[#540c19]">{order.eta}</strong>
+                          ETA: <strong className="text-[#8F2859]">{order.eta}</strong>
                         </span>
                         {order.couponCode && (
                           <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">

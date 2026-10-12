@@ -103,9 +103,9 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
   return (
     <div className="space-y-6">
       {/* ============ The maroon ledger sign ============ */}
-      <div className="relative rounded-2xl bg-[#540c19] text-[#FDFBF7] border border-[#D48924]/40 p-5 sm:p-7 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D48924] pointer-events-none" />
-        <div className="absolute inset-x-0 top-1.5 h-px bg-[#E2952A]/50 pointer-events-none" />
+      <div className="relative rounded-2xl bg-[#8F2859] text-[#FDFBF7] border border-[#D86B9B]/40 p-5 sm:p-7 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D86B9B] pointer-events-none" />
+        <div className="absolute inset-x-0 top-1.5 h-px bg-[#E88EB5]/50 pointer-events-none" />
         <div
           className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.13)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none"
           aria-hidden="true"
@@ -113,7 +113,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
 
         <div className="relative z-10 flex flex-col xl:flex-row xl:items-center gap-6">
           <div className="flex-1 min-w-0">
-            <span className="font-note text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E2952A]">
+            <span className="font-note text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E88EB5]">
               Master operations · Bhopal kitchen
             </span>
             <h1 className="font-hand italic text-3xl sm:text-4xl tracking-tight text-[#FDFBF7] leading-tight mt-1.5">
@@ -122,7 +122,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
             <svg viewBox="0 0 240 12" className="w-44 sm:w-60 h-3 mt-1" fill="none" aria-hidden="true">
               <path
                 d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6"
-                stroke="#D48924"
+                stroke="#D86B9B"
                 strokeWidth="2.5"
                 strokeLinecap="round"
               />
@@ -152,8 +152,8 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
           {/* Right rail — stamps pressed onto the sign */}
           <div className="xl:w-[300px] shrink-0">
             <div className="flex items-center gap-2 mb-3">
-              <Clock3 size={13} className="text-[#E2952A]" />
-              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E2952A]">
+              <Clock3 size={13} className="text-[#E88EB5]" />
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E88EB5]">
                 Today · {today}
               </span>
             </div>
@@ -162,14 +162,14 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
               {secondary.map((s, i) => (
                 <div
                   key={s.label}
-                  className={`rounded-lg px-3 py-2.5 bg-[#240409]/50 border-2 border-dashed border-[#E2952A]/50 shadow-[2px_3px_0_rgba(36,4,9,0.35)] ${
+                  className={`rounded-lg px-3 py-2.5 bg-[#240409]/50 border-2 border-dashed border-[#E88EB5]/50 shadow-[2px_3px_0_rgba(36,4,9,0.35)] ${
                     i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm'
                   }`}
                 >
                   <span className="font-hand text-2xl leading-none text-[#FDFBF7] block">
                     {typeof s.value === 'number' ? s.value.toLocaleString('en-IN') : s.value}
                   </span>
-                  <span className="font-note text-[9px] font-semibold uppercase tracking-[0.14em] text-[#E2952A] mt-1 block">
+                  <span className="font-note text-[9px] font-semibold uppercase tracking-[0.14em] text-[#E88EB5] mt-1 block">
                     {s.label}
                   </span>
                 </div>
@@ -194,7 +194,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
                   {c.title}
                 </span>
                 <div className="flex items-baseline gap-2 mt-1.5">
-                  <span className="font-hand text-3xl font-semibold leading-none text-[#540c19]">
+                  <span className="font-hand text-3xl font-semibold leading-none text-[#8F2859]">
                     {c.value}
                   </span>
                   {c.live && <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">Live</span>}
@@ -204,7 +204,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
                 </p>
               </div>
 
-              <div className="w-11 h-11 rounded-xl bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-[#C45688]/8 border-2 border-dashed border-[#C45688]/30 text-[#C45688] flex items-center justify-center shrink-0">
                 <c.icon size={19} />
               </div>
             </div>
@@ -235,7 +235,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
 
           {recentOrders.length === 0 ? (
             <div className="py-10 text-center rounded-xl border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/40">
-              <p className="font-hand italic text-xl text-[#540c19]">The ticket pad is still empty</p>
+              <p className="font-hand italic text-xl text-[#8F2859]">The ticket pad is still empty</p>
               <p className="font-note text-[11px] text-[var(--ink-faint)] mt-1">
                 No orders yet — new tickets print here the moment they arrive.
               </p>
@@ -251,7 +251,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-hand italic text-base text-[#540c19]">#{ord.code}</span>
+                        <span className="font-hand italic text-base text-[#8F2859]">#{ord.code}</span>
                         <span className={`stamp ${stage.color}`}>{stage.label}</span>
                         <span className="stamp tilt-r-sm text-[var(--ink-faint)]">
                           {ord.type}
@@ -262,7 +262,7 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
                       </p>
                     </div>
 
-                    <span className="font-hand text-lg font-semibold text-[#681121] shrink-0">
+                    <span className="font-hand text-lg font-semibold text-[#C45688] shrink-0">
                       ₹{ord.total}
                     </span>
                   </div>
@@ -308,10 +308,10 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
               {catEntries.map(([cat, count], i) => (
                 <div key={cat}>
                   <div className="flex items-center justify-between font-note text-[11px] mb-1.5">
-                    <span className="font-semibold text-[#540c19] capitalize">
+                    <span className="font-semibold text-[#8F2859] capitalize">
                       {cat.replace(/-/g, ' ')}
                     </span>
-                    <span className="font-hand font-semibold text-[#681121] text-sm">
+                    <span className="font-hand font-semibold text-[#C45688] text-sm">
                       {count} SKUs
                     </span>
                   </div>
@@ -344,11 +344,11 @@ export default function DashboardOverview({ onNavigate }: { onNavigate: (tab: st
       {/* ============ Quick actions ============ */}
       <div className="sc-card p-5 flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="flex items-center gap-3.5 flex-1 min-w-0">
-          <div className="w-12 h-12 rounded-xl bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] flex items-center justify-center shrink-0 tilt-l-sm">
+          <div className="w-12 h-12 rounded-xl bg-[#C45688]/8 border-2 border-dashed border-[#C45688]/30 text-[#C45688] flex items-center justify-center shrink-0 tilt-l-sm">
             <Layers size={20} />
           </div>
           <div className="min-w-0">
-            <p className="font-hand italic text-xl text-[#540c19] leading-tight">Quick actions</p>
+            <p className="font-hand italic text-xl text-[#8F2859] leading-tight">Quick actions</p>
             <p className="font-note text-[11px] text-[var(--ink-faint)]">
               Jump straight into the pads you use most.
             </p>

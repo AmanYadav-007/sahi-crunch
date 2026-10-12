@@ -19,7 +19,7 @@ export default function FloatingCartButton() {
         type="button"
         id="floating-cart-btn"
         onClick={() => setCartOpen(true)}
-        className="group relative flex items-center gap-3 btn-ink px-5 py-3.5 rounded-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-[#D48924]/40"
+        className="group relative flex items-center gap-3 btn-ink px-5 py-3.5 rounded-2xl hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-[#D86B9B]/40"
         aria-label={`Open Bag, ${count} items`}
       >
         <div className="relative flex items-center justify-center">
@@ -28,7 +28,7 @@ export default function FloatingCartButton() {
             className="group-hover:rotate-6 transition-transform text-[#FDFBF7]"
           />
           {count > 0 && (
-            <span className="absolute -top-2.5 -right-2.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D48924] px-1 font-note text-[11px] font-semibold text-white ring-2 ring-[#681121] shadow-sm animate-pulse-subtle">
+            <span className="absolute -top-2.5 -right-2.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D86B9B] px-1 font-note text-[11px] font-semibold text-white ring-2 ring-[#C45688] shadow-sm animate-pulse-subtle">
               {count}
             </span>
           )}
@@ -39,7 +39,7 @@ export default function FloatingCartButton() {
             Bag
           </span>
           {count > 0 ? (
-            <span className="font-note text-[11px] font-medium text-[#E2952A] leading-tight">
+            <span className="font-note text-[11px] font-medium text-[#E88EB5] leading-tight">
               {formatINR(subtotal)}
             </span>
           ) : (

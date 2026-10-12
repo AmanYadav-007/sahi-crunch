@@ -57,9 +57,9 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
     <Screen eyebrow={order.code} title={delivered ? 'Delivered' : 'On The Way'}>
       <div className="w-full px-4 sm:px-6 lg:px-10 py-4 space-y-4 max-w-4xl mx-auto pb-32">
         {/* Live Tracking — the maroon sign from the dispatch board */}
-        <div className="relative rounded-2xl bg-[#540c19] text-[#FDFBF7] border border-[#D48924]/40 p-5 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D48924] pointer-events-none" />
-          <div className="absolute inset-x-0 top-1.5 h-px bg-[#E2952A]/50 pointer-events-none" />
+        <div className="relative rounded-2xl bg-[#8F2859] text-[#FDFBF7] border border-[#D86B9B]/40 p-5 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D86B9B] pointer-events-none" />
+          <div className="absolute inset-x-0 top-1.5 h-px bg-[#E88EB5]/50 pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.13)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
 
           <div className="relative z-10">
@@ -67,7 +67,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
               <span className="stamp tilt-r-sm">
                 <Clock size={10} /> {order.eta}
               </span>
-              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.18em] text-[#E2952A]">
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.18em] text-[#E88EB5]">
                 {order.type}
               </span>
             </div>
@@ -80,9 +80,9 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
             </p>
 
             {/* Progress bar — ink filling a ruled track */}
-            <div className="mt-5 relative h-2.5 w-full bg-[#240409]/60 border border-[#E2952A]/25 rounded-full overflow-hidden">
+            <div className="mt-5 relative h-2.5 w-full bg-[#240409]/60 border border-[#E88EB5]/25 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#D48924] rounded-full transition-all duration-700"
+                className="h-full bg-[#D86B9B] rounded-full transition-all duration-700"
                 style={{ width: `${Math.max(12, pct)}%` }}
               />
             </div>
@@ -100,7 +100,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
         {!delivered && (
           <div className="relative bg-[var(--paper-2)] paper-grain p-4 rounded-2xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D48924]/12 border-2 border-dashed border-[#D48924]/50 text-[#b87319] shrink-0">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D86B9B]/12 border-2 border-dashed border-[#D86B9B]/50 text-[#C45688] shrink-0">
                 <Bike size={22} />
               </div>
               <div>
@@ -119,7 +119,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
             <button
               type="button"
               onClick={() => showInfo('Connecting you to our Bhopal dispatch executive Ramesh...', 'Calling Delivery Partner')}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] hover:bg-[#681121] hover:text-[#FDFBF7] transition-colors shrink-0"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#C45688]/8 border-2 border-dashed border-[#C45688]/30 text-[#C45688] hover:bg-[#C45688] hover:text-[#FDFBF7] transition-colors shrink-0"
             >
               <Phone size={16} />
             </button>
@@ -132,7 +132,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
             <h3 className="font-note text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--ink-faint)]">
               Items in this order ({order.lines.length})
             </h3>
-            <span className="font-hand text-base font-semibold text-[#681121]">
+            <span className="font-hand text-base font-semibold text-[#C45688]">
               {formatINR(order.total)}
             </span>
           </div>
@@ -145,7 +145,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
                 <div key={l.key} className="flex items-center justify-between text-xs font-note">
                   <div className="flex items-center gap-2">
                     <VegBadge />
-                    <span className="font-semibold text-[#681121]">{l.qty}x</span>
+                    <span className="font-semibold text-[#C45688]">{l.qty}x</span>
                     <span className="font-medium text-[var(--ink)]">{d.name}</span>
                   </div>
                   <span className="font-hand font-semibold text-[var(--ink)]">{formatINR(lineTotal(l))}</span>
@@ -156,7 +156,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
 
           {order.address && (
             <div className="mt-4 pt-3 border-t border-[var(--rule)] font-note text-xs text-[var(--ink-soft)] flex items-start gap-2">
-              <MapPin size={14} className="text-[#681121] shrink-0 mt-0.5" />
+              <MapPin size={14} className="text-[#C45688] shrink-0 mt-0.5" />
               <span>{order.address}</span>
             </div>
           )}
@@ -166,7 +166,7 @@ export default function TrackOrder({ orderId }: { orderId: string }) {
         <button
           type="button"
           onClick={async () => {
-            const msg = `Hi Sahi Crunch, need help with Order ${order.code}`;
+            const msg = `Hi Gharelu Hub, need help with Order ${order.code}`;
             const { data } = await proxyApi.sendWhatsApp({ message: msg });
             if (data?.url) window.open(data.url, '_blank');
             else window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');

@@ -91,20 +91,20 @@ export default function AuthModal() {
           </button>
 
           <div className="flex items-center gap-2.5 mb-2">
-            <div className="h-9 w-9 rounded-xl overflow-hidden border border-[var(--rule)] bg-[var(--paper-3)] flex items-center justify-center shrink-0">
-              <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+            <div className="h-10 w-10 flex items-center justify-center shrink-0">
+              <img src="/logo.png" alt="Gharelu Hub" className="w-full h-full object-contain" />
             </div>
             <div>
-              <div className="font-note text-[10px] font-semibold tracking-[0.18em] text-[#b87319] uppercase">Sahi Crunch</div>
+              <div className="font-note text-[10px] font-semibold tracking-[0.18em] text-[#C45688] uppercase">Gharelu Hub</div>
               <div className="font-hand italic text-xs text-[var(--ink-soft)]">Bhopal's Snack Hub</div>
             </div>
           </div>
 
-          <h2 className="font-hand italic text-2xl text-[#540c19] mt-4 leading-tight">
+          <h2 className="font-hand italic text-2xl text-[#8F2859] mt-4 leading-tight">
             {mode === 'login' ? 'Welcome back to the kitchen' : 'Put your name in our ledger'}
           </h2>
           <svg viewBox="0 0 150 8" className="w-32 h-2 mt-1" fill="none" aria-hidden="true">
-            <path d="M2 5.5c16-3 30-3.6 46-2.4s30 2.4 46 1.4 26-2.6 46-3.6" stroke="#D48924" strokeWidth="2" strokeLinecap="round" />
+            <path d="M2 5.5c16-3 30-3.6 46-2.4s30 2.4 46 1.4 26-2.6 46-3.6" stroke="#D86B9B" strokeWidth="2" strokeLinecap="round" />
           </svg>
           <p className="font-note text-xs text-[var(--ink-soft)] mt-1.5">
             {mode === 'login'
@@ -122,7 +122,7 @@ export default function AuthModal() {
               onClick={() => switchMode(m)}
               className={`flex-1 py-3 font-note text-sm font-semibold transition-colors ${
                 mode === m
-                  ? 'text-[#681121] border-b-2 border-[#681121] bg-[var(--paper)]'
+                  ? 'text-[#C45688] border-b-2 border-[#C45688] bg-[var(--paper)]'
                   : 'text-[var(--ink-soft)] hover:text-[var(--ink)]'
               }`}
             >
@@ -165,7 +165,7 @@ export default function AuthModal() {
                   onClick={() => setLoginMethod(m)}
                   className={`flex-1 py-2 font-note text-xs font-semibold rounded-xl border transition-colors ${
                     loginMethod === m
-                      ? 'bg-[#681121] text-[#FDFBF7] border-[#681121]'
+                      ? 'bg-[#C45688] text-[#FDFBF7] border-[#C45688]'
                       : 'bg-[var(--paper-2)] text-[var(--ink-soft)] border-[var(--rule)] hover:bg-[var(--paper-3)]'
                   }`}
                 >
@@ -220,7 +220,7 @@ export default function AuthModal() {
             <button
               type="button"
               onClick={() => setShowPw(!showPw)}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--ink-faint)] hover:text-[#681121] transition-colors"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--ink-faint)] hover:text-[#C45688] transition-colors"
             >
               {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
             </button>
@@ -237,7 +237,7 @@ export default function AuthModal() {
             ) : (
               <>
                 <span>{mode === 'login' ? 'Log In' : 'Create Account'}</span>
-                <Sparkles size={15} className="text-[#E2952A]" />
+                <Sparkles size={15} className="text-[#E88EB5]" />
               </>
             )}
           </button>

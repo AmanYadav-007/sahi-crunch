@@ -63,13 +63,13 @@ export default function Search() {
           type="button"
           onClick={pop}
           aria-label="Back"
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#681121] hover:bg-[var(--paper-3)] border border-[var(--rule)] transition-colors"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#C45688] hover:bg-[var(--paper-3)] border border-[var(--rule)] transition-colors"
         >
           <ArrowLeft size={18} />
         </button>
 
         <div className="relative flex-1">
-          <SearchIcon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D48924]" />
+          <SearchIcon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#D86B9B]" />
           <input
             autoFocus
             type="text"
@@ -95,7 +95,7 @@ export default function Search() {
         {!needle ? (
           <div>
             <div className="flex items-center gap-1.5 mb-3">
-              <TrendingUp size={14} className="text-[#D48924]" />
+              <TrendingUp size={14} className="text-[#D86B9B]" />
               <span className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
                 What folks ask for most
               </span>
@@ -106,7 +106,7 @@ export default function Search() {
                   key={item}
                   type="button"
                   onClick={() => setQ(item)}
-                  className={`${i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm'} hover:tilt-0 bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[var(--rule)] px-3.5 py-2 rounded-xl font-note text-xs font-medium text-[var(--ink-soft)] hover:border-[#D48924] hover:text-[#681121] transition-all duration-300`}
+                  className={`${i % 2 === 0 ? 'tilt-l-sm' : 'tilt-r-sm'} hover:tilt-0 bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[var(--rule)] px-3.5 py-2 rounded-xl font-note text-xs font-medium text-[var(--ink-soft)] hover:border-[#D86B9B] hover:text-[#C45688] transition-all duration-300`}
                 >
                   {item}
                 </button>
@@ -129,7 +129,7 @@ export default function Search() {
                 <div
                   key={dish.id}
                   onClick={() => push({ type: 'dish', id: dish.id })}
-                  className={`group flex items-center justify-between gap-3 bg-[var(--paper-2)] paper-grain p-3.5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] cursor-pointer hover:border-[#D48924]/70 ${tilt} hover:tilt-0 transition-all duration-300`}
+                  className={`group flex items-center justify-between gap-3 bg-[var(--paper-2)] paper-grain p-3.5 rounded-3xl border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] cursor-pointer hover:border-[#D86B9B]/70 ${tilt} hover:tilt-0 transition-all duration-300`}
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     {/* Mini taped-in polaroid */}
@@ -141,10 +141,10 @@ export default function Search() {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <VegBadge />
-                        <span className="font-hand text-lg text-[#540c19] truncate leading-tight">{dish.name}</span>
+                        <span className="font-hand text-lg text-[#8F2859] truncate leading-tight">{dish.name}</span>
                       </div>
                       <p className="font-note text-xs text-[var(--ink-soft)] line-clamp-1 mt-0.5">{dish.description}</p>
-                      <p className="font-hand font-bold text-base text-[#681121] mt-1">{formatINR(dish.price)}</p>
+                      <p className="font-hand font-bold text-base text-[#C45688] mt-1">{formatINR(dish.price)}</p>
                     </div>
                   </div>
 

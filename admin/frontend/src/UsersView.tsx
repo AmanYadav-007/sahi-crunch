@@ -63,12 +63,12 @@ export default function UsersView() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, email or phone number…"
-            className="form-blank w-full pl-9 pr-3 py-2.5 font-note text-xs text-[var(--ink)] outline-none focus:border-[#681121]"
+            className="form-blank w-full pl-9 pr-3 py-2.5 font-note text-xs text-[var(--ink)] outline-none focus:border-[#C45688]"
           />
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
-          <span className="stamp tilt-l-sm text-[#681121] border-[#681121]/45">
+          <span className="stamp tilt-l-sm text-[#C45688] border-[#C45688]/45">
             {users.length} customers
           </span>
           <span className="stamp tilt-r-sm text-[#3d7044] border-[#4E8B56]/50">
@@ -114,10 +114,10 @@ export default function UsersView() {
                     <tr key={u.id}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-full bg-[#681121] text-[#FDFBF7] flex items-center justify-center text-[11px] font-semibold shadow-sm shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-[#C45688] text-[#FDFBF7] flex items-center justify-center text-[11px] font-semibold shadow-sm shrink-0">
                             {u.name.charAt(0).toUpperCase()}
                           </div>
-                          <span className="font-hand italic text-[15px] text-[#540c19]">
+                          <span className="font-hand italic text-[15px] text-[#8F2859]">
                             {u.name}
                           </span>
                         </div>
@@ -125,7 +125,7 @@ export default function UsersView() {
 
                       <td className="py-3.5 px-4 space-y-1">
                         <div className="flex items-center gap-1.5 text-[var(--ink)] font-note">
-                          <Phone size={12} className="text-[#D48924]" />
+                          <Phone size={12} className="text-[#D86B9B]" />
                           <span>+91 {u.phone}</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-[var(--ink-faint)] font-note">
@@ -150,7 +150,7 @@ export default function UsersView() {
                       <td className="py-3.5 px-4 text-[var(--ink-soft)] font-note max-w-[260px]">
                         {u.addresses?.length ? (
                           <span className="flex items-start gap-1.5">
-                            <MapPin size={12} className="text-[#681121] shrink-0 mt-0.5" />
+                            <MapPin size={12} className="text-[#C45688] shrink-0 mt-0.5" />
                             <span className="truncate">{u.addresses.join(', ')}</span>
                           </span>
                         ) : (

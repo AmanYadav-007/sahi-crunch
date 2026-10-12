@@ -32,11 +32,11 @@ export default function Offers() {
             />
 
             <div className="flex items-start gap-3 min-w-0">
-              <div className="w-11 h-11 rounded-xl bg-[#D48924]/12 border-2 border-dashed border-[#D48924]/50 text-[#b87319] flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-[#D86B9B]/12 border-2 border-dashed border-[#D86B9B]/50 text-[#C45688] flex items-center justify-center shrink-0">
                 <Percent size={20} />
               </div>
               <div className="min-w-0">
-                <span className="font-hand italic text-2xl text-[#540c19] leading-none block marker w-fit">
+                <span className="font-hand italic text-2xl text-[#8F2859] leading-none block marker w-fit">
                   {o.value}
                 </span>
                 <p className="font-note text-xs font-semibold text-[var(--ink)] mt-1.5">{o.title}</p>
@@ -48,7 +48,7 @@ export default function Offers() {
             <button
               type="button"
               onClick={() => copyCode(o.code)}
-              className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-dashed border-[#681121]/40 bg-[#681121]/6 text-[#681121] font-note text-xs font-semibold uppercase tracking-[0.1em] active:scale-95 transition-transform"
+              className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border-2 border-dashed border-[#C45688]/40 bg-[#C45688]/6 text-[#C45688] font-note text-xs font-semibold uppercase tracking-[0.1em] active:scale-95 transition-transform"
             >
               {copied === o.code ? (
                 <>

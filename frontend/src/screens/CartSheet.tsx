@@ -69,7 +69,7 @@ export default function CartSheet() {
         return `• ${l.qty}x ${d?.name || 'Item'} (${formatINR(lineTotal(l))})`;
       })
       .join('\n');
-    const msg = `Hi Sahi Crunch! I would like to place an order:\n\n${linesText}\n\nSubtotal: ${formatINR(subtotal)}\nPlease confirm delivery in Bhopal!`;
+    const msg = `Hi Gharelu Hub! I would like to place an order:\n\n${linesText}\n\nSubtotal: ${formatINR(subtotal)}\nPlease confirm delivery in Bhopal!`;
     const { data } = await proxyApi.sendWhatsApp({ message: msg });
     if (data?.url) {
       window.open(data.url, '_blank');
@@ -81,7 +81,7 @@ export default function CartSheet() {
   const footerContent = cart.length > 0 ? (
     <div className="space-y-2">
       {hasSoldOut && (
-        <p className="stamp w-full justify-center py-2 text-[#681121] border-[#681121]/45">
+        <p className="stamp w-full justify-center py-2 text-[#C45688] border-[#C45688]/45">
           {soldOutLines.length} item{soldOutLines.length > 1 ? 's' : ''} just sold out — remove to continue
         </p>
       )}
@@ -95,7 +95,7 @@ export default function CartSheet() {
         }`}
       >
         <div className="flex flex-col items-start leading-tight">
-          <span className="font-note text-[10px] uppercase font-medium text-[#E2952A] tracking-[0.16em]">
+          <span className="font-note text-[10px] uppercase font-medium text-[#E88EB5] tracking-[0.16em]">
             {count} {count === 1 ? 'item' : 'items'}
           </span>
           <span className="font-hand italic text-xl tracking-tight">{formatINR(grandTotal)}</span>
@@ -155,7 +155,7 @@ export default function CartSheet() {
           </div>
 
           {/* Central High-Impact Celebration Card — a stamped receipt */}
-          <div className="animate-celebrate relative max-w-sm w-full bg-[var(--paper)] paper-grain border-2 border-dashed border-[#D48924] rounded-3xl p-7 text-center shadow-[0_0_40px_rgba(212,137,36,0.25)] text-[var(--ink)]">
+          <div className="animate-celebrate relative max-w-sm w-full bg-[var(--paper)] paper-grain border-2 border-dashed border-[#D86B9B] rounded-3xl p-7 text-center shadow-[0_0_40px_rgba(212,137,36,0.25)] text-[var(--ink)]">
             <div className="relative inline-flex mb-3">
               <div className="w-20 h-20 rounded-full bg-[#4E8B56]/15 border-2 border-dashed border-[#4E8B56]/60 flex items-center justify-center text-4xl tilt-r">
                 🎉
@@ -168,7 +168,7 @@ export default function CartSheet() {
               Special perk unlocked
             </span>
 
-            <h3 className="font-hand italic text-3xl text-[#540c19] tracking-tight leading-tight mt-2">
+            <h3 className="font-hand italic text-3xl text-[#8F2859] tracking-tight leading-tight mt-2">
               Free delivery!
             </h3>
 
@@ -205,12 +205,12 @@ export default function CartSheet() {
             <div className="relative rounded-2xl bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[var(--rule)] p-3.5 shadow-sm transition-all duration-300">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#D48924]/15 border border-[#D48924]/40 text-[#b87319]">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#D86B9B]/15 border border-[#D86B9B]/40 text-[#C45688]">
                     <ShoppingBag size={17} />
                   </div>
                   <div>
                     <p className="font-note text-[12px] font-semibold text-[var(--ink)] tracking-tight">
-                      Add <span className="text-[#681121]">{formatINR(amountToFreeDelivery)}</span> more for <span className="text-[#3d7044]">free delivery</span>
+                      Add <span className="text-[#C45688]">{formatINR(amountToFreeDelivery)}</span> more for <span className="text-[#3d7044]">free delivery</span>
                     </p>
                     <p className="font-note text-[11px] text-[var(--ink-faint)]">
                       Free delivery on orders above {formatINR(freeDeliveryThreshold)}
@@ -273,7 +273,7 @@ export default function CartSheet() {
               return (
                 <div
                   key={l.key}
-                  className="group relative flex items-center justify-between gap-3 bg-[var(--paper-2)] border border-[var(--rule)] hover:border-[#D48924]/50 p-3 sm:p-3.5 rounded-2xl shadow-[2px_3px_0_rgba(84,12,25,0.04)] hover:shadow-md transition-all duration-200"
+                  className="group relative flex items-center justify-between gap-3 bg-[var(--paper-2)] border border-[var(--rule)] hover:border-[#D86B9B]/50 p-3 sm:p-3.5 rounded-2xl shadow-[2px_3px_0_rgba(84,12,25,0.04)] hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[var(--paper-3)] shrink-0 border border-[var(--rule)]">
@@ -283,13 +283,13 @@ export default function CartSheet() {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <VegBadge />
-                        <h4 className="font-hand font-semibold text-base text-[#540c19] truncate">
+                        <h4 className="font-hand font-semibold text-base text-[#8F2859] truncate">
                           {d.name}
                         </h4>
                       </div>
 
                       {d.available === false && (
-                        <span className="stamp mt-1 inline-flex text-[#681121] border-[#681121]/45">
+                        <span className="stamp mt-1 inline-flex text-[#C45688] border-[#C45688]/45">
                           Sold out — remove me
                         </span>
                       )}
@@ -301,7 +301,7 @@ export default function CartSheet() {
                       )}
 
                       <div className="flex items-baseline gap-2 mt-1">
-                        <span className="font-hand font-bold text-base text-[#681121]">
+                        <span className="font-hand font-bold text-base text-[#C45688]">
                           {formatINR(lineTotal(l))}
                         </span>
                         {l.qty > 1 && (
@@ -343,7 +343,7 @@ export default function CartSheet() {
           {/* Bill Summary Card — a written receipt */}
           <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-2xl p-4 shadow-sm space-y-2.5">
             <div className="flex items-center justify-between pb-2 border-b border-dashed border-[var(--rule)]">
-              <span className="font-hand italic text-lg text-[#681121]">
+              <span className="font-hand italic text-lg text-[#C45688]">
                 Bill breakdown
               </span>
               <span className="font-note text-[10px] text-[var(--ink-faint)] uppercase tracking-[0.14em]">
@@ -378,14 +378,14 @@ export default function CartSheet() {
 
             <div className="pt-3 border-t border-dashed border-[var(--rule)] flex items-center justify-between">
               <div>
-                <span className="font-hand italic text-lg text-[#540c19] block leading-tight">
+                <span className="font-hand italic text-lg text-[#8F2859] block leading-tight">
                   To pay
                 </span>
                 <span className="font-note text-[10px] text-[var(--ink-faint)]">
                   Incl. all standard taxes
                 </span>
               </div>
-              <span className="font-hand font-bold text-2xl text-[#681121] tracking-tight">
+              <span className="font-hand font-bold text-2xl text-[#C45688] tracking-tight">
                 {formatINR(grandTotal)}
               </span>
             </div>

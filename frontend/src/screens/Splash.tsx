@@ -30,41 +30,32 @@ export default function Splash() {
     >
       <div className="pt-12 text-center">
         {/* 10-15 min badge — an ink stamp pressed onto the cover */}
-        <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/60">
-          <Zap size={11} className="fill-[#b87319]" />
+        <span className="stamp tilt-r-sm text-[#C45688] border-[#D86B9B]/60">
+          <Zap size={11} className="fill-[#C45688]" />
           <span>Bhopal&apos;s 10-15 Min Snack Delivery</span>
         </span>
       </div>
 
       {/* Brand Identity — logo pinned like a photo in the logbook */}
       <div className="flex flex-col items-center text-center">
-        <div className="relative mb-5">
-          <span className="tape w-20 -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg] z-10" aria-hidden="true" />
-
-          <div className="tilt-r bg-white p-2.5 pb-8 rounded-sm border border-[var(--rule)] shadow-[4px_6px_0_rgba(84,12,25,0.08),0_20px_40px_-24px_rgba(84,12,25,0.5)]">
-            <div className="h-24 w-24 overflow-hidden bg-[var(--paper-3)]">
-              <img
-                src="/logo.png"
-                alt="Sahi Crunch Logo"
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            {/* Handwritten polaroid caption */}
-            <p className="font-hand italic text-sm text-[var(--ink-soft)] text-center mt-2 leading-none">
-              from our kitchen, since 1948
-            </p>
+        <div className="relative mb-5 flex flex-col items-center">
+          <div className="h-28 w-28 flex items-center justify-center">
+            <img
+              src="/logo.png"
+              alt="Gharelu Hub Logo"
+              className="h-full w-full object-contain drop-shadow-md"
+            />
           </div>
         </div>
 
-        <h1 className="font-hand italic text-4xl tracking-tight text-[#540c19]">
-          SAHI CRUNCH
+        <h1 className="font-hand italic text-4xl tracking-tight text-[#8F2859]">
+          GHARELU HUB
         </h1>
         <svg viewBox="0 0 200 10" className="w-40 h-2.5 mt-1.5" fill="none" aria-hidden="true">
-          <path d="M2 7c24-4 46-5 70-3.6s44 3.6 68 2.4 38-4 58-5" stroke="#D48924" strokeWidth="2.4" strokeLinecap="round" />
+          <path d="M2 7c24-4 46-5 70-3.6s44 3.6 68 2.4 38-4 58-5" stroke="#D86B9B" strokeWidth="2.4" strokeLinecap="round" />
         </svg>
-        <p className="mt-2 font-hand italic text-lg text-[#b87319] tracking-wide">
-          <span className="marker">Sahi Spice. Modern Crunch.</span>
+        <p className="mt-2 font-hand italic text-lg text-[#C45688] tracking-wide">
+          <span className="marker">Ghar Jaisa Swaad. Authentic Crunch.</span>
         </p>
         <p className="mt-1.5 font-note text-xs text-[var(--ink-soft)] max-w-xs leading-relaxed">
           Small-batch preservative-free makhana, namkeen &amp; fresh bakery
@@ -75,7 +66,7 @@ export default function Splash() {
           <span className="stamp tilt-l-sm text-[#3d7044] border-[#4E8B56]/50">
             100% Pure Veg
           </span>
-          <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/60">
+          <span className="stamp tilt-r-sm text-[#C45688] border-[#D86B9B]/60">
             100% Baked, Not Fried
           </span>
         </div>

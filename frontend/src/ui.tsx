@@ -21,8 +21,8 @@ export function VegBadge({ className = '' }: { className?: string }) {
 /** 10 MINS Delivery Pill — an ink stamp, not a glossy chip */
 export function DeliveryPill({ time = '10 MINS' }: { time?: string }) {
   return (
-    <span className="stamp tilt-r-sm text-[#b87319] border-[#D48924]/60">
-      <Zap size={10} className="fill-[#b87319]" />
+    <span className="stamp tilt-r-sm text-[#C45688] border-[#D86B9B]/60">
+      <Zap size={10} className="fill-[#C45688]" />
       <span>{time}</span>
     </span>
   );
@@ -52,18 +52,18 @@ export function SectionTitle({
   return (
     <div className="mb-4 flex items-end justify-between px-4">
       <div>
-        <h2 className="font-hand italic text-2xl text-[#540c19] tracking-tight leading-tight">
+        <h2 className="font-hand italic text-2xl text-[#8F2859] tracking-tight leading-tight">
           {children}
         </h2>
         <svg viewBox="0 0 120 8" className="w-24 h-2 mt-0.5" fill="none" aria-hidden="true">
-          <path d="M2 5.5c14-3 28-3.5 42-2.5s27 2.5 41 1.5 22-2.5 33-3.5" stroke="#D48924" strokeWidth="2" strokeLinecap="round" />
+          <path d="M2 5.5c14-3 28-3.5 42-2.5s27 2.5 41 1.5 22-2.5 33-3.5" stroke="#D86B9B" strokeWidth="2" strokeLinecap="round" />
         </svg>
         {subtitle && (
           <p className="font-note text-[11px] text-[var(--ink-faint)] mt-1 font-medium">{subtitle}</p>
         )}
       </div>
       {action && (
-        <div className="shrink-0 font-note text-sm font-semibold text-[#681121] underline decoration-dotted decoration-[#D48924] underline-offset-4">
+        <div className="shrink-0 font-note text-sm font-semibold text-[#C45688] underline decoration-dotted decoration-[#D86B9B] underline-offset-4">
           {action}
         </div>
       )}
@@ -85,11 +85,11 @@ export function TabHeader({
     <header className="sticky top-0 lg:top-[73px] z-20 bg-[var(--paper)]/95 backdrop-blur-md border-b border-[var(--rule)] px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4 flex items-center justify-between transition-all">
       <div>
         {eyebrow && (
-          <p className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b87319]">
+          <p className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#C45688]">
             {eyebrow}
           </p>
         )}
-        <h1 className="font-hand italic text-2xl sm:text-3xl text-[#540c19] tracking-tight leading-tight">
+        <h1 className="font-hand italic text-2xl sm:text-3xl text-[#8F2859] tracking-tight leading-tight">
           {title}
         </h1>
       </div>
@@ -102,7 +102,7 @@ export function TabHeader({
 export function Price({ children, original }: { children: ReactNode; original?: number }) {
   return (
     <div className="inline-flex items-baseline gap-1.5 font-hand">
-      <span className="text-[#681121] font-bold text-lg tracking-tight">₹{children}</span>
+      <span className="text-[#C45688] font-bold text-lg tracking-tight">₹{children}</span>
       {original && (
         <span className="text-[var(--ink-faint)] text-xs font-note font-medium line-through">
           ₹{original}
@@ -140,18 +140,18 @@ export function Screen({
           type="button"
           onClick={back}
           aria-label="Back"
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#681121] border border-[var(--rule)] hover:bg-[var(--paper-3)] transition-colors"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--paper-2)] text-[#C45688] border border-[var(--rule)] hover:bg-[var(--paper-3)] transition-colors"
         >
           <ArrowLeft size={18} />
         </button>
         <div className="min-w-0 flex-1 text-center px-2">
           {eyebrow && (
-            <p className="font-note text-[9px] font-semibold text-[#b87319] uppercase tracking-[0.2em]">
+            <p className="font-note text-[9px] font-semibold text-[#C45688] uppercase tracking-[0.2em]">
               {eyebrow}
             </p>
           )}
           {title && (
-            <h1 className="font-hand italic text-lg text-[#540c19] truncate">{title}</h1>
+            <h1 className="font-hand italic text-lg text-[#8F2859] truncate">{title}</h1>
           )}
         </div>
         <div className="flex h-9 w-9 items-center justify-center">{right}</div>
@@ -185,7 +185,7 @@ export function Sheet({
         <div className="shrink-0 flex flex-col items-center bg-[var(--paper)] pt-2.5 pb-2.5 border-b border-[var(--rule)] px-5 relative">
           <div className="h-1.5 w-12 rounded-full bg-[var(--rule)] sm:hidden mb-1.5" />
           <div className="flex w-full items-center justify-between">
-            <h2 className="font-hand italic text-xl text-[#540c19]">{title}</h2>
+            <h2 className="font-hand italic text-xl text-[#8F2859]">{title}</h2>
             <button
               type="button"
               onClick={onClose}
@@ -214,7 +214,7 @@ export function Sheet({
 export function DishImg({
   name,
   className = '',
-  alt = 'Sahi Crunch Snack',
+  alt = 'Gharelu Hub Snack',
 }: {
   name: string;
   className?: string;
@@ -252,10 +252,10 @@ export function Empty({
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#681121]/8 text-[#681121] mb-4 border-2 border-dashed border-[#681121]/25 tilt-l">
+      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#C45688]/8 text-[#C45688] mb-4 border-2 border-dashed border-[#C45688]/25 tilt-l">
         <Zap size={34} />
       </div>
-      <h3 className="font-hand italic text-2xl text-[#540c19]">{title}</h3>
+      <h3 className="font-hand italic text-2xl text-[#8F2859]">{title}</h3>
       <p className="mt-1.5 max-w-xs font-note text-xs text-[var(--ink-faint)] leading-relaxed">
         {sub}
       </p>
@@ -283,8 +283,8 @@ export function Pill({
   const tones = {
     open: 'text-[#3d7044] border-[#4E8B56]/50',
     green: 'text-[#3d7044] border-[#4E8B56]/50',
-    soon: 'text-[#b87319] border-[#D48924]/50',
-    amber: 'text-[#b87319] border-[#D48924]/50',
+    soon: 'text-[#C45688] border-[#D86B9B]/50',
+    amber: 'text-[#C45688] border-[#D86B9B]/50',
     off: 'text-[var(--ink-faint)] border-[var(--rule)]',
   };
 

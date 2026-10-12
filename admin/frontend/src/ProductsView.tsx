@@ -159,14 +159,14 @@ function ProductModal({ product, categories, isOpen, onClose, onSave }: ProductM
         <div className="shrink-0 relative px-5 sm:px-6 pt-4 pb-3 border-b border-[var(--rule)] bg-[var(--paper)]">
           <div className="flex w-full items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 min-w-0">
-              <span className="w-9 h-9 rounded-xl bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] flex items-center justify-center shrink-0">
+              <span className="w-9 h-9 rounded-xl bg-[#C45688]/8 border-2 border-dashed border-[#C45688]/30 text-[#C45688] flex items-center justify-center shrink-0">
                 <Package size={17} />
               </span>
               <div className="min-w-0">
-                <p className="font-note text-[9px] font-semibold uppercase tracking-[0.2em] text-[#b87319]">
+                <p className="font-note text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C45688]">
                   {isEditing ? 'Editing recipe card' : 'New recipe card'}
                 </p>
-                <h2 className="font-hand italic text-xl text-[#540c19] truncate leading-tight">
+                <h2 className="font-hand italic text-xl text-[#8F2859] truncate leading-tight">
                   {isEditing ? product?.name : 'Create a new Sahi snack'}
                 </h2>
               </div>
@@ -182,8 +182,8 @@ function ProductModal({ product, categories, isOpen, onClose, onSave }: ProductM
         </div>
 
         {error && (
-          <div className="mx-5 sm:mx-6 mt-4 p-3 rounded-xl border-2 border-dashed border-[#681121]/40 bg-[#681121]/8 text-[#681121] font-note text-xs font-semibold flex items-center gap-2">
-            <span className="stamp tilt-l-sm text-[#681121] border-[#681121]/45">Error</span>
+          <div className="mx-5 sm:mx-6 mt-4 p-3 rounded-xl border-2 border-dashed border-[#C45688]/40 bg-[#C45688]/8 text-[#C45688] font-note text-xs font-semibold flex items-center gap-2">
+            <span className="stamp tilt-l-sm text-[#C45688] border-[#C45688]/45">Error</span>
             <span>{error}</span>
           </div>
         )}
@@ -345,13 +345,13 @@ function ProductModal({ product, categories, isOpen, onClose, onSave }: ProductM
             {flags.map((flag) => (
               <label
                 key={flag.key}
-                className="flex items-center gap-2 p-2.5 rounded-xl border-2 border-dashed border-[var(--rule)] bg-[var(--paper-2)] font-note text-xs font-semibold text-[var(--ink-soft)] cursor-pointer hover:border-[#681121]/40 transition-colors"
+                className="flex items-center gap-2 p-2.5 rounded-xl border-2 border-dashed border-[var(--rule)] bg-[var(--paper-2)] font-note text-xs font-semibold text-[var(--ink-soft)] cursor-pointer hover:border-[#C45688]/40 transition-colors"
               >
                 <input
                   type="checkbox"
                   checked={Boolean(formData[flag.key])}
                   onChange={(e) => setFormData({ ...formData, [flag.key]: e.target.checked } as any)}
-                  className="rounded accent-[#681121]"
+                  className="rounded accent-[#C45688]"
                 />
                 <span>{flag.label}</span>
               </label>
@@ -460,10 +460,10 @@ function ChapterModal({
           <span className="tape w-16 -top-2.5 left-10 rotate-[-4deg]" aria-hidden="true" />
           <div className="flex w-full items-center justify-between gap-3">
             <div>
-              <p className="font-note text-[9px] font-semibold uppercase tracking-[0.2em] text-[#b87319]">
+              <p className="font-note text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C45688]">
                 {isEditing ? 'Editing chapter' : 'New chapter'}
               </p>
-              <h2 className="font-hand italic text-xl text-[#540c19] leading-tight">
+              <h2 className="font-hand italic text-xl text-[#8F2859] leading-tight">
                 {isEditing ? chapter?.name : 'Add a menu chapter'}
               </h2>
             </div>
@@ -478,7 +478,7 @@ function ChapterModal({
         </div>
 
         {error && (
-          <div className="mx-5 sm:mx-6 mt-4 p-3 rounded-xl border-2 border-dashed border-[#681121]/40 bg-[#681121]/8 text-[#681121] font-note text-xs font-semibold">
+          <div className="mx-5 sm:mx-6 mt-4 p-3 rounded-xl border-2 border-dashed border-[#C45688]/40 bg-[#C45688]/8 text-[#C45688] font-note text-xs font-semibold">
             {error}
           </div>
         )}
@@ -680,7 +680,7 @@ export default function ProductsView() {
           eyebrow="Recipe cards · Inventory"
           subtitle="Pricing, photos and live availability on the customer app."
           action={
-            <span className="stamp tilt-r-sm text-[#681121] border-[#681121]/45">
+            <span className="stamp tilt-r-sm text-[#C45688] border-[#C45688]/45">
               {products.length} items
             </span>
           }
@@ -706,7 +706,7 @@ export default function ProductsView() {
           <span className="font-note text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
             Catalog
           </span>
-          <p className="font-hand text-2xl font-semibold text-[#540c19] leading-tight">{products.length}</p>
+          <p className="font-hand text-2xl font-semibold text-[#8F2859] leading-tight">{products.length}</p>
         </div>
         <div className="sc-card px-4 py-3">
           <span className="font-note text-[10px] font-semibold uppercase tracking-[0.16em] text-[#3d7044]">
@@ -715,16 +715,16 @@ export default function ProductsView() {
           <p className="font-hand text-2xl font-semibold text-[#3d7044] leading-tight">{liveCount}</p>
         </div>
         <div className="sc-card px-4 py-3">
-          <span className="font-note text-[10px] font-semibold uppercase tracking-[0.16em] text-[#b87319]">
+          <span className="font-note text-[10px] font-semibold uppercase tracking-[0.16em] text-[#C45688]">
             Sold out
           </span>
-          <p className="font-hand text-2xl font-semibold text-[#b87319] leading-tight">{soldOut}</p>
+          <p className="font-hand text-2xl font-semibold text-[#C45688] leading-tight">{soldOut}</p>
         </div>
         <div className="sc-card px-4 py-3">
           <span className="font-note text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
             Chapters
           </span>
-          <p className="font-hand text-2xl font-semibold text-[#540c19] leading-tight">
+          <p className="font-hand text-2xl font-semibold text-[#8F2859] leading-tight">
             {categories.length}
           </p>
         </div>
@@ -738,12 +738,12 @@ export default function ProductsView() {
             onClick={() => setShowChapters((prev) => !prev)}
             className="flex items-center gap-2 text-left group"
           >
-            <span className="w-8 h-8 rounded-lg border border-[var(--rule)] bg-[var(--paper-2)] flex items-center justify-center text-[var(--ink-soft)] group-hover:border-[#681121]">
+            <span className="w-8 h-8 rounded-lg border border-[var(--rule)] bg-[var(--paper-2)] flex items-center justify-center text-[var(--ink-soft)] group-hover:border-[#C45688]">
               {showChapters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-hand italic text-lg text-[#540c19]">Menu Chapters &amp; Categories</span>
+                <span className="font-hand italic text-lg text-[#8F2859]">Menu Chapters &amp; Categories</span>
                 <span className="stamp text-[#3d7044] border-[#4E8B56]/50 text-[10px]">
                   {chapters.length} chapters
                 </span>
@@ -784,10 +784,10 @@ export default function ProductsView() {
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <p className="font-note text-[9px] font-semibold uppercase tracking-[0.18em] text-[#b87319]">
+                  <p className="font-note text-[9px] font-semibold uppercase tracking-[0.18em] text-[#C45688]">
                     {c.eyebrow}
                   </p>
-                  <p className="font-hand italic text-lg text-[#540c19] truncate leading-tight">{c.name}</p>
+                  <p className="font-hand italic text-lg text-[#8F2859] truncate leading-tight">{c.name}</p>
                   <p className="font-note text-[11px] text-[var(--ink-faint)] truncate">{c.line || '—'}</p>
                   <span className="stamp mt-1.5 inline-flex text-[var(--ink-soft)]">
                     {c.count ?? 0} SKUs · {c.id}
@@ -807,7 +807,7 @@ export default function ProductsView() {
                   </button>
                   <button
                     onClick={() => handleDeleteChapter(c)}
-                    className="flex items-center gap-1.5 rounded-[0.7rem] px-2.5 py-1.5 font-note text-[11px] font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#681121] hover:border-[#681121]/40 transition-colors"
+                    className="flex items-center gap-1.5 rounded-[0.7rem] px-2.5 py-1.5 font-note text-[11px] font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#C45688] hover:border-[#C45688]/40 transition-colors"
                   >
                     <Trash2 size={12} />
                   </button>
@@ -827,7 +827,7 @@ export default function ProductsView() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by snack name, ingredients or ID…"
-            className="form-blank w-full pl-9 pr-3 py-2 font-note text-xs text-[var(--ink)] outline-none focus:border-[#681121]"
+            className="form-blank w-full pl-9 pr-3 py-2 font-note text-xs text-[var(--ink)] outline-none focus:border-[#C45688]"
           />
         </form>
 
@@ -915,7 +915,7 @@ export default function ProductsView() {
                   </div>
 
                   {/* Ink stamps over the photo */}
-                  <span className="stamp tilt-l-sm absolute top-4 left-4 bg-[var(--paper-2)]/95 text-[#681121] border-[#681121]/40">
+                  <span className="stamp tilt-l-sm absolute top-4 left-4 bg-[var(--paper-2)]/95 text-[#C45688] border-[#C45688]/40">
                     {item.category}
                   </span>
 
@@ -924,7 +924,7 @@ export default function ProductsView() {
                     className={`stamp absolute top-4 right-4 bg-[var(--paper-2)]/95 ${
                       item.available
                         ? 'tilt-r-sm text-[#3d7044] border-[#4E8B56]/60'
-                        : 'tilt-r-sm text-[#b87319] border-[#D48924]/60'
+                        : 'tilt-r-sm text-[#C45688] border-[#D86B9B]/60'
                     }`}
                   >
                     {item.available ? <CheckCircle2 size={11} /> : <XCircle size={11} />}
@@ -935,16 +935,16 @@ export default function ProductsView() {
                 {/* Details */}
                 <div className="pt-3.5 flex-1 flex flex-col">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-hand italic text-xl text-[#540c19] tracking-tight leading-snug">
+                    <h3 className="font-hand italic text-xl text-[#8F2859] tracking-tight leading-snug">
                       {item.name}
                     </h3>
                     <div className="flex items-center gap-1 shrink-0">
                       {item.bestseller && (
-                        <span className="stamp text-[#b87319] border-[#D48924]/50">
+                        <span className="stamp text-[#C45688] border-[#D86B9B]/50">
                           <Sparkles size={10} /> Best
                         </span>
                       )}
-                      {item.pptHero && <span className="stamp text-[#681121] border-[#681121]/45">Hero</span>}
+                      {item.pptHero && <span className="stamp text-[#C45688] border-[#C45688]/45">Hero</span>}
                     </div>
                   </div>
 
@@ -953,7 +953,7 @@ export default function ProductsView() {
                   </p>
 
                   <div className="flex items-baseline gap-2 mt-2.5">
-                    <span className="font-hand text-xl font-semibold text-[#681121]">₹{item.price}</span>
+                    <span className="font-hand text-xl font-semibold text-[#C45688]">₹{item.price}</span>
                     {item.weight && (
                       <span className="font-note text-[10px] text-[var(--ink-faint)]">· {item.weight}</span>
                     )}
@@ -978,7 +978,7 @@ export default function ProductsView() {
                       </button>
                       <button
                         onClick={() => handleDelete(item.id, item.name)}
-                        className="flex items-center gap-1.5 rounded-[0.7rem] px-3 py-1.5 font-note text-xs font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#681121] hover:border-[#681121]/40 transition-colors"
+                        className="flex items-center gap-1.5 rounded-[0.7rem] px-3 py-1.5 font-note text-xs font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#C45688] hover:border-[#C45688]/40 transition-colors"
                         title="Delete product"
                       >
                         <Trash2 size={13} />

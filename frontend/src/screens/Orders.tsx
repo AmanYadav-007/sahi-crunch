@@ -89,22 +89,22 @@ export default function Orders() {
   return (
     <div className="min-h-screen bg-[var(--paper)] paper-grain pb-36 text-[var(--ink)]">
       {/* Top hero — the maroon sign pinned at the top of the dispatch board */}
-      <div className="relative bg-[#540c19] pt-8 pb-14 px-4 sm:px-6 lg:px-10 overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D48924] pointer-events-none" />
-        <div className="absolute inset-x-0 top-1.5 h-px bg-[#E2952A]/50 pointer-events-none" />
+      <div className="relative bg-[#8F2859] pt-8 pb-14 px-4 sm:px-6 lg:px-10 overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D86B9B] pointer-events-none" />
+        <div className="absolute inset-x-0 top-1.5 h-px bg-[#E88EB5]/50 pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.13)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E2952A]">
+              <span className="font-note text-[10px] font-semibold uppercase tracking-[0.26em] text-[#E88EB5]">
                 Dispatch board · Bhopal kitchen
               </span>
               <h1 className="font-hand italic text-3xl sm:text-4xl tracking-tight text-[#FDFBF7] leading-tight mt-1">
                 Your orders &amp; dispatches
               </h1>
               <svg viewBox="0 0 240 12" className="w-44 sm:w-56 h-3 mt-1" fill="none" aria-hidden="true">
-                <path d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6" stroke="#D48924" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M3 8.5c26-4.5 52-6 78-4.5s50 4.5 76 3 52-5 80-6" stroke="#D86B9B" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
               <p className="font-note text-xs sm:text-sm text-[#FDFBF7]/75 mt-2 max-w-lg leading-relaxed">
                 Where your batch is right now — from the deck oven to your door.
@@ -112,16 +112,16 @@ export default function Orders() {
             </div>
 
             {/* Quick Stats — a stamp pressed onto the sign, not a glass chip */}
-            <div className="flex items-center gap-2.5 self-start sm:self-auto tilt-l-sm bg-[#240409]/50 border-2 border-dashed border-[#E2952A]/50 rounded-lg px-3.5 py-2 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
+            <div className="flex items-center gap-2.5 self-start sm:self-auto tilt-l-sm bg-[#240409]/50 border-2 border-dashed border-[#E88EB5]/50 rounded-lg px-3.5 py-2 shadow-[2px_3px_0_rgba(36,4,9,0.35)]">
               <div className="text-right">
-                <span className="block font-note text-[10px] font-semibold uppercase tracking-[0.14em] text-[#E2952A]">
+                <span className="block font-note text-[10px] font-semibold uppercase tracking-[0.14em] text-[#E88EB5]">
                   On the board
                 </span>
                 <span className="font-hand italic text-base leading-tight text-[#FDFBF7]">
                   {activeOrdersCount} in progress
                 </span>
               </div>
-              <div className="w-2 h-2 rounded-full bg-[#E2952A]" />
+              <div className="w-2 h-2 rounded-full bg-[#E88EB5]" />
             </div>
           </div>
         </div>
@@ -132,11 +132,11 @@ export default function Orders() {
         {!auth.isLoggedIn && (
           <div className="relative bg-[var(--paper-2)] paper-grain rounded-2xl p-5 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="h-11 w-11 rounded-xl bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] flex items-center justify-center shrink-0">
+              <div className="h-11 w-11 rounded-xl bg-[#C45688]/8 border-2 border-dashed border-[#C45688]/30 text-[#C45688] flex items-center justify-center shrink-0">
                 <LogIn size={20} />
               </div>
               <div>
-                <h3 className="font-hand italic text-lg text-[#540c19] leading-snug">
+                <h3 className="font-hand italic text-lg text-[#8F2859] leading-snug">
                   Keep this pad with you
                 </h3>
                 <p className="font-note text-xs text-[var(--ink-faint)] mt-0.5">
@@ -174,7 +174,7 @@ export default function Orders() {
                   className={`px-3.5 py-1.5 rounded-xl font-note text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
                     isSelected
                       ? 'btn-ink'
-                      : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper-3)]'
+                      : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper-3)]'
                   }`}
                 >
                   <span>{tab.label}</span>
@@ -198,7 +198,7 @@ export default function Orders() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by order ID or item..."
-              className="w-full form-blank rounded-xl pl-8 pr-3 py-1.5 font-note text-xs text-[var(--ink)] placeholder:text-[var(--ink-faint)] outline-none focus:border-[#681121] transition-all"
+              className="w-full form-blank rounded-xl pl-8 pr-3 py-1.5 font-note text-xs text-[var(--ink)] placeholder:text-[var(--ink-faint)] outline-none focus:border-[#C45688] transition-all"
             />
           </div>
         </div>
@@ -206,8 +206,8 @@ export default function Orders() {
         {/* Content Area */}
         {fetching && orders.length === 0 ? (
           <div className="bg-[var(--paper-2)] paper-grain rounded-2xl p-12 border border-[var(--rule)] shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)] flex flex-col items-center justify-center gap-3">
-            <Loader2 size={28} className="animate-spin text-[#681121]" />
-            <p className="font-hand italic text-lg text-[#540c19]">Pulling your tickets off the board...</p>
+            <Loader2 size={28} className="animate-spin text-[#C45688]" />
+            <p className="font-hand italic text-lg text-[#8F2859]">Pulling your tickets off the board...</p>
             <p className="font-note text-[11px] text-[var(--ink-faint)]">One second — checking with the kitchen</p>
           </div>
         ) : filteredOrders.length === 0 ? (
@@ -254,19 +254,19 @@ export default function Orders() {
                           className={`w-10 h-10 rounded-xl border-2 border-dashed flex items-center justify-center shrink-0 ${
                             isDelivered
                               ? 'bg-[#4E8B56]/10 border-[#4E8B56]/40 text-[#3d7044]'
-                              : 'bg-[#D48924]/10 border-[#D48924]/50 text-[#b87319]'
+                              : 'bg-[#D86B9B]/10 border-[#D86B9B]/50 text-[#C45688]'
                           }`}
                         >
                           {isDelivered ? <PackageCheck size={20} /> : <Truck size={20} />}
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-hand italic text-base tracking-tight text-[#540c19]">{o.code}</span>
+                            <span className="font-hand italic text-base tracking-tight text-[#8F2859]">{o.code}</span>
                             <span
                               className={`stamp ${
                                 isDelivered
                                   ? 'tilt-l-sm text-[#3d7044] border-[#4E8B56]/50'
-                                  : 'tilt-r-sm text-[#b87319] border-[#D48924]/50'
+                                  : 'tilt-r-sm text-[#C45688] border-[#D86B9B]/50'
                               }`}
                             >
                               {isDelivered ? 'Delivered' : 'In Progress'}
@@ -280,11 +280,11 @@ export default function Orders() {
                       </div>
 
                       <div className="flex sm:flex-col items-center sm:items-end justify-between pt-2 sm:pt-0 border-t sm:border-t-0 border-[var(--rule)]">
-                        <span className="font-hand text-lg sm:text-xl font-semibold text-[#681121]">
+                        <span className="font-hand text-lg sm:text-xl font-semibold text-[#C45688]">
                           {formatINR(o.total)}
                         </span>
-                        <span className="font-note text-[11px] font-semibold text-[#b87319] flex items-center gap-1">
-                          <Sparkles size={11} className="fill-[#D48924]" />
+                        <span className="font-note text-[11px] font-semibold text-[#C45688] flex items-center gap-1">
+                          <Sparkles size={11} className="fill-[#D86B9B]" />
                           +{o.pointsEarned || Math.round(o.total / 10)} Crunch Pts
                         </span>
                       </div>
@@ -306,7 +306,7 @@ export default function Orders() {
                             <div className="flex items-center gap-2.5 truncate max-w-[75%]">
                               <VegBadge />
                               <div className="truncate">
-                                <span className="font-semibold text-[#540c19] mr-1.5">{l.qty} ×</span>
+                                <span className="font-semibold text-[#8F2859] mr-1.5">{l.qty} ×</span>
                                 <span className="font-medium text-[var(--ink)]">{d.name}</span>
                                 {d.weight && (
                                   <span className="text-[10px] text-[var(--ink-faint)] ml-1.5 font-medium">({d.weight})</span>
@@ -322,7 +322,7 @@ export default function Orders() {
                     {/* Delivery Destination Snippet */}
                     {o.address && (
                       <div className="pt-2 font-note text-[11px] text-[var(--ink-soft)] font-medium flex items-center gap-1.5">
-                        <MapPin size={12} className="text-[#681121] shrink-0" />
+                        <MapPin size={12} className="text-[#C45688] shrink-0" />
                         <span className="truncate">{o.address}</span>
                       </div>
                     )}
@@ -336,7 +336,7 @@ export default function Orders() {
                       className="btn-outline flex-1 flex items-center justify-center gap-1.5 font-note text-xs font-semibold py-2.5 px-4 transition-colors"
                     >
                       <span>{isDelivered ? 'Receipt & details' : 'Track it live'}</span>
-                      <ChevronRight size={14} className="text-[#681121]" />
+                      <ChevronRight size={14} className="text-[#C45688]" />
                     </button>
 
                     <button

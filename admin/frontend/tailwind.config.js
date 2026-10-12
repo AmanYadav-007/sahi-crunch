@@ -5,31 +5,31 @@ export default {
     extend: {
       colors: {
         maroon: {
-          DEFAULT: '#681121',
-          dark: '#540c19',
-          light: '#82182c',
-          deep: '#701222',
+          DEFAULT: '#C45688',
+          dark: '#A83A6E',
+          light: '#D86B9B',
+          deep: '#8F2859',
         },
         amber: {
-          DEFAULT: '#D48924',
-          dark: '#b87319',
-          light: '#E2952A',
-          gold: '#e69f35',
+          DEFAULT: '#D86B9B',
+          dark: '#B04875',
+          light: '#E88EB5',
+          gold: '#C45688',
         },
         cream: {
-          DEFAULT: '#FDFBF7',
-          soft: '#FBF7F0',
-          dark: '#f3ece0',
+          DEFAULT: '#FAF7F9',
+          soft: '#F5EEF3',
+          dark: '#EFE5EB',
         },
         charcoal: {
-          DEFAULT: '#1E1E24',
-          light: '#2d2d36',
-          muted: '#5a5a66',
+          DEFAULT: '#231C22',
+          light: '#352C34',
+          muted: '#634B5C',
         },
         navy: {
-          DEFAULT: '#1D2E47',
-          dark: '#142033',
-          slate: '#2C3E50',
+          DEFAULT: '#2B2332',
+          dark: '#1D1722',
+          slate: '#3D3444',
         },
         sage: {
           DEFAULT: '#4E8B56',
@@ -37,12 +37,12 @@ export default {
           light: '#5fa768',
         },
         kraft: {
-          DEFAULT: '#D1A673',
+          DEFAULT: '#C8CCD8',
           light: '#deb98e',
           dark: '#b88c57',
         },
         brand: {
-          50: '#FDFBF7',
+          50: '#FAF7F9',
           100: '#FBF7F0',
           200: '#f5ebd9',
           500: '#681121',

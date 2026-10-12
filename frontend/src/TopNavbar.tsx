@@ -74,10 +74,10 @@ export default function TopNavbar() {
                 if (hasBack) pop();
                 setTab('home');
               }}
-              className="w-9 h-9 rounded-full overflow-hidden bg-[#681121] flex items-center justify-center shrink-0 mr-1 shadow-md hover:scale-105 transition-transform border border-[#D48924]/30"
+              className="w-10 h-10 flex items-center justify-center shrink-0 mr-1 hover:scale-105 transition-transform"
               title="Home"
             >
-              <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+              <img src="/logo.png" alt="Gharelu Hub" className="w-full h-full object-contain" />
             </button>
 
             {/* Navigation Links — hand-lettered tabs */}
@@ -96,15 +96,14 @@ export default function TopNavbar() {
                       }
                       setTab(item.id);
                     }}
-                    className={`px-3.5 py-1.5 rounded-full font-note text-sm transition-all relative whitespace-nowrap ${
-                      active
-                        ? 'text-[#681121] bg-[#681121]/12 font-semibold'
-                        : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper-3)]'
-                    }`}
+                    className={`px-3.5 py-1.5 rounded-full font-note text-sm transition-all relative whitespace-nowrap ${active
+                        ? 'text-[#C45688] bg-[#C45688]/12 font-semibold'
+                        : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper-3)]'
+                      }`}
                   >
                     {item.label}
                     {active && (
-                      <span className="absolute bottom-0.5 inset-x-3 h-0.5 bg-[#D48924] rounded-full" />
+                      <span className="absolute bottom-0.5 inset-x-3 h-0.5 bg-[#D86B9B] rounded-full" />
                     )}
                   </button>
                 );
@@ -122,16 +121,16 @@ export default function TopNavbar() {
                 className="p-2 rounded-full hover:bg-[var(--paper-3)] text-[var(--ink-soft)] transition-colors"
                 title="Search Snacks"
               >
-                <Search size={16} className="text-[#D48924]" />
+                <Search size={16} className="text-[#D86B9B]" />
               </button>
 
               <button
                 type="button"
                 onClick={() => push({ type: 'loyalty' })}
-                className="stamp tilt-r-sm text-[#8B4513] border-[#D48924]/50"
+                className="stamp tilt-r-sm text-[#8F2859] border-[#D86B9B]/50"
                 title="Rewards Balance"
               >
-                <Coins size={13} className="text-[#D48924]" />
+                <Coins size={13} className="text-[#D86B9B]" />
                 <span>{points} pts</span>
               </button>
             </div>
@@ -140,7 +139,7 @@ export default function TopNavbar() {
       ) : (
         /* 2. TOP DEFAULT STATE: A ruled banner across the page */
         <div className="bg-[var(--paper)]/95 paper-grain backdrop-blur-md border-b border-[var(--rule)] shadow-sm transition-all w-full pointer-events-auto relative">
-          <div className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+          <div className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
           <div className="w-full px-6 lg:px-8 xl:px-12 py-3 flex items-center justify-between gap-4 xl:gap-6">
             {/* Left: Brand Logo & Bhopal Express Location */}
             <div className="flex items-center gap-3 xl:gap-5 shrink-0">
@@ -153,30 +152,28 @@ export default function TopNavbar() {
                 }}
                 className="flex items-center gap-2.5 group text-left"
               >
-                <div className="h-10 w-10 xl:h-11 xl:w-11 rounded-2xl overflow-hidden shadow-md group-hover:scale-105 transition-transform border border-[#D48924]/30 bg-[#681121] flex items-center justify-center shrink-0">
+                <div className="h-10 w-10 xl:h-11 xl:w-11 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
                   <img
                     src="/logo.png"
-                    alt="Sahi Crunch Logo"
-                    className="w-full h-full object-cover"
+                    alt="Gharelu Hub Logo"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div>
-                  <span className="font-hand italic font-bold text-xl xl:text-2xl tracking-tight text-[#540c19] block leading-tight group-hover:text-[#681121] transition-colors">
-                    Sahi Crunch
+                  <span className="font-hand italic font-bold text-xl xl:text-2xl tracking-tight text-[#8F2859] block leading-tight group-hover:text-[#A83A6E] transition-colors">
+                    Gharelu Hub
                   </span>
-                  <span className="font-note text-[9px] xl:text-[10px] font-semibold tracking-[0.2em] uppercase text-[#b87319] block">
-                    Sahi Baked Heritage
-                  </span>
+
                 </div>
               </button>
 
-              {/* Location Delivery Cluster Pill — an ink stamp */}
+              {/* Location Delivery Cluster Pill */}
               <button
                 type="button"
                 onClick={() => push({ type: 'location' })}
                 className="hidden xl:flex items-center gap-2 bg-[var(--paper-2)] hover:bg-[var(--paper-3)] border-2 border-dashed border-[var(--rule)] px-3 py-1.5 rounded-xl text-left transition-colors"
               >
-                <div className="flex h-6 w-6 items-center justify-center rounded-xl bg-[#D48924] text-white shrink-0">
+                <div className="flex h-6 w-6 items-center justify-center rounded-xl bg-[#C45688] text-white shrink-0">
                   <Zap size={13} className="fill-white" />
                 </div>
                 <div className="min-w-0">
@@ -210,15 +207,14 @@ export default function TopNavbar() {
                       }
                       setTab(item.id);
                     }}
-                    className={`px-3 py-1.5 rounded-xl font-note text-xs xl:text-sm transition-all relative whitespace-nowrap ${
-                      active
-                        ? 'text-[#681121] bg-[#681121]/10 font-semibold'
-                        : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper-2)]'
-                    }`}
+                    className={`px-3 py-1.5 rounded-xl font-note text-xs xl:text-sm transition-all relative whitespace-nowrap ${active
+                        ? 'text-[#C45688] bg-[#C45688]/10 font-semibold'
+                        : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper-2)]'
+                      }`}
                   >
                     {item.label}
                     {active && (
-                      <span className="absolute bottom-0 inset-x-3 h-0.5 bg-[#D48924] rounded-full" />
+                      <span className="absolute bottom-0 inset-x-3 h-0.5 bg-[#D86B9B] rounded-full" />
                     )}
                   </button>
                 );
@@ -233,7 +229,7 @@ export default function TopNavbar() {
                 onClick={() => push({ type: 'search' })}
                 className="flex items-center gap-1.5 bg-[var(--paper-2)] hover:bg-[var(--paper-3)] text-[var(--ink-soft)] px-2.5 py-1.5 rounded-xl font-note text-xs font-medium transition-colors border border-[var(--rule)]"
               >
-                <Search size={14} className="text-[#D48924]" />
+                <Search size={14} className="text-[#D86B9B]" />
                 <span className="hidden 2xl:inline">Search...</span>
               </button>
 
@@ -241,9 +237,9 @@ export default function TopNavbar() {
               <button
                 type="button"
                 onClick={() => push({ type: 'loyalty' })}
-                className="stamp tilt-l-sm text-[#8B4513] border-[#D48924]/50"
+                className="stamp tilt-l-sm text-[#8F2859] border-[#D86B9B]/50"
               >
-                <Coins size={13} className="text-[#D48924]" />
+                <Coins size={13} className="text-[#D86B9B]" />
                 <span>{points} pts</span>
               </button>
 
@@ -254,7 +250,7 @@ export default function TopNavbar() {
                   onClick={() => setTab('profile')}
                   className="flex items-center gap-1.5 bg-[var(--paper-2)] hover:bg-[var(--paper-3)] border border-[var(--rule)] text-[var(--ink)] font-note font-medium text-xs px-2.5 py-1.5 rounded-xl transition-colors"
                 >
-                  <div className="w-5 h-5 rounded-full bg-[#681121] text-white flex items-center justify-center text-[10px] font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-[#C45688] text-white flex items-center justify-center text-[10px] font-semibold">
                     {auth.user?.name?.[0]?.toUpperCase() ?? 'U'}
                   </div>
                   <span className="hidden xl:inline max-w-[80px] truncate">
@@ -286,8 +282,8 @@ export default function TopNavbar() {
                 href="http://localhost:3001"
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Open Sahi Crunch Admin Control Panel"
-                className="hidden lg:flex items-center gap-1 text-[11px] font-note font-semibold text-[#681121] bg-[#D48924]/15 hover:bg-[#D48924]/25 border border-[#D48924]/40 px-2.5 py-1.5 rounded-xl transition-all"
+                title="Open Gharelu Hub Admin Control Panel"
+                className="hidden lg:flex items-center gap-1 text-[11px] font-note font-semibold text-[#C45688] bg-[#D86B9B]/15 hover:bg-[#D86B9B]/25 border border-[#D86B9B]/40 px-2.5 py-1.5 rounded-xl transition-all"
               >
                 <span>Admin</span>
               </a>

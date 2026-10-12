@@ -141,7 +141,7 @@ export const customizationsFor = (d: Dish): OptionGroup[] => customizationMap[d.
 /* ---------------- order tracking ---------------- */
 
 export const ORDER_STAGES = [
-  { id: 'placed', label: 'ORDER PLACED', sub: 'We have your Sahi Crunch order' },
+  { id: 'placed', label: 'ORDER PLACED', sub: 'We have your Gharelu Hub order' },
   { id: 'sourced', label: 'FRESH BATCH CONFIRMED', sub: 'Farm-fresh batch allocated to your order' },
   { id: 'roasting', label: 'ROASTING IN PROGRESS', sub: 'Your makhana is in the convection oven now' },
   { id: 'packed', label: 'PACKED & SEALED', sub: 'Boxed with made-on-date stamp' },
@@ -178,11 +178,11 @@ export interface Offer {
 }
 
 export const offers: Offer[] = [
-  { id: 'first', title: 'FIRST CRUNCH', sub: 'Welcome to Sahi Crunch. Your first box is special.', code: 'SAHIFIRST', value: '10% OFF' },
-  { id: 'refer', title: 'REFER A FRIEND', sub: 'Both of you earn 200 crunch points', code: 'SAHIREF', value: '₹50 OFF' },
+  { id: 'first', title: 'FIRST CRUNCH', sub: 'Welcome to Gharelu Hub. Your first box is special.', code: 'GHARELU10', value: '10% OFF' },
+  { id: 'refer', title: 'REFER A FRIEND', sub: 'Both of you earn 200 crunch points', code: 'GHARELUREF', value: '₹50 OFF' },
   { id: 'bulk', title: 'BULK ORDER', sub: 'Orders above ₹999', code: 'BULKCRUNCH', value: '15% OFF' },
-  { id: 'weekly', title: 'WEEKLY SUBSCRIBER', sub: 'Subscribe weekly, never run out', code: 'SAHIWEEK', value: 'FREE DELIVERY' },
-  { id: 'diwali', title: 'FESTIVE GIFTING', sub: 'Royal boxes for every table', code: 'SAHI25', value: '₹250 OFF', locations: ['bhopal-main'] },
+  { id: 'weekly', title: 'WEEKLY SUBSCRIBER', sub: 'Subscribe weekly, never run out', code: 'GHARELUWEEK', value: 'FREE DELIVERY' },
+  { id: 'diwali', title: 'FESTIVE GIFTING', sub: 'Royal boxes for every table', code: 'GHARELU25', value: '₹250 OFF', locations: ['bhopal-main'] },
   { id: 'member', title: 'CRUNCH INSIDER', sub: 'Silver tier and above', code: 'INSIDER', value: '20% OFF', locations: ['bhopal-main'] },
 ];
 
@@ -213,7 +213,7 @@ export const chefStory = {
   role: 'FOUNDERS · BHOPAL',
   image: 'chef-04',
   story:
-    'Born out of a home kitchen and a conviction: Bhopal\'s 78-year namkeen heritage deserves a modern-health reboot. Sahi Crunch is built on small batches, direct sourcing, and the discipline to never trade freshness for scale.',
+    'Born out of a home kitchen and a conviction: Bhopal\'s 78-year namkeen heritage deserves a modern-health reboot. Gharelu Hub is built on small batches, direct sourcing, and the discipline to never trade freshness for scale.',
   specialty: 'Preservative-free snack innovation',
   favorite: 'Bhopali Masala Makhana — always',
 };

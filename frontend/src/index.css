@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --primary-maroon: #681121;
-  --primary-maroon-deep: #701222;
-  --accent-amber: #D48924;
-  --accent-amber-light: #E2952A;
-  --bg-cream: #FDFBF7;
-  --bg-cream-soft: #FBF7F0;
-  --text-charcoal: #1E1E24;
-  --navy-slate: #1D2E47;
+  --primary-maroon: #C45688;
+  --primary-maroon-deep: #A83A6E;
+  --accent-amber: #D86B9B;
+  --accent-amber-light: #E88EB5;
+  --bg-cream: #FAF7F9;
+  --bg-cream-soft: #F5EEF3;
+  --text-charcoal: #231C22;
+  --navy-slate: #2B2332;
   --green-sage: #4E8B56;
-  --tan-kraft: #D1A673;
+  --tan-kraft: #C8CCD8;
 }
 
 @layer base {
@@ -29,7 +29,7 @@
   }
 
   ::selection {
-    background: #681121;
+    background: #C45688;
     color: #ffffff;
   }
 
@@ -48,20 +48,20 @@
   position: relative;
   width: 100%;
   min-height: 100dvh;
-  background: #FDFBF7;
+  background: #FAF7F9;
 }
 
 /* Fluid responsive layout: 100% full width edge-to-edge on desktop without any card wrapper or outer margin */
 @media (min-width: 1024px) {
   body {
-    background-color: #FDFBF7;
+    background-color: #FAF7F9;
   }
   .app-frame {
     width: 100%;
     max-width: 100%;
     margin: 0;
     box-shadow: none;
-    background-color: #FDFBF7;
+    background-color: #FAF7F9;
     min-height: 100vh;
   }
 }
@@ -91,10 +91,7 @@
 }
 
 /* ============================================================
-   SAHI CRUNCH — HANDMADE / KITCHEN-LOG DESIGN SYSTEM
-   A warm, pen-and-paper visual language. No glossy gradients,
-   no AI-looking glassmorphism. Everything reads like it was
-   drawn by hand on kraft paper in a real Bhopal kitchen.
+   GHARELU HUB — DESIGN SYSTEM
    ============================================================ */
 
 /* --- Typography: two voices --- */
@@ -106,16 +103,16 @@
   font-family: 'Jost', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-/* Ink palette (single source of truth for the handmade look) */
+/* Ink palette */
 :root {
-  --ink: #3a2c20; /* warm sepia ink, used for body copy */
-  --ink-soft: #6b5a45; /* secondary handwritten notes */
-  --ink-faint: #8c7a63; /* placeholders, meta */
-  --paper: #f7f0e1; /* base sheet */
-  --paper-2: #fbf7f0; /* raised card */
-  --paper-3: #efe5cf; /* recessed / pressed */
-  --rule: #ddceb2; /* ruled lines & borders */
-  --tape: #e6d3a3; /* masking tape */
+  --ink: #2b1f28; /* deep warm plum-charcoal ink */
+  --ink-soft: #634b5c; /* secondary notes */
+  --ink-faint: #8a7082; /* placeholders, meta */
+  --paper: #faf6f8; /* base sheet */
+  --paper-2: #ffffff; /* raised card */
+  --paper-3: #f2e9ee; /* recessed / pressed */
+  --rule: #e5d7df; /* ruled lines & borders */
+  --tape: #e8d7e2; /* accent tape */
 }
 
 /* Subtle paper-fibre grain, reusable on any sheet */
@@ -195,38 +192,38 @@
 }
 .form-blank:focus {
   outline: none;
-  border-color: #681121;
+  border-color: #C45688;
   background: #fff;
 }
 
-/* Primary hand-stamped button (maroon ink) */
+/* Primary hand-stamped button (Gharelu Hub vibrant rose) */
 .btn-ink {
-  background: #681121;
-  color: #fdfbf7;
+  background: #C45688;
+  color: #ffffff;
   border-radius: 0.7rem;
-  box-shadow: 2px 3px 0 rgba(36, 4, 9, 0.35);
+  box-shadow: 2px 3px 0 rgba(168, 58, 110, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
 }
 .btn-ink:hover {
-  background: #540c19;
+  background: #A83A6E;
 }
 .btn-ink:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 rgba(36, 4, 9, 0.35);
+  box-shadow: 0 1px 0 rgba(168, 58, 110, 0.35);
 }
 
 /* Secondary outlined button */
 .btn-outline {
   background: var(--paper-2);
-  color: #681121;
-  border: 1.5px solid #681121;
+  color: #C45688;
+  border: 1.5px solid #C45688;
   border-radius: 0.7rem;
-  box-shadow: 2px 3px 0 rgba(104, 17, 33, 0.14);
+  box-shadow: 2px 3px 0 rgba(196, 86, 136, 0.14);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
 }
 .btn-outline:hover {
-  background: #681121;
-  color: #fdfbf7;
+  background: #C45688;
+  color: #ffffff;
 }
 .btn-outline:active {
   transform: translateY(2px);
@@ -298,34 +295,34 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(104, 17, 33, 0.2);
+  background: rgba(196, 86, 136, 0.25);
   border-radius: 9999px;
   transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(104, 17, 33, 0.45);
+  background: rgba(196, 86, 136, 0.5);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(104, 17, 33, 0.25) transparent;
+  scrollbar-color: rgba(196, 86, 136, 0.3) transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #F4EFE6;
+  background: #F5EEF3;
   border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #D48924;
+  background: #C45688;
   border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #B36F15;
+  background: #A83A6E;
 }
 
 @keyframes celebratePopup {

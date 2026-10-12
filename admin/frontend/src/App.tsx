@@ -69,7 +69,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'Sahi Crunch';
+    document.title = 'Gharelu Hub Admin';
     const token = authStorage.getToken();
     if (token && !currentUser) {
       adminApi
@@ -105,20 +105,20 @@ export default function App() {
     <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] flex">
       {/* ================= Desktop Sidebar ================= */}
       <aside className="hidden lg:flex w-[264px] h-screen sticky top-0 flex-col justify-between bg-[var(--paper)] paper-grain border-r border-[var(--rule)] shrink-0 overflow-y-auto z-40">
-        <span className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+        <span className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
 
         <div>
           {/* Brand — same lockup as the customer top navbar */}
           <div className="px-5 pt-6 pb-5 border-b border-[var(--rule)]">
             <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-2xl overflow-hidden shadow-md border border-[#D48924]/30 bg-[#681121] flex items-center justify-center shrink-0">
-                <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+              <div className="h-11 w-11 flex items-center justify-center shrink-0">
+                <img src="/logo.png" alt="Gharelu Hub" className="w-full h-full object-contain" />
               </div>
               <div className="leading-tight">
-                <span className="font-hand italic font-bold text-xl text-[#540c19] block leading-tight">
-                  Sahi Crunch
+                <span className="font-hand italic font-bold text-xl text-[#8F2859] block leading-tight">
+                  Gharelu Hub
                 </span>
-                <span className="font-note text-[9px] font-semibold tracking-[0.2em] uppercase text-[#b87319] block">
+                <span className="font-note text-[9px] font-semibold tracking-[0.2em] uppercase text-[#C45688] block">
                   Admin Kitchen Log
                 </span>
               </div>
@@ -140,14 +140,14 @@ export default function App() {
                   onClick={() => goTo(item.id)}
                   className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-note text-[13px] transition-all text-left ${
                     isActive
-                      ? 'text-[#681121] bg-[#681121]/10 font-semibold'
-                      : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper-2)]'
+                      ? 'text-[#C45688] bg-[#C45688]/10 font-semibold'
+                      : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper-2)]'
                   }`}
                 >
                   <span
                     className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border transition-colors ${
                       isActive
-                        ? 'border-[#681121]/35 bg-[var(--paper-2)] text-[#681121]'
+                        ? 'border-[#C45688]/35 bg-[var(--paper-2)] text-[#C45688]'
                         : 'border-dashed border-[var(--rule)] bg-[var(--paper-2)]/70 text-[var(--ink-faint)]'
                     }`}
                   >
@@ -165,7 +165,7 @@ export default function App() {
 
                   {isActive && (
                     <span
-                      className="absolute bottom-0.5 inset-x-4 h-0.5 bg-[#D48924] rounded-full"
+                      className="absolute bottom-0.5 inset-x-4 h-0.5 bg-[#D86B9B] rounded-full"
                       aria-hidden="true"
                     />
                   )}
@@ -191,11 +191,11 @@ export default function App() {
 
           <div className="sc-card !rounded-xl px-3 py-2.5 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-9 h-9 rounded-full bg-[#681121] text-[#FDFBF7] flex items-center justify-center text-sm font-semibold shrink-0 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-[#C45688] text-[#FDFBF7] flex items-center justify-center text-sm font-semibold shrink-0 shadow-sm">
                 A
               </div>
               <div className="min-w-0">
-                <span className="font-hand italic text-[15px] text-[#540c19] block truncate leading-tight">
+                <span className="font-hand italic text-[15px] text-[#8F2859] block truncate leading-tight">
                   Master Admin
                 </span>
                 <span className="font-note text-[10px] text-[var(--ink-faint)] block truncate">
@@ -207,7 +207,7 @@ export default function App() {
             <button
               onClick={handleLogout}
               title="Sign Out"
-              className="p-2 rounded-lg text-[var(--ink-faint)] hover:text-[#681121] hover:bg-[var(--paper-3)] transition-colors"
+              className="p-2 rounded-lg text-[var(--ink-faint)] hover:text-[#C45688] hover:bg-[var(--paper-3)] transition-colors"
             >
               <LogOut size={15} />
             </button>
@@ -219,13 +219,13 @@ export default function App() {
       <div className="flex-1 flex flex-col min-w-0">
         {/* Desktop top bar — the ruled banner from the customer panel */}
         <header className="hidden lg:flex items-center justify-between gap-6 px-8 py-4 bg-[var(--paper)]/95 paper-grain backdrop-blur-md border-b border-[var(--rule)] sticky top-0 z-30">
-          <span className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+          <span className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
 
           <div className="min-w-0">
-            <p className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b87319]">
+            <p className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#C45688]">
               {meta.eyebrow}
             </p>
-            <h2 className="font-hand italic text-[26px] leading-tight text-[#540c19] tracking-tight">
+            <h2 className="font-hand italic text-[26px] leading-tight text-[#8F2859] tracking-tight">
               {meta.title}
             </h2>
             <Squiggle className="w-24 h-2" />
@@ -239,7 +239,7 @@ export default function App() {
             </span>
 
             <div className="flex items-center gap-2 bg-[var(--paper-2)] border border-[var(--rule)] px-2.5 py-1.5 rounded-xl">
-              <div className="w-6 h-6 rounded-full bg-[#681121] text-[#FDFBF7] flex items-center justify-center text-[11px] font-semibold">
+              <div className="w-6 h-6 rounded-full bg-[#C45688] text-[#FDFBF7] flex items-center justify-center text-[11px] font-semibold">
                 A
               </div>
               <span className="font-note text-xs font-medium text-[var(--ink)]">Master Admin</span>
@@ -254,18 +254,18 @@ export default function App() {
 
         {/* Mobile header */}
         <header className="lg:hidden sticky top-0 z-30 bg-[var(--paper)]/95 paper-grain backdrop-blur-md border-b border-[var(--rule)]">
-          <span className="absolute top-0 inset-x-0 h-1 bg-[#681121]" aria-hidden="true" />
+          <span className="absolute top-0 inset-x-0 h-1 bg-[#C45688]" aria-hidden="true" />
 
           <div className="flex items-center justify-between px-4 py-3">
             <div className="flex items-center gap-2.5">
-              <div className="h-9 w-9 rounded-xl overflow-hidden shadow-sm border border-[#D48924]/30 bg-[#681121] flex items-center justify-center shrink-0">
-                <img src="/logo.png" alt="Sahi Crunch" className="w-full h-full object-cover" />
+              <div className="h-10 w-10 flex items-center justify-center shrink-0">
+                <img src="/logo.png" alt="Gharelu Hub" className="w-full h-full object-contain" />
               </div>
               <div className="leading-tight">
-                <span className="font-hand italic font-bold text-lg text-[#540c19] block leading-tight">
-                  Sahi Crunch
+                <span className="font-hand italic font-bold text-lg text-[#8F2859] block leading-tight">
+                  Gharelu Hub
                 </span>
-                <span className="font-note text-[9px] font-semibold tracking-[0.2em] uppercase text-[#b87319] block">
+                <span className="font-note text-[9px] font-semibold tracking-[0.2em] uppercase text-[#C45688] block">
                   Admin Kitchen Log
                 </span>
               </div>
@@ -274,7 +274,7 @@ export default function App() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Menu"
-              className="h-9 w-9 rounded-xl flex items-center justify-center bg-[var(--paper-2)] border border-[var(--rule)] text-[#681121]"
+              className="h-9 w-9 rounded-xl flex items-center justify-center bg-[var(--paper-2)] border border-[var(--rule)] text-[#C45688]"
             >
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
@@ -301,7 +301,7 @@ export default function App() {
 
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-note text-xs font-semibold text-[#681121] border border-dashed border-[#681121]/40 bg-[var(--paper)]"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-note text-xs font-semibold text-[#C45688] border border-dashed border-[#C45688]/40 bg-[var(--paper)]"
             >
               <LogOut size={16} />
               <span>Sign Out</span>

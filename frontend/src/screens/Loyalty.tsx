@@ -39,9 +39,9 @@ export default function Loyalty() {
     <Screen eyebrow="Rewards Program" title="Crunch Club Points">
       <div className="w-full px-4 sm:px-6 lg:px-10 py-4 space-y-5 max-w-5xl mx-auto pb-32">
         {/* Points Balance — the maroon club ledger sign */}
-        <div className="relative rounded-2xl bg-[#540c19] text-[#FDFBF7] border border-[#D48924]/40 p-5 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D48924] pointer-events-none" />
-          <div className="absolute inset-x-0 top-1.5 h-px bg-[#E2952A]/50 pointer-events-none" />
+        <div className="relative rounded-2xl bg-[#8F2859] text-[#FDFBF7] border border-[#D86B9B]/40 p-5 shadow-[3px_4px_0_rgba(36,4,9,0.35),0_16px_30px_-22px_rgba(84,12,25,0.6)] overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-1.5 bg-[#D86B9B] pointer-events-none" />
+          <div className="absolute inset-x-0 top-1.5 h-px bg-[#E88EB5]/50 pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(rgba(226,149,42,0.13)_1px,transparent_1px)] [background-size:19px_19px] pointer-events-none" />
 
           <div className="relative z-10">
@@ -51,25 +51,25 @@ export default function Loyalty() {
 
             <div className="flex items-baseline gap-2 mt-3">
               <span className="font-hand text-5xl leading-none">{points}</span>
-              <span className="font-hand italic text-lg text-[#E2952A]">Crunch Points</span>
+              <span className="font-hand italic text-lg text-[#E88EB5]">Crunch Points</span>
             </div>
             <svg viewBox="0 0 200 10" className="w-40 h-2.5 mt-1.5" fill="none" aria-hidden="true">
-              <path d="M3 7c22-4 44-5.5 66-4s42 3.5 64 2.5 42-4 64-5" stroke="#E2952A" strokeWidth="2" strokeLinecap="round" />
+              <path d="M3 7c22-4 44-5.5 66-4s42 3.5 64 2.5 42-4 64-5" stroke="#E88EB5" strokeWidth="2" strokeLinecap="round" />
             </svg>
             <p className="font-note text-xs text-[#FDFBF7]/75 mt-1.5 leading-relaxed">
-              Earn 1 point on every ₹10 spent on Sahi Crunch small batches.
+              Earn 1 point on every ₹10 spent on Gharelu Hub small batches.
             </p>
 
             {/* Progress — ink filling up towards the next stamp in the book */}
             {next && (
-              <div className="mt-4 pt-3 border-t border-[#E2952A]/25">
-                <div className="flex items-center justify-between font-note text-[11px] font-semibold text-[#E2952A] mb-1.5">
+              <div className="mt-4 pt-3 border-t border-[#E88EB5]/25">
+                <div className="flex items-center justify-between font-note text-[11px] font-semibold text-[#E88EB5] mb-1.5">
                   <span>{tier.name}</span>
                   <span>{next.from - points} pts to {next.name}</span>
                 </div>
-                <div className="h-2 w-full bg-[#240409]/60 border border-[#E2952A]/25 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-[#240409]/60 border border-[#E88EB5]/25 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#D48924] rounded-full transition-all duration-700"
+                    className="h-full bg-[#D86B9B] rounded-full transition-all duration-700"
                     style={{ width: `${Math.min(100, (points / next.from) * 100)}%` }}
                   />
                 </div>
@@ -87,9 +87,9 @@ export default function Loyalty() {
         {/* Redeemable Rewards List */}
         <div className="space-y-3 pt-1">
           <div>
-            <h3 className="font-hand italic text-2xl text-[#540c19] leading-tight">Rewards on the shelf</h3>
+            <h3 className="font-hand italic text-2xl text-[#8F2859] leading-tight">Rewards on the shelf</h3>
             <svg viewBox="0 0 160 8" className="w-32 h-2 mt-0.5" fill="none" aria-hidden="true">
-              <path d="M2 5.5c14-3 28-3.5 42-2.5s27 2.5 41 1.5 22-2.5 33-3.5" stroke="#D48924" strokeWidth="2" strokeLinecap="round" />
+              <path d="M2 5.5c14-3 28-3.5 42-2.5s27 2.5 41 1.5 22-2.5 33-3.5" stroke="#D86B9B" strokeWidth="2" strokeLinecap="round" />
             </svg>
             <p className="font-note text-[11px] text-[var(--ink-faint)] mt-1 font-medium">
               Trade points in for anything off this shelf.
@@ -108,12 +108,12 @@ export default function Loyalty() {
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#681121]/8 border-2 border-dashed border-[#681121]/30 text-[#681121] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#C45688]/8 border-2 border-dashed border-[#C45688]/30 text-[#C45688] flex items-center justify-center shrink-0">
                     <Gift size={20} />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="font-hand italic text-lg text-[#540c19] leading-tight">{r.name}</h4>
-                    <p className="font-note text-[11px] font-semibold text-[#b87319] mt-0.5">
+                    <h4 className="font-hand italic text-lg text-[#8F2859] leading-tight">{r.name}</h4>
+                    <p className="font-note text-[11px] font-semibold text-[#C45688] mt-0.5">
                       {r.cost} Points
                     </p>
                   </div>

@@ -50,7 +50,7 @@ export default function ReservationsView() {
       ? 'text-[#3d7044] border-[#4E8B56]/50'
       : s === 'cancelled'
       ? 'text-[var(--ink-faint)] border-[var(--rule)]'
-      : 'text-[#b87319] border-[#D48924]/50';
+      : 'text-[#C45688] border-[#D86B9B]/50';
 
   return (
     <div className="space-y-6">
@@ -81,7 +81,7 @@ export default function ReservationsView() {
                 className={`px-3.5 py-1.5 rounded-xl font-note text-xs font-semibold transition-all flex items-center gap-1.5 ${
                   isSelected
                     ? 'btn-ink'
-                    : 'text-[var(--ink-soft)] hover:text-[#540c19] hover:bg-[var(--paper-2)] border border-[var(--rule)] bg-[var(--paper-2)]'
+                    : 'text-[var(--ink-soft)] hover:text-[#8F2859] hover:bg-[var(--paper-2)] border border-[var(--rule)] bg-[var(--paper-2)]'
                 }`}
               >
                 <span>{f.label}</span>
@@ -106,16 +106,16 @@ export default function ReservationsView() {
       {/* Banner — written on the kitchen board */}
       <div className="tilt-l-sm">
         <div className="sc-card p-5 sm:p-6">
-          <span className="font-note text-[10px] font-semibold uppercase tracking-[0.24em] text-[#b87319]">
+          <span className="font-note text-[10px] font-semibold uppercase tracking-[0.24em] text-[#C45688]">
             Written on the guest book
           </span>
-          <h2 className="font-hand italic text-2xl sm:text-3xl text-[#540c19] tracking-tight leading-snug mt-1.5">
+          <h2 className="font-hand italic text-2xl sm:text-3xl text-[#8F2859] tracking-tight leading-snug mt-1.5">
             Confirm the pass, keep the seat warm
           </h2>
           <svg viewBox="0 0 240 10" className="w-44 sm:w-56 h-2.5 mt-1.5" fill="none" aria-hidden="true">
             <path
               d="M3 7c26-4 50-5.5 77-4s50 4 77 2.5 44-4.5 78-5.5"
-              stroke="#D48924"
+              stroke="#D86B9B"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
@@ -149,7 +149,7 @@ export default function ReservationsView() {
               } hover:tilt-0`}
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-hand italic text-lg tracking-tight text-[#540c19]">
+                <span className="font-hand italic text-lg tracking-tight text-[#8F2859]">
                   #{res.code}
                 </span>
                 <span className={`stamp ${statusStamp(res.status)}`}>{res.status}</span>
@@ -157,21 +157,21 @@ export default function ReservationsView() {
 
               <div className="space-y-2.5 font-note text-xs text-[var(--ink-soft)]">
                 <div className="flex items-center gap-2.5 rounded-lg bg-[var(--paper-3)]/50 border border-[var(--rule)] px-3 py-2">
-                  <Calendar size={14} className="text-[#681121]" />
+                  <Calendar size={14} className="text-[#C45688]" />
                   <span>
-                    Date: <strong className="text-[#540c19]">{res.date}</strong>
+                    Date: <strong className="text-[#8F2859]">{res.date}</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5 rounded-lg bg-[var(--paper-3)]/50 border border-[var(--rule)] px-3 py-2">
-                  <Clock size={14} className="text-[#D48924]" />
+                  <Clock size={14} className="text-[#D86B9B]" />
                   <span>
-                    Slot: <strong className="text-[#540c19]">{res.time}</strong>
+                    Slot: <strong className="text-[#8F2859]">{res.time}</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5 rounded-lg bg-[var(--paper-3)]/50 border border-[var(--rule)] px-3 py-2">
                   <Users size={14} className="text-[#1D2E47]" />
                   <span>
-                    Guests: <strong className="text-[#540c19]">{res.guests} persons</strong>
+                    Guests: <strong className="text-[#8F2859]">{res.guests} persons</strong>
                   </span>
                 </div>
 
@@ -195,7 +195,7 @@ export default function ReservationsView() {
                 {res.status !== 'cancelled' && (
                   <button
                     onClick={() => handleStatusChange(res.id, 'cancelled')}
-                    className="flex items-center gap-1.5 rounded-[0.7rem] px-4 py-2 font-note text-xs font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#681121] hover:border-[#681121]/40 transition-colors"
+                    className="flex items-center gap-1.5 rounded-[0.7rem] px-4 py-2 font-note text-xs font-semibold border-2 border-dashed border-[var(--rule)] bg-[var(--paper-3)]/60 text-[var(--ink-faint)] hover:text-[#C45688] hover:border-[#C45688]/40 transition-colors"
                   >
                     <X size={14} />
                     Cancel

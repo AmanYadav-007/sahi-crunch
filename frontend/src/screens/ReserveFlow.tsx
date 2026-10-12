@@ -47,15 +47,15 @@ export default function ReserveFlow() {
           <span className="grid h-20 w-20 place-items-center rounded-full border-2 border-dashed border-[#4E8B56]/60 bg-[#4E8B56]/10 text-[#3d7044] tilt-l">
             <Check size={34} strokeWidth={2.5} />
           </span>
-          <h2 className="font-hand italic text-3xl text-[#540c19] mt-6">A chair is yours</h2>
+          <h2 className="font-hand italic text-3xl text-[#8F2859] mt-6">A chair is yours</h2>
           <p className="mt-2 max-w-xs font-note text-sm text-[var(--ink-soft)] leading-relaxed">
             We’ve held {done.guests} seat{done.guests > 1 ? 's' : ''} at {branch.area}. Arrive within 15 minutes of
             your slot and the table stays yours.
           </p>
 
           {/* Confirmation slip — torn off the pad */}
-          <div className="relative mt-7 w-full bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[#D48924]/70 rounded-3xl p-6 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
-            <span className="font-hand italic text-3xl tracking-[0.3em] text-[#681121]">{done.code}</span>
+          <div className="relative mt-7 w-full bg-[var(--paper-2)] paper-grain border-2 border-dashed border-[#D86B9B]/70 rounded-3xl p-6 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
+            <span className="font-hand italic text-3xl tracking-[0.3em] text-[#C45688]">{done.code}</span>
             <div className="mt-4 grid grid-cols-3 gap-2 border-t border-dashed border-[var(--rule)] pt-4">
               <Cell label="DATE" value={new Date(done.date + 'T00:00:00').toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })} />
               <Cell label="TIME" value={done.time} />
@@ -63,7 +63,7 @@ export default function ReserveFlow() {
             </div>
           </div>
 
-          <span className="stamp tilt-r-sm mt-5 text-[#b87319] border-[#D48924]/60">
+          <span className="stamp tilt-r-sm mt-5 text-[#C45688] border-[#D86B9B]/60">
             +50 CRUNCH POINTS ADDED
           </span>
 
@@ -92,10 +92,10 @@ export default function ReserveFlow() {
         {/* room */}
         <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-2xl flex items-center justify-between gap-3 px-4 py-3.5 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
           <div>
-            <span className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#b87319]">
+            <span className="font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[#C45688]">
               YOUR KITCHEN
             </span>
-            <p className="font-hand italic text-xl text-[#540c19] leading-tight mt-0.5">
+            <p className="font-hand italic text-xl text-[#8F2859] leading-tight mt-0.5">
               {branch.area}, {branch.city}
             </p>
           </div>
@@ -105,7 +105,7 @@ export default function ReserveFlow() {
         {/* date */}
         <section>
           <h2 className="mb-3 flex items-center gap-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
-            <CalendarDays size={13} className="text-[#D48924]" /> PICK A DAY
+            <CalendarDays size={13} className="text-[#D86B9B]" /> PICK A DAY
           </h2>
           <div className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
             {days.map((d) => {
@@ -121,8 +121,8 @@ export default function ReserveFlow() {
                   }}
                   className={`w-16 shrink-0 py-3 text-center rounded-2xl border-2 font-note transition-colors ${
                     on
-                      ? 'bg-[#681121] border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
-                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                      ? 'bg-[#C45688] border-[#C45688] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                      : 'bg-[var(--paper-2)] border-dashed border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
                   }`}
                 >
                   <span className={`block font-note text-[9px] font-semibold uppercase tracking-[0.16em] ${on ? 'text-[#E6D3A3]' : 'text-[var(--ink-faint)]'}`}>
@@ -143,19 +143,19 @@ export default function ReserveFlow() {
         {/* guests */}
         <section>
           <h2 className="mb-3 flex items-center gap-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
-            <Users size={13} className="text-[#D48924]" /> SIZE OF THE TABLE
+            <Users size={13} className="text-[#D86B9B]" /> SIZE OF THE TABLE
           </h2>
           <div className="bg-[var(--paper-2)] paper-grain border border-[var(--rule)] rounded-2xl flex items-center justify-between px-5 py-4 shadow-[3px_4px_0_rgba(84,12,25,0.05),0_16px_30px_-22px_rgba(84,12,25,0.4)]">
             <button
               type="button"
               aria-label="Fewer guests"
               onClick={() => setGuests((g) => Math.max(1, g - 1))}
-              className="h-9 w-9 flex items-center justify-center rounded-full bg-[var(--paper-3)] border border-[var(--rule)] text-[#681121] hover:bg-[#681121] hover:text-[#FDFBF7] transition-colors"
+              className="h-9 w-9 flex items-center justify-center rounded-full bg-[var(--paper-3)] border border-[var(--rule)] text-[#C45688] hover:bg-[#C45688] hover:text-[#FDFBF7] transition-colors"
             >
               <Minus size={16} />
             </button>
             <div className="text-center">
-              <span className="block font-hand text-4xl font-bold text-[#540c19]">{guests}</span>
+              <span className="block font-hand text-4xl font-bold text-[#8F2859]">{guests}</span>
               <span className="block font-note text-[9px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
                 GUEST{guests > 1 ? 'S' : ''} {guests >= 8 ? '· LONG TABLE NEEDED' : ''}
               </span>
@@ -164,7 +164,7 @@ export default function ReserveFlow() {
               type="button"
               aria-label="More guests"
               onClick={() => setGuests((g) => Math.min(20, g + 1))}
-              className="h-9 w-9 flex items-center justify-center rounded-full bg-[var(--paper-3)] border border-[var(--rule)] text-[#681121] hover:bg-[#681121] hover:text-[#FDFBF7] transition-colors"
+              className="h-9 w-9 flex items-center justify-center rounded-full bg-[var(--paper-3)] border border-[var(--rule)] text-[#C45688] hover:bg-[#C45688] hover:text-[#FDFBF7] transition-colors"
             >
               <Plus size={16} />
             </button>
@@ -174,11 +174,11 @@ export default function ReserveFlow() {
         {/* slots */}
         <section>
           <h2 className="mb-3 flex items-center gap-2 font-note text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--ink-soft)]">
-            <Clock size={13} className="text-[#D48924]" /> CHOOSE A SEATING
+            <Clock size={13} className="text-[#D86B9B]" /> CHOOSE A SEATING
           </h2>
           {(['Lunch', 'Dinner'] as const).map((meal) => (
             <div key={meal} className="mb-4">
-              <p className="mb-2 font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#b87319]">
+              <p className="mb-2 font-note text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C45688]">
                 {meal.toUpperCase()}
               </p>
               <div className="grid grid-cols-4 gap-2">
@@ -197,10 +197,10 @@ export default function ReserveFlow() {
                           st === 'unavailable'
                             ? 'border border-dashed border-[var(--rule)] text-[var(--ink-faint)] opacity-50 line-through'
                             : on
-                              ? 'bg-[#681121] border border-[#681121] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
+                              ? 'bg-[#C45688] border border-[#C45688] text-[#FDFBF7] shadow-[2px_3px_0_rgba(36,4,9,0.3)]'
                               : st === 'limited'
-                                ? 'bg-[#D48924]/12 border border-[#D48924]/60 text-[#b87319] hover:bg-[#D48924]/20'
-                                : 'bg-[var(--paper-2)] border border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D48924]'
+                                ? 'bg-[#D86B9B]/12 border border-[#D86B9B]/60 text-[#C45688] hover:bg-[#D86B9B]/20'
+                                : 'bg-[var(--paper-2)] border border-[var(--rule)] text-[var(--ink-soft)] hover:border-[#D86B9B]'
                         }`}
                       >
                         {t}
@@ -212,7 +212,7 @@ export default function ReserveFlow() {
           ))}
           <p className="flex flex-wrap gap-x-4 font-note text-[10px] font-semibold uppercase tracking-[0.14em]">
             <span className="text-[#3d7044]">● OPEN</span>
-            <span className="text-[#b87319]">● FEW LEFT</span>
+            <span className="text-[#C45688]">● FEW LEFT</span>
             <span className="text-[var(--ink-faint)]">● FULL</span>
           </p>
         </section>
